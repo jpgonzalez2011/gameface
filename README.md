@@ -80,6 +80,8 @@ view for users. The App will also differentiate views for friends and nonfriends
 I will implement searching of users by their name and begin seeding the 
 database with users, friendships and content (photos, posts, comments, likes).
 
+[Details][phase-six]
+
 ### First Extension Features (TBD)
 - [ ] Users can chat with friends.
 - [ ] App notifies users of particular actions on site.
@@ -105,3 +107,4 @@ database with users, friendships and content (photos, posts, comments, likes).
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
+[phase-six]: ./docs/phases/phase6.md
