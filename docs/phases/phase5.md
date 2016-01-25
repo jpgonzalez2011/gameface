@@ -1,40 +1,42 @@
-# Phase 5: Reminders and Garbage Collection
+# Phase 5: Friendships and Timeline
 
-## Rails
-### Models
-* Reminder
+Rails Models
+- Friendship
+- Timeline
 
-### Controllers
-* Api::RemindersController (create, destroy, index, show, update)
+Rails Controllers
+- Friendship
+- Timeline
 
-### Views
-* reminders/index.json.jbuilder
+Rails Views
+- Timeline - jbuilder
 
-## Flux
-### Views (React Components)
-* RemindersIndex
-  - ReminderIndexItem
-* ReminderShow
-* ReminderForm
+Flux Components
+- App
+  - Main
+    - Navigation Header
+  - Timeline
+    - Left Navigation Pane
+    - Right Content Pane
+    - Center Timeline Feed
+      - Post Form
+      - Posts Display/Index
+Flux Stores
+- Timelines
+- Friends
+- Friend Requests
 
-### Stores
-* Reminder
+Flux API Actions
+- Receive Timeline Posts
+- Receive Friend Request
+- Approve Friend Request
+- Deny Friend Request
+- Destroy Friendship
 
-### Actions
-* ApiActions.receiveAllReminders -> triggered by ApiUtil
-* ApiActions.receiveSingleReminder
-* ApiActions.deleteReminder
-* ReminderActions.fetchAllReminders -> triggers ApiUtil
-* ReminderActions.fetchSingleReminder
-* ReminderActions.createReminder
-* ReminderActions.updateReminder
-* ReminderActions.destroyReminder
-
-### ApiUtil
-* ApiUtil.fetchAllReminders
-* ApiUtil.fetchSingleReminder
-* ApiUtil.createReminder
-* ApiUtil.updateReminder
-* ApiUtil.destroyReminder
-
-## Gems/Libraries
+Flux API Util
+- Fetch Posts
+- Fetch Friends
+- Create Friendship
+- Destroy Friendship
+- Create Friend Request
+- Destroy Friend Request
