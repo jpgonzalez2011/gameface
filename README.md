@@ -1,8 +1,8 @@
-# FresherNote
+# GameFace
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
-[heroku]: http://www.herokuapp.com
+[heroku]: http://www.herokuapp.com (will link to Heroku on custom URL)
 
 ## Minimum Viable Product
 
