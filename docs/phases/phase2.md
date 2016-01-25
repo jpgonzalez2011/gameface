@@ -40,17 +40,15 @@
 - Profile
 
 ### Flux API Actions
-  Create Post
-  Edit Post
-  Destroy Post
-  Receive Posts
+  Receive Profile
   
 ###Flux API Util
-  FetchPosts
-  FetchOnePost
-  UpdatePost
-  DestroyPost
-  CreatePost
-###Flux Components
-  Posts Display/Index
-    - *Post*
+  Fetch Profile
+  Edit Profile
+  Fetch Profile Photo
+  Edit Profile Photo
+  Fetch Cover Photo
+  Edit Cover Photo
+
+###Flux Libraries
+ React Router
