@@ -30,8 +30,8 @@ and React.js. FresherNote allows users to:
 * [View Wireframes][view]
 * [DB schema][schema]
 
-[view]: ./docs/views.md
-[schema]: ./docs/schema.md
+[view]: ./docs/wireframes/GameFace Wireframes.pdf
+[schema]: ./docs/Database Schema.pdf
 
 ## Implementation Timeline
 
