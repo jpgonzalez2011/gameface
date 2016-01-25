@@ -31,7 +31,7 @@ and React.js. FresherNote allows users to:
 * [DB schema][schema]
 
 [view]: ./docs/wireframes/GameFace Wireframes.pdf
-[schema]: ./docs/Database Schema.pdf
+[schema]: gameface/docs/Database Schema.pdf
 
 ## Implementation Timeline
 
