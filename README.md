@@ -11,14 +11,20 @@ and React.js. FresherNote allows users to:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
-- [ ] Create an account
-- [ ] Log in / Log out
-- [ ] Create, read, edit, and delete notes
-- [ ] Organize notes within Notebooks
-- [ ] Tag notes with multiple tags and search notes by tag
-- [ ] Search through notes for blocks of text
-- [ ] Apply complex styling to notes while editing
-- [ ] Set reminders on notes
+- [ ] Users can create an account.
+- [ ] Users can login and logout.
+- [ ] Users have profile pages.
+      - Personal Information (About)
+      - Profile Picture
+      - Cover Picture
+      - Display Area for Posts
+- [ ] Users can make posts (text).
+- [ ] Users can comment on posts (text).
+- [ ] Users can like posts.
+- [ ] Users can become friends with other users.
+- [ ] App has privacy permissions based on friend status.
+- [ ] Users can view posts made by their friends via a main feed.
+- [ ] App allows searching by User’s name.
 
 ## Design Docs
 * [View Wireframes][view]
@@ -29,68 +35,70 @@ and React.js. FresherNote allows users to:
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Note Model and JSON API (1.5 days)
+### Phase 1: User Authentication, Login/Logout, JSON API for user Account Creation and User Sessions (1 day)
 
-In Phase 1, I will begin by implementing user signup and authentication (using
-BCrypt). There will be a basic landing page after signup that will contain the
-container for the application's root React component. Before building out the
-front end, I will begin by setting up a full JSON API for Notes.
+I will begin by implementing User Authentication using BCrypt. I will create a 
+JSON API for User sign up and to allow users to Login and Logout. I will create 
+a basic landing page for signing up / logging in, which will be modified later on. 
+Intention will be to redirect Users to their Profile upon signup/login. 
 
 [Details][phase-one]
 
-### Phase 2: Flux Architecture and Note CRUD (2.5 days)
+### Phase 2: Flux Architecture for User Profiles, Post CRUD (1.5 days)
 
 Phase 2 is focused on setting up Flux, the React Router, and the React view
-structure for the main application. After the basic Flux architecture has been
-set up, a Note store will be implemented and a set of actions corresponding to
-the needed CRUD functionality created. Once this is done, I will create React
-views for the Notes `Index`, `IndexItem` and `Form`. At the end of Phase 2,
-Notes can be created, read, edited and destroyed in the browser. Notes should
-save to the database when the form loses focus or is left idle after editing.
-Lastly, while constructing the views I will start using basic bootstrap for
-styling.
+structure for the main application. I will create the Flux Architecture for 
+User Profile Pages and Rails backend for Posts CRUD. Photo components will be 
+filled with placeholders pending implementation of file uploads.
+
 
 [Details][phase-two]
 
-### Phase 3: Notebooks and Tags (2 days)
+### Phase 3: Flux Architecture for Posts, Rails Backened for Comments and Likes (1 days)
 
-Phase 3 adds organization to the Notes. Notes belong to a Notebook, which has
-its own `Index` view. Create JSON API for Notebooks. Notes can also now be
-tagged with multiple tags. Users can bring up notes in a separate `SearchIndex`
-view by searching for their tags. Once the tag search is implemented, I will
-extend this to a fuzzy search through every Note's content.
+I will implement the Flux architecture for creating, editing, displaying and 
+destroying posts. I will also begin implementation of commenting and liking of posts.
+
 
 [Details][phase-three]
 
-### Phase 4: Allow Complex Styling in Notes (1 day)
+### Phase 4: Flux Architecture for Comments CRUD and list Implementation of File Uploads. (1.5 days)
 
-Using the react-quill library (based on Quill.js), allow for complex styling of
-notes.
+File upload likely iomplemented using Filepicker.io
 
 [Details][phase-four]
 
-### Phase 5: Reminders and Garbage Collection (1 day)
+### Phase 5: Friendships and Timeline (2 day)
 
-Phase 5 introduces two new features. First, users can set reminders on notes
-which will at the time they are set for prompt the user to review and edit the
-given note. In addition, I will implement a feature that asks users to review
-notes once they reach a certain age and ask whether they should be kept,
-archived, or deleted.
+I will implement friendships between users and begin implementation of the timeline 
+view for users. The App will also differentiate views for friends and nonfriends of users.
 
 [Details][phase-five]
 
-### Phase 6: Styling Cleanup and Seeding (1 day)
+### Phase 6: Users Search and Round 1 of Seeding (1 day)
 
-Bootstrap will have been used to keep things organized up until now, but in
-Phase 6 I will add styling flourishes and make modals out of some elements (like
-the NotebookForm).
+I will implement searching of users by their name and begin seeding the 
+database with users, friendships and content (photos, posts, comments, likes).
 
-### Bonus Features (TBD)
-- [ ] Prettify transitions
-- [ ] Use javascript library for cleaner tag selection
-- [ ] Changelogs for Notes
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Multiple sessions
+### First Extension Features (TBD)
+- [ ] Users can chat with friends.
+- [ ] App notifies users of particular actions on site.
+- [ ] App allows searching of posts via posting user, text content or hash tags.
+- [ ] Users can be tagged in posts and pictures.
+- [ ] Users can play games and track progress versus other users.
+- [ ] App suggests friends based on commmon friends/personal information between users.
+- [ ] Multiple sessions with geolocation.
+- [ ] App provides trending topics feed.
+- [ ] Infinite scroll for main feed and profile feed.
+
+### Second Extension Features (TBD)
+- [ ] Real time updating of timeline, comments, likes, notifications.
+- [ ] Users can post life events.
+- [ ] Users can post likeable and commentable pictures. (May be included with profile/cover photos if easy to add).
+- [ ] Users can comment with pictures.
+- [ ] App can display full size photos in modal windows.
+- [ ] App provides reminders of friends' birthdays and other significant events.
+- [ ] App provides snapshots of past events (similar to "On this Day" feature).
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
