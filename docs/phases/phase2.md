@@ -1,38 +1,56 @@
-# Phase 2: Flux Architecture and Note CRUD (2 days)
+# Phase 2: Flux Architecture for User Profiles, Post CRUD.
 
 ## Rails
 ### Models
+  - Profile Photo
+  - Cover Photo
+  - Post
 
 ### Controllers
+  - Profile Photos
+  - Cover Photos
+  - Posts
 
 ### Views
+  - ProfilePhotos - jbuilder
+  - CoverPhotos - jbuilder
+  - Posts - jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
-* NoteForm
-
+  - App
+    - Main
+      - Navigation Header 
+    - Profile
+      - Cover Photo
+      - Left Profile Information
+        - Profile Picture
+        - Friends Container
+      - Right Content Container
+        - Navigation Bar (About, Wall, Friends)
+          - Wall
+            - Post Form
+            - Posts Display/Index
+          - About
+            - Left Navigation Pane
+              - Right Content Pane
+          - Friends
+            - Friends Listing
 ### Stores
-* Note
+- Profile
 
-### Actions
-* ApiActions.receiveAllNotes -> triggered by ApiUtil
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
-* NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
-* NoteActions.createNote
-* NoteActions.editNote 
-* NoteActions.destroyNote
-
-### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
-
-## Gems/Libraries
-* Flux Dispatcher (npm)
-* Twitter Bootstrap
+### Flux API Actions
+  Create Post
+  Edit Post
+  Destroy Post
+  Receive Posts
+  
+###Flux API Util
+  FetchPosts
+  FetchOnePost
+  UpdatePost
+  DestroyPost
+  CreatePost
+###Flux Components
+  Posts Display/Index
+    - *Post*
