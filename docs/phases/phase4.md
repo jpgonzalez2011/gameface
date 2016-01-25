@@ -1,18 +1,32 @@
-# Phase 4: Allow Complex Styling in Notes (1 day)
+# Phase 4: Flux Architecture for Comments CRUD and Likes. 
+  Implementation of File Upload for Profile and Cover Photos 
+  (investigate creating Picture Albums as well in this step).
 
-## Rails
-### Models
 
-### Controllers
+Flux Components
+- Posts Display/Index
+- Post
+- Comments 
+- Likes
 
-### Views
+Flux Stores
+- Comments
+- Likes
 
-## Flux
-### Views (React Components)
+Flux API Actions
+- Receive All Comments
+- Create Comment
+- Create Like
+- Receive All Likes
+- Destroy Like
+- Update Comment
+- Destroy Comment
 
-### Stores
-
-### Actions
-
-## Gems/Libraries
-* react-quill (npm)
+Flux API Utils
+- Fetch All Comments
+- Create Comment
+- Create Like
+- Fetch All Likes
+- Update Comment
+- Destroy Comment
+- Destroy Like
