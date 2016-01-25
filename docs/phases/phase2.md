@@ -43,12 +43,12 @@
   Receive Profile
   
 ###Flux API Util
-  Fetch Profile
-  Edit Profile
-  Fetch Profile Photo
-  Edit Profile Photo
-  Fetch Cover Photo
-  Edit Cover Photo
+  - Fetch Profile
+  - Edit Profile
+  - Fetch Profile Photo
+  - Edit Profile Photo
+  - Fetch Cover Photo
+  - Edit Cover Photo
 
 ###Flux Libraries
  React Router
