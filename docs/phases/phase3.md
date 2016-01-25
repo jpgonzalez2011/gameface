@@ -1,4 +1,4 @@
-# Phase 3: Notebooks and Tags (2 days)
+# Flux Architecture for Posts CRUD, Rails Backend for Comments and Likes
 
 ## Rails
 ### Models
@@ -6,39 +6,33 @@
 * Tag
 * Tagging
 
-### Controllers
-* Api::NotebooksController (create, destroy, index, show, update)
+Rails Models
+- Comment
+- Like
 
-### Views
-* notebooks/index.json.jbuilder
-* notebooks/show.json.jbuilder
-* tags/show.json.jbuilder
+Rails API Controllers
+- Comments
+- Likes
 
-## Flux
-### Views (React Components)
-* NotebooksIndex
-  - NotebookIndexItem
-* NotebookForm
-* SearchIndex
+Rails Views
+- Comments - jbuilder
 
-### Stores
-* Notebook
+Flux Stores
+- Posts Store
 
-### Actions
-* ApiActions.receiveAllNotebooks -> triggered by ApiUtil
-* ApiActions.receiveSingleNotebook
-* ApiActions.deleteNotebook
-* NotebookActions.fetchAllNotebooks -> triggers ApiUtil
-* NotebookActions.fetchSingleNotebook
-* NotebookActions.createNotebook
-* NotebookActions.editNotebook
-* NotebookActions.destroyNotebook
+Flux API Actions
+- Create Post
+- Edit Post
+- Destroy Post
+- Receive Posts
 
-### ApiUtil
-* ApiUtil.fetchAllNotebooks
-* ApiUtil.fetchSingleNotebook
-* ApiUtil.createNotebook
-* ApiUtil.editNotebook
-* ApiUtil.destroyNotebook
+Flux API Util
+- FetchPosts
+- FetchOnePost
+- UpdatePost
+- DestroyPost
+- CreatePost
 
-## Gems/Libraries
+Flux Components
+- Posts Display/Index
+  - *Post*
