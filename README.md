@@ -30,25 +30,25 @@ and React.js. FresherNote allows users to:
 * [View Wireframes][view]
 * [DB schema][schema]
 
-[view]: ./docs/wireframes/GameFace Wireframes.pdf
-[schema]: gameface/docs/Database%20Schema.pdf
+[view]: ./docs/wireframes/GameFaceWireframes.pdf
+[schema]: ./docs/DatabaseSchema.pdf
 
 ## Implementation Timeline
 
 ### Phase 1: User Authentication, Login/Logout, JSON API for user Account Creation and User Sessions (1 day)
 
-I will begin by implementing User Authentication using BCrypt. I will create a 
-JSON API for User sign up and to allow users to Login and Logout. I will create 
-a basic landing page for signing up / logging in, which will be modified later on. 
-Intention will be to redirect Users to their Profile upon signup/login. 
+I will begin by implementing User Authentication using BCrypt. I will create a
+JSON API for User sign up and to allow users to Login and Logout. I will create
+a basic landing page for signing up / logging in, which will be modified later on.
+Intention will be to redirect Users to their Profile upon signup/login.
 
 [Details][phase-one]
 
 ### Phase 2: Flux Architecture for User Profiles, Post CRUD (1.5 days)
 
 Phase 2 is focused on setting up Flux, the React Router, and the React view
-structure for the main application. I will create the Flux Architecture for 
-User Profile Pages and Rails backend for Posts CRUD. Photo components will be 
+structure for the main application. I will create the Flux Architecture for
+User Profile Pages and Rails backend for Posts CRUD. Photo components will be
 filled with placeholders pending implementation of file uploads.
 
 
@@ -56,7 +56,7 @@ filled with placeholders pending implementation of file uploads.
 
 ### Phase 3: Flux Architecture for Posts, Rails Backened for Comments and Likes (1 days)
 
-I will implement the Flux architecture for creating, editing, displaying and 
+I will implement the Flux architecture for creating, editing, displaying and
 destroying posts. I will also begin implementation of commenting and liking of posts.
 
 
@@ -70,14 +70,14 @@ File upload likely iomplemented using Filepicker.io
 
 ### Phase 5: Friendships and Timeline (2 day)
 
-I will implement friendships between users and begin implementation of the timeline 
+I will implement friendships between users and begin implementation of the timeline
 view for users. The App will also differentiate views for friends and nonfriends of users.
 
 [Details][phase-five]
 
 ### Phase 6: Users Search and Round 1 of Seeding (1 day)
 
-I will implement searching of users by their name and begin seeding the 
+I will implement searching of users by their name and begin seeding the
 database with users, friendships and content (photos, posts, comments, likes).
 
 [Details][phase-six]
