@@ -1,8 +1,8 @@
 var React = require('react'),
-    PostStore = require('../../stores/post_store'),
+    PhotoStore = require('../../stores/photo_store'),
     CurrentUserStore = require('../../stores/current_user_store');
 
-var CommentForm = React.createClass({
+var PhotoCommentForm = React.createClass({
   getInitialState: function () {
     return ({
       content: "",
@@ -16,10 +16,10 @@ var CommentForm = React.createClass({
       var comment = { comment: {
         commenter_id: CurrentUserStore.currentUser().id,
         commentable_id: this.props.commentable_id,
-        commentable_type: "Post",
-        content: this.state.content.slice(0, -1)
+        commentable_type: "Photo",
+        content: this.state.content
       }};
-      PostStore.addNewComment(comment);
+      PhotoStore.addNewComment(comment);
       this.setState({content: ""});
       $("#comment-form").val("");
     } else {
@@ -44,4 +44,4 @@ var CommentForm = React.createClass({
   }
 });
 
-module.exports = CommentForm;
+module.exports = PhotoCommentForm;
