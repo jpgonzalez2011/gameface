@@ -33285,7 +33285,6 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
-	    FriendStore.emptyFriends(newProps.userId);
 	    this.setState(this.getStateFromStore(newProps));
 	  },
 
