@@ -8,4 +8,15 @@ tmp/*
 # Ignore application configuration
 /config/application.yml
 
-#development.log
+
+
+
+# Ignore bundler config.
+/.bundle
+
+
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
