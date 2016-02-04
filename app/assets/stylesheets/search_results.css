@@ -3,8 +3,22 @@
   left: 703px;
   top: 60px;
   background-color: white;
-  width: 400px;
-  height: 200px;
+  width: 420px;
+  min-height: 200px;
   border: 1px solid black;
   border-radius: 4px;
+}
+
+.search-results-pop-list {
+  width: 405px;
+  padding: 0px;
+  margin: 5px auto;
+}
+
+.search-results-pop-item {
+  float: left;
+  width: 392px;
+  padding: 5px;
+  margin: 0px;
+  border: 1px solid black;
 }

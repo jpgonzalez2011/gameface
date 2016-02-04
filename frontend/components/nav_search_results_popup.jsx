@@ -12,13 +12,16 @@ var NavSearchResultsPopup = React.createClass({
       );
     }
     return(
-      <div className="search-results-pop-container">
-        <ul className="search-results-pop-list">
+      <div className="search-results-pop-container group">
+        <ul className="search-results-pop-list group">
           {this.props.searchResults.map( function (result, i) {
+            var url = "#/users/" + result.id;
             return (
-              <li key={i} className="search-results-pop-item">
-                  <FriendIndexItem friend={result} />
-              </li>
+              <a key={i} href={url}>
+                <li className="search-results-pop-item">
+                    <FriendIndexItem friend={result} />
+                </li>
+              </a>
             );
           })}
         </ul>

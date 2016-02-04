@@ -31377,7 +31377,7 @@
 	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }]
+	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }]
 	    };
 	  },
 
@@ -33507,15 +33507,20 @@
 	    }
 	    return React.createElement(
 	      'div',
-	      { className: 'search-results-pop-container' },
+	      { className: 'search-results-pop-container group' },
 	      React.createElement(
 	        'ul',
-	        { className: 'search-results-pop-list' },
+	        { className: 'search-results-pop-list group' },
 	        this.props.searchResults.map(function (result, i) {
+	          var url = "#/users/" + result.id;
 	          return React.createElement(
-	            'li',
-	            { key: i, className: 'search-results-pop-item' },
-	            React.createElement(FriendIndexItem, { friend: result })
+	            'a',
+	            { key: i, href: url },
+	            React.createElement(
+	              'li',
+	              { className: 'search-results-pop-item' },
+	              React.createElement(FriendIndexItem, { friend: result })
+	            )
 	          );
 	        })
 	      )
