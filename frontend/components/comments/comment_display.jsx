@@ -2,8 +2,12 @@ var React = require('react');
 
 var CommentDisplay = React.createClass({
   render: function () {
+    var url = "#/users/" + this.props.comment.commenter_id;
     return (
-      <li key={this.props.key} className="comment-item">
+      <li key={this.props.key} className="comment-item group">
+        <a href={url}>
+          <img className="comment-thumbnail" src={this.props.comment.thumbnail}></img>
+        </a>
         <h1 className="comment-header">
           <div>{this.props.comment.commenter_name}</div>
           <p className="comment-content">

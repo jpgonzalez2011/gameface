@@ -32207,9 +32207,15 @@
 	  displayName: "CommentDisplay",
 
 	  render: function () {
+	    var url = "#/users/" + this.props.comment.commenter_id;
 	    return React.createElement(
 	      "li",
-	      { key: this.props.key, className: "comment-item" },
+	      { key: this.props.key, className: "comment-item group" },
+	      React.createElement(
+	        "a",
+	        { href: url },
+	        React.createElement("img", { className: "comment-thumbnail", src: this.props.comment.thumbnail })
+	      ),
 	      React.createElement(
 	        "h1",
 	        { className: "comment-header" },

@@ -12,9 +12,11 @@
 }
 
 .comment-item {
-  display: none;
   border: none !important;
-  margin-top: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 40px;
+  position: relative;
 }
 
 .comment-header {
