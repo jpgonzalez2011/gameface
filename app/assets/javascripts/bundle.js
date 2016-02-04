@@ -32119,7 +32119,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    CommentDisplay = __webpack_require__(251),
+	    PhotoCommentDisplay = __webpack_require__(273),
 	    PhotoCommentForm = __webpack_require__(252);
 
 	var PhotoShow = React.createClass({
@@ -32167,7 +32167,7 @@
 	              'ul',
 	              { className: 'photo-show-container-information-pane-comments' },
 	              this.props.photo.comments.map(function (comment, i) {
-	                return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                return React.createElement(PhotoCommentDisplay, { key: i, comment: comment });
 	              })
 	            ),
 	            React.createElement(
@@ -32216,7 +32216,7 @@
 	              'ul',
 	              { className: 'photo-noshow-container-information-pane-comments' },
 	              this.props.photo.comments.map(function (comment, i) {
-	                return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                return React.createElement(PhotoCommentDisplay, { key: i, comment: comment });
 	              })
 	            ),
 	            React.createElement(
@@ -33374,6 +33374,50 @@
 	});
 
 	module.exports = TimelinePostItem;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var PhotoCommentDisplay = React.createClass({
+	  displayName: "PhotoCommentDisplay",
+
+	  render: function () {
+	    var url = "#/users/" + this.props.comment.commenter_id;
+	    return React.createElement(
+	      "li",
+	      { key: this.props.key, className: "photo-comment-item group" },
+	      React.createElement(
+	        "a",
+	        { href: url },
+	        React.createElement("img", { className: "photo-comment-thumbnail", src: this.props.comment.thumbnail })
+	      ),
+	      React.createElement(
+	        "h1",
+	        { className: "photo-comment-header" },
+	        React.createElement(
+	          "div",
+	          null,
+	          this.props.comment.commenter_name
+	        ),
+	        React.createElement(
+	          "p",
+	          { className: "photo-comment-content" },
+	          this.props.comment.content
+	        )
+	      ),
+	      React.createElement(
+	        "span",
+	        { className: "photo-comment-timestamp" },
+	        this.props.comment.date_and_time
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentDisplay;
 
 /***/ }
 /******/ ]);

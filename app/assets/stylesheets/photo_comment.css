@@ -1,0 +1,77 @@
+.photo-comment-item {
+  display: block;
+  width: 508px;
+  border-bottom: 1px solid #ccc;
+}
+
+.timeline-intex-item-comment-content {
+  margin-bottom: 10px;
+}
+.timeline-intex-item-comments-list {
+  border: none !important;
+}
+
+.photo-comment-item {
+  border: none !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 40px;
+  position: relative;
+}
+
+.photo-comment-thumbnail {
+  width: 30px;
+  height: 30px;
+  bottom: 5px;
+  left: 15px;
+  position: absolute;
+}
+
+
+.photo-comment-header {
+  display: block;
+  width: 500px;
+  height: auto;
+  float: left;
+  text-align: left;
+  font-size: 10px;
+  display: block;
+  padding-top: 10px;
+  margin: 0px;
+  margin-left: 5px;
+  padding: 0px 12px 0px 0px;
+  font-family: helvetica, arial, sans-serif;
+  line-height: 16.08px;
+  font-weight: 600;
+}
+
+
+.photo-comment-header > div {
+  float: left;
+  margin: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  width: auto;
+  color: #3a5795;
+}
+.photo-comment-header > p {
+  float: left;
+  margin: 0px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.photo-comment-timestamp {
+  float: left;
+  margin: 0px;
+  margin-top: 0px;
+  padding: 0px;
+  margin-left: 15px;
+  font-size: 10px;
+  font-weight: 400;
+  color: #ccc;
+}

@@ -1,5 +1,5 @@
 var React = require('react'),
-    CommentDisplay = require('../comments/comment_display'),
+    PhotoCommentDisplay = require('../comments/photo_comment_display'),
     PhotoCommentForm = require('../comments/photo_comment_form');
 
 var PhotoShow = React.createClass({
@@ -26,7 +26,7 @@ var PhotoShow = React.createClass({
               <ul className="photo-show-container-information-pane-comments">
                 {this.props.photo.comments.map ( function (comment, i) {
                   return (
-                    <CommentDisplay key={i} comment={comment}/>
+                    <PhotoCommentDisplay key={i} comment={comment}/>
                     );
                   }
                 )}
@@ -56,7 +56,7 @@ var PhotoShow = React.createClass({
               <ul className="photo-noshow-container-information-pane-comments">
                 {this.props.photo.comments.map ( function (comment, i) {
                   return (
-                    <CommentDisplay key={i} comment={comment}/>
+                    <PhotoCommentDisplay key={i} comment={comment}/>
                     );
                   }
                 )}
