@@ -6,7 +6,8 @@ var React = require('react'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
     CommentDisplay = require('../comments/comment_display'),
     TimelinePostItem = require('./timeline_post_item'),
-    TimelinePhotoItem = require('./timeline_photo_item');
+    TimelinePhotoItem = require('./timeline_photo_item'),
+    SearchResults = require('../search/search_results');
 
 var Timeline = React.createClass({
   getInitialState: function () {
@@ -29,25 +30,27 @@ var Timeline = React.createClass({
 
   render: function () {
     return (
-      <div className="main-timeline-container group">
-        <div className="main-timeline-center">
-          <PostForm userId={CurrentUserStore.currentUser().id}/>
-          <ul className="main-timeline-index">
-            {this.state.items.map (function (item, i) {
-              var header;
-              if (item.type === "Post") {
-                    header = item.poster_name + " to " + item.target_name;
-                  return (
-                    <TimelinePostItem key={i} header={header} item={item} mainTimeLine={this.state.mainTimeLine} i={i} />
-                  );
-                } else if (item.type === "Photo") {
-                  header = item.uploader;
-                  return (
-                    <TimelinePhotoItem key={i} i={i} item={item} mainTimeLine={this.state.mainTimeLine} header={header} />
-                  );
-                }
-            }.bind(this))}
-          </ul>
+      <div>
+        <div className="main-timeline-container group">
+          <div className="main-timeline-center">
+            <PostForm userId={CurrentUserStore.currentUser().id}/>
+            <ul className="main-timeline-index">
+              {this.state.items.map (function (item, i) {
+                var header;
+                if (item.type === "Post") {
+                      header = item.poster_name + " to " + item.target_name;
+                    return (
+                      <TimelinePostItem key={i} header={header} item={item} mainTimeLine={this.state.mainTimeLine} i={i} />
+                    );
+                  } else if (item.type === "Photo") {
+                    header = item.uploader;
+                    return (
+                      <TimelinePhotoItem key={i} i={i} item={item} mainTimeLine={this.state.mainTimeLine} header={header} />
+                    );
+                  }
+              }.bind(this))}
+            </ul>
+          </div>
         </div>
       </div>
     );

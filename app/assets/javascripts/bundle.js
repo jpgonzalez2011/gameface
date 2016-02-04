@@ -31370,17 +31370,28 @@
 /* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    NavSearchResultsPopup = __webpack_require__(276);
 
 	var NavSearchField = React.createClass({
-	  displayName: "NavSearchField",
+	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { search: "" };
+	    return { search: "", searchResults: [] };
+	  },
+
+	  handleKey: function (e) {
+	    this.setState({ search: e.target.value });
+	    //pass to search store
 	  },
 
 	  render: function () {
-	    return React.createElement("input", { className: "nav-search-field", placeholder: "Up Up Down Down Left Right Left Right B A Start", type: "text", value: this.state.search });
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('input', { className: 'nav-search-field', placeholder: 'Up Up Down Down Left Right Left Right B A Start', type: 'text', onKeyUp: this.handleKey }),
+	      React.createElement(NavSearchResultsPopup, { searchResults: this.state.searchResults })
+	    );
 	  }
 	});
 
@@ -33180,7 +33191,8 @@
 	    PhotoCommentForm = __webpack_require__(252),
 	    CommentDisplay = __webpack_require__(251),
 	    TimelinePostItem = __webpack_require__(272),
-	    TimelinePhotoItem = __webpack_require__(274);
+	    TimelinePhotoItem = __webpack_require__(274),
+	    SearchResults = __webpack_require__(275);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -33206,24 +33218,28 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'main-timeline-container group' },
+	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'main-timeline-center' },
-	        React.createElement(PostForm, { userId: CurrentUserStore.currentUser().id }),
+	        { className: 'main-timeline-container group' },
 	        React.createElement(
-	          'ul',
-	          { className: 'main-timeline-index' },
-	          this.state.items.map(function (item, i) {
-	            var header;
-	            if (item.type === "Post") {
-	              header = item.poster_name + " to " + item.target_name;
-	              return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
-	            } else if (item.type === "Photo") {
-	              header = item.uploader;
-	              return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
-	            }
-	          }.bind(this))
+	          'div',
+	          { className: 'main-timeline-center' },
+	          React.createElement(PostForm, { userId: CurrentUserStore.currentUser().id }),
+	          React.createElement(
+	            'ul',
+	            { className: 'main-timeline-index' },
+	            this.state.items.map(function (item, i) {
+	              var header;
+	              if (item.type === "Post") {
+	                header = item.poster_name + " to " + item.target_name;
+	                return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
+	              } else if (item.type === "Photo") {
+	                header = item.uploader;
+	                return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
+	              }
+	            }.bind(this))
+	          )
 	        )
 	      )
 	    );
@@ -33444,6 +33460,58 @@
 	});
 
 	module.exports = TimelinePhotoItem;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var SearchResults = React.createClass({
+	  displayName: "SearchResults",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "search-results-pane-container" },
+	      React.createElement(
+	        "figure",
+	        { className: "search-results-pane" },
+	        "Search is Active!"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = SearchResults;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var NavSearchResultsPopup = React.createClass({
+	  displayName: "NavSearchResultsPopup",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "search-results-pop-container" },
+	      React.createElement(
+	        "ul",
+	        { className: "search-results-pop-list" },
+	        React.createElement(
+	          "li",
+	          { className: "search-results-pop-item" },
+	          "First Search Result"
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = NavSearchResultsPopup;
 
 /***/ }
 /******/ ]);
