@@ -32279,6 +32279,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'comment-form-container group' },
+	      React.createElement('img', { className: 'comment-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },

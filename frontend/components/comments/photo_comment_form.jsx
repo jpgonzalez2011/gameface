@@ -36,6 +36,7 @@ var PhotoCommentForm = React.createClass({
   render: function () {
     return (
       <div className="comment-form-container group">
+        <img className="comment-thumbnail" src={CurrentUserStore.currentUser().profile_thumb_url}></img>
         <form className="comment-form">
           <textarea className="comment-form-input" type="text" id="comment-form" onKeyUp={this.handleKeydown}>
           </textarea>
