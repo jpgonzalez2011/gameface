@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    FriendIndexItem = require('./friends/friend_index_item');
 
 
 var NavSearchResultsPopup = React.createClass({
@@ -13,15 +14,13 @@ var NavSearchResultsPopup = React.createClass({
     return(
       <div className="search-results-pop-container">
         <ul className="search-results-pop-list">
-          <li className="search-results-pop-item">
-            {this.props.searchResults.map( function (result, i) {
-              return (
-              <div>
-                {result};
-              </div>
-              );
-            })}
-          </li>
+          {this.props.searchResults.map( function (result, i) {
+            return (
+              <li key={i} className="search-results-pop-item">
+                  <FriendIndexItem friend={result} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

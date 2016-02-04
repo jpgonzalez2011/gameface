@@ -31377,7 +31377,8 @@
 	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { search: "", searchResults: [] };
+	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }]
+	    };
 	  },
 
 	  handleKey: function (e) {
@@ -33489,33 +33490,29 @@
 /* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    FriendIndexItem = __webpack_require__(268);
 
 	var NavSearchResultsPopup = React.createClass({
-	  displayName: "NavSearchResultsPopup",
+	  displayName: 'NavSearchResultsPopup',
 
 	  render: function () {
 	    if (this.props.searchResults.length === 0) {
-	      return React.createElement("div", null);
+	      return React.createElement('div', null);
 	    }
 	    return React.createElement(
-	      "div",
-	      { className: "search-results-pop-container" },
+	      'div',
+	      { className: 'search-results-pop-container' },
 	      React.createElement(
-	        "ul",
-	        { className: "search-results-pop-list" },
-	        React.createElement(
-	          "li",
-	          { className: "search-results-pop-item" },
-	          this.props.searchResults.map(function (result, i) {
-	            return React.createElement(
-	              "div",
-	              null,
-	              result,
-	              ";"
-	            );
-	          })
-	        )
+	        'ul',
+	        { className: 'search-results-pop-list' },
+	        this.props.searchResults.map(function (result, i) {
+	          return React.createElement(
+	            'li',
+	            { key: i, className: 'search-results-pop-item' },
+	            React.createElement(FriendIndexItem, { friend: result })
+	          );
+	        })
 	      )
 	    );
 	  }
