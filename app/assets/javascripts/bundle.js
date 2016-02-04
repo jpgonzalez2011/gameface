@@ -24413,6 +24413,7 @@
 	              'GameFaces!'
 	            )
 	          ),
+	          React.createElement(NavSearchField, null),
 	          React.createElement(
 	            'button',
 	            { onClick: this.logOut, className: 'log-out' },
@@ -24427,7 +24428,7 @@
 	              React.createElement(
 	                'a',
 	                { href: profileUrl },
-	                CurrentUserStore.currentUser().fname
+	                'My Profile'
 	              )
 	            )
 	          )
@@ -31378,7 +31379,7 @@
 	  },
 
 	  render: function () {
-	    return React.createElement("input", { className: "nav-search-field", type: "text", value: this.state.search });
+	    return React.createElement("input", { className: "nav-search-field", placeholder: "Up Up Down Down Left Right Left Right B A Start", type: "text", value: this.state.search });
 	  }
 	});
 
@@ -33103,6 +33104,12 @@
 	      items[itemIdx].comments.push(comment);
 	      this.__emitChange();
 	      break;
+	    case TimelineConstants.RECEIVE_UPDATED_POST:
+	      var item = payload.post;
+	      item.type = "Post";
+	      items.unshift(item);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -33136,7 +33143,8 @@
 
 	module.exports = {
 	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
-	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE"
+	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
 	};
 
 /***/ },

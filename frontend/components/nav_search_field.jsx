@@ -7,7 +7,7 @@ var NavSearchField = React.createClass({
 
   render: function () {
     return (
-      <input className="nav-search-field" type="text" value={this.state.search}/>
+      <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" value={this.state.search}/>
     );
   }
 });

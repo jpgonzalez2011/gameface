@@ -51,8 +51,7 @@
 }
 
 .nav-search-field {
-  display: none;
-  margin: 5px;
+  margin: 25px;
   width: 400px;
   height: 25px;
   background: white;
@@ -69,7 +68,7 @@
 .signed-in-header {
   float: right;
   width: 250px;
-  margin-top: 30px;
+  margin-top: -30px;
   color: white;
   font-family: helvetica, arial, sans-serif;
 }
@@ -77,12 +76,17 @@
 .signed-in-header-name{
   display: inline;
   color: white;
-  margin-top: 30px;
-  padding: 1px;
+  text-decoration: none;
+  margin-top: -30px;
+  margin-left: -30px;
 }
 
-.signed-in-header-name:hover {
-  background-color: #0e1f56;
+.signed-in-header-name > a {
+  cursor: pointer;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-decoration: none;
 }
 
 .sign-in-header-form {
@@ -118,7 +122,7 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
   font-size: 16px;
   margin-left: 125px;
-  margin-top: 30px;
+  margin-top: 20px;
   height: 40px;
 }
 
@@ -127,7 +131,7 @@
 }
 
 .log-out:hover {
-  background-color: red;
+  background-color: blue;
 }
 
 .sign-in-header-form > label {

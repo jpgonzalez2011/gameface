@@ -18,10 +18,11 @@ var LoggedInNavHeader = React.createClass({
             <header className="header-text">
               <a href="#/timeline">GameFaces!</a>
             </header>
+            <NavSearchField />
             <button onClick={this.logOut} className="log-out"> Sign Out! </button>
             <header className="signed-in-header">
               <div className="signed-in-header-name">
-                <a href={profileUrl}>{CurrentUserStore.currentUser().fname}</a>
+                <a href={profileUrl}>My Profile</a>
               </div>
             </header>
           </nav>

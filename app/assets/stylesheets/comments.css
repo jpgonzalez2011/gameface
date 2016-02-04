@@ -50,3 +50,7 @@
   font-weight: 400;
   color: #ccc;
 }
+
+.comment-form-input {
+  resize: none;
+}
