@@ -33495,6 +33495,9 @@
 	  displayName: "NavSearchResultsPopup",
 
 	  render: function () {
+	    if (this.props.searchResults.length === 0) {
+	      return React.createElement("div", null);
+	    }
 	    return React.createElement(
 	      "div",
 	      { className: "search-results-pop-container" },
@@ -33504,7 +33507,14 @@
 	        React.createElement(
 	          "li",
 	          { className: "search-results-pop-item" },
-	          "First Search Result"
+	          this.props.searchResults.map(function (result, i) {
+	            return React.createElement(
+	              "div",
+	              null,
+	              result,
+	              ";"
+	            );
+	          })
 	        )
 	      )
 	    );
