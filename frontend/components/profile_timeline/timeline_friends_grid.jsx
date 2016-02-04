@@ -1,14 +1,14 @@
 var React = require('react'),
     FriendStore = require('../../stores/friend_store'),
-    FriendIndexItem = require('./friend_index_item');
+    FriendGridItem = require('./friend_grid_item');
 
-var FriendsIndex = React.createClass({
+var FriendGrid = React.createClass({
   getInitialState: function () {
     return (this.getStateFromStore(this.props));
   },
 
   getStateFromStore: function (props) {
-    return ({ friends: FriendStore.findByUser(props.params.userId)});
+    return ({ gridFriends: FriendStore.findByUser(props.userId).slice(0,9)});
   },
 
   componentDidMount: function () {
@@ -26,43 +26,43 @@ var FriendsIndex = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    FriendStore.emptyFriends(newProps.params.userId);
+    FriendStore.emptyFriends(newProps.userId);
     this.setState(this.getStateFromStore(newProps));
   },
 
   render: function () {
-    if (this.state.friends[0] === "no friends yet") {
+    if (this.state.gridFriends[0] === "no friends yet") {
       return (
-        <div className="friends-container group">
-          <h1 className="friends-header">
-            FRIENDS
+        <div className="friends-grid-container group">
+          <h1 className="friends-grid-header">
+            TOP FRIENDS
           </h1>
           No friends yet!
         </div>
       );
-    } else if (this.state.friends === "loading") {
+    } else if (this.state.gridFriends === "loading") {
       return (
         <div>
         </div>
       );
     } else {
       return (
-        <div className="friends-container group">
-          <h1 className="friends-header">
-            FRIENDS
+        <div className="friends-grid-container group">
+          <h1 className="friends-grid-header">
+            TOP FRIENDS
           </h1>
-          <ul className="friends-list group">
-            {this.state.friends.map ( function (friend, i) {
-                return (
-                  <FriendIndexItem friend={friend} key={i} />
-                );
-              }
-          )}
+          <ul className="friends-grid group">
+            {this.state.gridFriends.map ( function (friend, i){
+              return (
+                <FriendGridItem friend={friend} key={i} />
+              );
+            })}
           </ul>
         </div>
       );
     }
+
   }
 });
 
-module.exports = FriendsIndex;
+module.exports = FriendGrid;
