@@ -31371,13 +31371,15 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    NavSearchResultsPopup = __webpack_require__(276);
+	    NavSearchResultsPopup = __webpack_require__(276),
+	    SearchApiUtil = __webpack_require__(279),
+	    SearchStore = __webpack_require__(277);
 
 	var NavSearchField = React.createClass({
 	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { query: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }],
+	    return { query: "", searchResults: [],
 	      show: false
 	    };
 	  },
@@ -31391,8 +31393,17 @@
 	  },
 
 	  handleKey: function (e) {
-	    this.setState({ query: e.target.value });
-	    // SearchApiUtil.makeQuery(query);
+	    var query = e.target.value;
+	    SearchApiUtil.fetchUsers(query);
+	    // this.setState( { query: query} );
+	  },
+
+	  handleChange: function () {
+	    this.setState({ searchResults: SearchStore.userSearchResults() });
+	  },
+
+	  componentDidMount: function () {
+	    storeCBToken = SearchStore.addListener(this.handleChange);
 	  },
 
 	  render: function () {
@@ -33505,13 +33516,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendIndexItem = __webpack_require__(268);
+	    FriendIndexItem = __webpack_require__(268),
+	    SearchStore = __webpack_require__(277);
 
 	var NavSearchResultsPopup = React.createClass({
 	  displayName: 'NavSearchResultsPopup',
 
 	  render: function () {
-	    if (this.props.show) {
+	    if (this.props.show && this.props.searchResults.length > 0) {
 	      return React.createElement(
 	        'div',
 	        { className: 'search-results-pop-container group' },
@@ -33539,6 +33551,80 @@
 	});
 
 	module.exports = NavSearchResultsPopup;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    SearchConstants = __webpack_require__(278);
+
+	var SearchStore = new Store(Dispatcher);
+
+	var userSearchResults = [];
+
+	SearchStore.userSearchResults = function () {
+	  return userSearchResults;
+	};
+
+	SearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case SearchConstants.USER_SEARCH_RESULTS_RECEIVED:
+	      userSearchResults = payload.users;
+	      this.__emitChange();
+	  }
+	};
+
+	module.exports = SearchStore;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  USER_SEARCH_RESULTS_RECEIVED: "USER_SEARCH_RESULTS_RECEIVED"
+	};
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var SearchActions = __webpack_require__(280);
+
+	var SearchApiUtil = {
+	  fetchUsers: function (query) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/search/?query=" + query,
+	      dataType: "json",
+	      success: function (data) {
+	        var results = data.results;
+	        SearchActions.receiveUsersResult(results);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = SearchApiUtil;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    SearchConstants = __webpack_require__(278);
+
+	var SearchActions = {
+	  receiveUsersResult: function (users) {
+	    Dispatcher.dispatch({
+	      actionType: SearchConstants.USER_SEARCH_RESULTS_RECEIVED,
+	      users: users
+	    });
+	  }
+	};
+
+	module.exports = SearchActions;
 
 /***/ }
 /******/ ]);

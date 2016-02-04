@@ -1,10 +1,11 @@
 var React = require('react'),
-    FriendIndexItem = require('./friends/friend_index_item');
+    FriendIndexItem = require('./friends/friend_index_item'),
+    SearchStore = require('../stores/search_store');
 
 
 var NavSearchResultsPopup = React.createClass({
   render: function () {
-    if (this.props.show) {
+    if (this.props.show && this.props.searchResults.length > 0) {
       return (
         <div className="search-results-pop-container group">
           <ul className="search-results-pop-list group">

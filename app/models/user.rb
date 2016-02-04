@@ -2,7 +2,12 @@ class User < ActiveRecord::Base
 
   include PgSearch
   multisearchable :against => [:username, :fname, :lname]
-  
+  pg_search_scope :whose_name_starts_with,
+                  :against => [:username, :fname, :lname],
+                  :using => {
+                    :tsearch => {:prefix => true}
+                  }
+
   validates :username, presence: true, uniqueness: true;
   validates :password_digest, :session_token,
             :fname, :date_of_birth, presence: true

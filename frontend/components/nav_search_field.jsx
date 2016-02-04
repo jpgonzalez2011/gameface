@@ -1,13 +1,11 @@
 var React = require('react'),
-    NavSearchResultsPopup = require('./nav_search_results_popup');
+    NavSearchResultsPopup = require('./nav_search_results_popup'),
+    SearchApiUtil = require('../util/search_api_util'),
+    SearchStore = require('../stores/search_store');
 
 var NavSearchField = React.createClass({
   getInitialState: function () {
-    return ({query: "", searchResults: [
-      {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"},
-      {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"},
-      {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"}
-    ],
+    return ({query: "", searchResults: [],
     show: false
     });
   },
@@ -21,14 +19,23 @@ var NavSearchField = React.createClass({
   },
 
   handleKey: function (e) {
-    this.setState( { query: e.target.value} );
-    // SearchApiUtil.makeQuery(query);
+    var query = e.target.value;
+    SearchApiUtil.fetchUsers(query);
+    // this.setState( { query: query} );
+  },
+
+  handleChange: function () {
+    this.setState({searchResults: SearchStore.userSearchResults()});
+  },
+
+  componentDidMount: function () {
+    storeCBToken = SearchStore.addListener(this.handleChange);
   },
 
   render: function () {
     return (
       <div onFocus={this.handleFocus} onBlur={this.handleBlur}>
-        <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
+        <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey} />
         <NavSearchResultsPopup show={this.state.show} searchResults={this.state.searchResults} />
       </div>
     );
