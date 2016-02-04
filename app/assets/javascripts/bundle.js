@@ -33179,7 +33179,8 @@
 	    PostCommentForm = __webpack_require__(260),
 	    PhotoCommentForm = __webpack_require__(252),
 	    CommentDisplay = __webpack_require__(251),
-	    TimelinePostItem = __webpack_require__(272);
+	    TimelinePostItem = __webpack_require__(272),
+	    TimelinePhotoItem = __webpack_require__(274);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -33220,37 +33221,7 @@
 	              return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
 	            } else if (item.type === "Photo") {
 	              header = item.uploader;
-	              return React.createElement(
-	                'li',
-	                { key: i, className: 'timeline-index-item' },
-	                React.createElement(
-	                  'h1',
-	                  { className: 'timeline-index-item-header' },
-	                  React.createElement(
-	                    'div',
-	                    null,
-	                    header
-	                  ),
-	                  React.createElement(
-	                    'span',
-	                    null,
-	                    item.date_and_time
-	                  )
-	                ),
-	                React.createElement('img', { className: 'timeline-photo-preview', src: item.medium_url }),
-	                React.createElement(
-	                  'ul',
-	                  { className: 'timeline-index-item-comments-list' },
-	                  item.comments.map(function (comment, i) {
-	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
-	                  })
-	                ),
-	                React.createElement(
-	                  'div',
-	                  { className: 'timeline-index-item-comment-form' },
-	                  React.createElement(PhotoCommentForm, { mainTimeLine: this.state.mainTimeLine, commentable_id: item.id })
-	                )
-	              );
+	              return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
 	            }
 	          }.bind(this))
 	        )
@@ -33425,6 +33396,54 @@
 	});
 
 	module.exports = PhotoCommentDisplay;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoCommentForm = __webpack_require__(252),
+	    CommentDisplay = __webpack_require__(251);
+
+	var TimelinePhotoItem = React.createClass({
+	  displayName: 'TimelinePhotoItem',
+
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { key: this.props.i, className: 'timeline-index-item' },
+	      React.createElement(
+	        'h1',
+	        { className: 'timeline-index-item-header' },
+	        React.createElement(
+	          'div',
+	          null,
+	          this.props.header
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          this.props.item.date_and_time
+	        )
+	      ),
+	      React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
+	      React.createElement(
+	        'ul',
+	        { className: 'timeline-index-item-comments-list' },
+	        this.props.item.comments.map(function (comment, i) {
+	          return React.createElement(CommentDisplay, { key: i, comment: comment });
+	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-comment-form' },
+	        React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TimelinePhotoItem;
 
 /***/ }
 /******/ ]);

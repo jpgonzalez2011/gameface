@@ -1,8 +1,8 @@
 var React = require('react'),
-    PostCommentForm = require('../comments/post_comment_form'),
+    PhotoCommentForm = require('../comments/photo_comment_form'),
     CommentDisplay = require('../comments/comment_display');
 
-var TimelinePostItem = React.createClass({
+var TimelinePhotoItem = React.createClass({
   render: function () {
     return (
       <li key={this.props.i} className="timeline-index-item">
@@ -10,7 +10,7 @@ var TimelinePostItem = React.createClass({
           <div>{this.props.header}</div>
           <span>{this.props.item.date_and_time}</span>
         </h1>
-        <div className="timeline-index-item-content">{this.props.item.content}</div>
+        <img className="timeline-photo-preview" src={this.props.item.medium_url} />
         <ul className="timeline-index-item-comments-list">
           {this.props.item.comments.map( function (comment, i) {
             return (
@@ -19,11 +19,11 @@ var TimelinePostItem = React.createClass({
           })}
         </ul>
         <div className="timeline-index-item-comment-form">
-          <PostCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
+          <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
         </div>
       </li>
     );
   }
 });
 
-module.exports = TimelinePostItem;
+module.exports = TimelinePhotoItem;

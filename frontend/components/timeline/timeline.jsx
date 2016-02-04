@@ -5,7 +5,8 @@ var React = require('react'),
     PostCommentForm = require('../comments/post_comment_form'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
     CommentDisplay = require('../comments/comment_display'),
-    TimelinePostItem = require('./timeline_post_item');
+    TimelinePostItem = require('./timeline_post_item'),
+    TimelinePhotoItem = require('./timeline_photo_item');
 
 var Timeline = React.createClass({
   getInitialState: function () {
@@ -42,23 +43,7 @@ var Timeline = React.createClass({
                 } else if (item.type === "Photo") {
                   header = item.uploader;
                   return (
-                    <li key={i} className="timeline-index-item">
-                      <h1 className="timeline-index-item-header">
-                        <div>{header}</div>
-                        <span>{item.date_and_time}</span>
-                      </h1>
-                      <img className="timeline-photo-preview" src={item.medium_url} />
-                      <ul className="timeline-index-item-comments-list">
-                        {item.comments.map( function (comment, i) {
-                          return (
-                            <CommentDisplay key={i} comment={comment} />
-                          );
-                        })}
-                      </ul>
-                      <div className="timeline-index-item-comment-form">
-                        <PhotoCommentForm mainTimeLine={this.state.mainTimeLine} commentable_id={item.id} />
-                        </div>
-                    </li>
+                    <TimelinePhotoItem key={i} i={i} item={item} mainTimeLine={this.state.mainTimeLine} header={header} />
                   );
                 }
             }.bind(this))}
