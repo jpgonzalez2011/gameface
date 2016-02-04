@@ -31377,8 +31377,17 @@
 	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }]
+	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }],
+	      show: false
 	    };
+	  },
+
+	  handleFocus: function (e) {
+	    this.setState({ show: true });
+	  },
+
+	  handleBlur: function (e) {
+	    this.setState({ show: false });
 	  },
 
 	  handleKey: function (e) {
@@ -31389,9 +31398,9 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { onFocus: this.handleFocus, onBlur: this.handleBlur },
 	      React.createElement('input', { className: 'nav-search-field', placeholder: 'Up Up Down Down Left Right Left Right B A Start', type: 'text', onKeyUp: this.handleKey }),
-	      React.createElement(NavSearchResultsPopup, { searchResults: this.state.searchResults })
+	      React.createElement(NavSearchResultsPopup, { show: this.state.show, searchResults: this.state.searchResults })
 	    );
 	  }
 	});
@@ -33502,29 +33511,30 @@
 	  displayName: 'NavSearchResultsPopup',
 
 	  render: function () {
-	    if (this.props.searchResults.length === 0) {
+	    if (this.props.show) {
+	      return React.createElement(
+	        'div',
+	        { className: 'search-results-pop-container group' },
+	        React.createElement(
+	          'ul',
+	          { className: 'search-results-pop-list group' },
+	          this.props.searchResults.map(function (result, i) {
+	            var url = "#/users/" + result.id;
+	            return React.createElement(
+	              'a',
+	              { key: i, href: url },
+	              React.createElement(
+	                'li',
+	                { className: 'search-results-pop-item' },
+	                React.createElement(FriendIndexItem, { friend: result })
+	              )
+	            );
+	          })
+	        )
+	      );
+	    } else {
 	      return React.createElement('div', null);
 	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'search-results-pop-container group' },
-	      React.createElement(
-	        'ul',
-	        { className: 'search-results-pop-list group' },
-	        this.props.searchResults.map(function (result, i) {
-	          var url = "#/users/" + result.id;
-	          return React.createElement(
-	            'a',
-	            { key: i, href: url },
-	            React.createElement(
-	              'li',
-	              { className: 'search-results-pop-item' },
-	              React.createElement(FriendIndexItem, { friend: result })
-	            )
-	          );
-	        })
-	      )
-	    );
 	  }
 	});
 
