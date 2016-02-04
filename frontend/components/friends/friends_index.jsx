@@ -52,12 +52,17 @@ var FriendsIndex = React.createClass({
             FRIENDS
           </h1>
           <ul className="friends-list group">
-            {this.state.friends.map ( function (friend, i) {
-                return (
-                  <FriendIndexItem friend={friend} key={i} />
-                );
-              }
-          )}
+              {this.state.friends.map ( function (friend, i) {
+                var url = "#/users/" + friend.id;
+                  return (
+                    <a key={i} href={url}>
+                      <li className="friend-item group">
+                        <FriendIndexItem friend={friend} key={i} />
+                      </li>
+                    </a>
+                  );
+                }
+              )}
           </ul>
         </div>
       );

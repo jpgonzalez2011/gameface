@@ -33136,7 +33136,16 @@
 	          'ul',
 	          { className: 'friends-list group' },
 	          this.state.friends.map(function (friend, i) {
-	            return React.createElement(FriendIndexItem, { friend: friend, key: i });
+	            var url = "#/users/" + friend.id;
+	            return React.createElement(
+	              'a',
+	              { key: i, href: url },
+	              React.createElement(
+	                'li',
+	                { className: 'friend-item group' },
+	                React.createElement(FriendIndexItem, { friend: friend, key: i })
+	              )
+	            );
 	          })
 	        )
 	      );
@@ -33158,21 +33167,17 @@
 	  render: function () {
 	    var url = "#/users/" + this.props.friend.id;
 	    return React.createElement(
-	      "a",
-	      { href: url },
+	      "div",
+	      null,
 	      React.createElement(
-	        "li",
-	        { className: "friend-item group" },
-	        React.createElement(
-	          "figure",
-	          { className: "friend-picture-container" },
-	          React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
-	        ),
-	        React.createElement(
-	          "h2",
-	          { className: "friend-name" },
-	          this.props.friend.full_name
-	        )
+	        "figure",
+	        { className: "friend-picture-container" },
+	        React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
+	      ),
+	      React.createElement(
+	        "h2",
+	        { className: "friend-name" },
+	        this.props.friend.full_name
 	      )
 	    );
 	  }
