@@ -31377,7 +31377,7 @@
 	  displayName: 'NavSearchField',
 
 	  getInitialState: function () {
-	    return { search: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }],
+	    return { query: "", searchResults: [{ id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }, { id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario" }],
 	      show: false
 	    };
 	  },
@@ -31391,8 +31391,8 @@
 	  },
 
 	  handleKey: function (e) {
-	    this.setState({ search: e.target.value });
-	    //pass to search store
+	    this.setState({ query: e.target.value });
+	    // SearchApiUtil.makeQuery(query);
 	  },
 
 	  render: function () {

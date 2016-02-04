@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :photos, only: [:index, :create]
       resources :friendships, only: [:index, :show, :create]
     end
+    get "search", to: "search#user_search"
   end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]

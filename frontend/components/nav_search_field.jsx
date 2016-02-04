@@ -3,7 +3,7 @@ var React = require('react'),
 
 var NavSearchField = React.createClass({
   getInitialState: function () {
-    return ({search: "", searchResults: [
+    return ({query: "", searchResults: [
       {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"},
       {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"},
       {id: 2, profile_small_url: 'http://s3.amazonaws.com/aa-gamefaces-app-dev/profile_pictures/images/000/000/002/small/luigi.jpg?1454568573', full_name: "Luigi Mario"}
@@ -21,8 +21,8 @@ var NavSearchField = React.createClass({
   },
 
   handleKey: function (e) {
-    this.setState( { search: e.target.value} );
-    //pass to search store
+    this.setState( { query: e.target.value} );
+    // SearchApiUtil.makeQuery(query);
   },
 
   render: function () {
