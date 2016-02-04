@@ -3,20 +3,22 @@ class Api::SessionsController < ApplicationController
   def show
     if current_user
       @user = current_user
-      render json: [{id: @user.id, username: @user.username, fname: @user.fname}]
+      render json: [{id: @user.id, username: @user.username, fname: @user.fname,
+        profile_thumb_url: @user.profile_picture.image.url(:thumb)}]
     else
       render json: [{id: "no-user-found"}]
     end
   end
 
   def create
-    @user = User.find_by_credentials(
+    @user = User.includes(:profile_picture).find_by_credentials(
         params[:username],
         params[:password]
       )
     if @user
       sign_in!(@user)
-      render json: [{id: @user.id, username: @user.username}]
+      render json: [{id: @user.id, username: @user.username,
+        profile_thumb_url: @user.profile_picture.image.url(:thumb)}]
     else
       render json: ["Invalid Credentials!"], status: 401
     end

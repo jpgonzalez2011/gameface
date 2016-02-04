@@ -4,6 +4,19 @@
   border-bottom: 1px solid #ccc;
 }
 
+.timeline-intex-item-comment-content {
+  margin-bottom: 10px;
+}
+.timeline-intex-item-comments-list {
+  border: none !important;
+}
+
+.comment-item {
+  display: none;
+  border: none !important;
+  margin-top: 5px;
+}
+
 .comment-header {
   display: block;
   width: 500px;
@@ -12,7 +25,8 @@
   text-align: left;
   font-size: 10px;
   display: block;
-  margin: 0px;
+  padding-top: 10px;
+  margin: 10px;
   margin-left: 10px;
   padding: 0px 12px 0px 0px;
   font-family: helvetica, arial, sans-serif;
@@ -23,8 +37,8 @@
 
 .comment-header > div {
   float: left;
-  margin: 0px;
-  padding: 0px;
+  margin-top: 10px;
+  padding: 10px;
   padding-right: 10px;
   font-size: 12px;
   font-weight: bold;
@@ -37,7 +51,7 @@
   text-align: left;
   font-size: 12px;
   font-weight: 400;
-  margin-bottom: -7px;
+  margin-bottom: 7px;
 }
 
 .comment-timestamp {
@@ -49,6 +63,19 @@
   font-size: 10px;
   font-weight: 400;
   color: #ccc;
+}
+
+.comment-form-container {
+  position: relative;
+  padding-top: 5px;
+}
+
+.comment-thumbnail {
+  width: 30px;
+  height: 30px;
+  bottom: 5px;
+  left: 15px;
+  position: absolute;
 }
 
 .comment-form-input {

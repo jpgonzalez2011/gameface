@@ -20,9 +20,9 @@ var PostCommentForm = React.createClass({
         content: this.state.content,
         mainTimeLine: this.props.mainTimeLine
       }};
-      $("#comment-form").val("");
       PostStore.addNewComment(comment);
       this.setState({content: ""});
+      $(".comment-form-input").val("");
     } else {
       this.handleChange(e);
     }
@@ -36,8 +36,9 @@ var PostCommentForm = React.createClass({
   render: function () {
     return (
       <div className="comment-form-container group">
+        <img className="comment-thumbnail" src={CurrentUserStore.currentUser().profile_thumb_url}></img>
         <form className="comment-form">
-          <textarea className="comment-form-input" type="text" id="comment-form" onKeyUp={this.handleKeydown}>
+          <textarea className="comment-form-input" type="text" id="comment-form-input-id" onKeyUp={this.handleKeydown}>
           </textarea>
         </form>
       </div>

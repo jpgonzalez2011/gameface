@@ -3,6 +3,7 @@ var CurrentUserActions = require('../actions/current_user_actions');
 
 var CurrentUserApiUtil = {
   transmitCredentials: function (credentials) {
+    debugger
     $.ajax({
       type: "POST",
       url: "/api/session",

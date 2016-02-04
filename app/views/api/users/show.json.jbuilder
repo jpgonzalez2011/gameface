@@ -1,5 +1,6 @@
 json.id @user.id
 json.username @user.username
+json.fname @user.fname
 json.full_name @user.full_name
 json.birthday @user.date_of_birth
 json.occupation @user.occupation

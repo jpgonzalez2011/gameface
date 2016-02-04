@@ -31292,6 +31292,7 @@
 
 	var CurrentUserApiUtil = {
 	  transmitCredentials: function (credentials) {
+	    debugger;
 	    $.ajax({
 	      type: "POST",
 	      url: "/api/session",
@@ -32673,9 +32674,9 @@
 	          content: this.state.content,
 	          mainTimeLine: this.props.mainTimeLine
 	        } };
-	      $("#comment-form").val("");
 	      PostStore.addNewComment(comment);
 	      this.setState({ content: "" });
+	      $(".comment-form-input").val("");
 	    } else {
 	      this.handleChange(e);
 	    }
@@ -32689,10 +32690,11 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'comment-form-container group' },
+	      React.createElement('img', { className: 'comment-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form', onKeyUp: this.handleKeydown })
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form-input-id', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }
