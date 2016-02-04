@@ -10,6 +10,7 @@
   margin: 0 auto;
   width: 848px;
   height: 315px;
+  position: relative;
   border-bottom: 1px solid #ccc;
   background-color: rgb(237, 240, 245);
 }
@@ -22,6 +23,16 @@
   left: 26px;
   bottom: 24px;
   outline: 1px solid #ccc;
+}
+
+.profile-username-display {
+  position: absolute;
+  z-index: 1;
+  color: white;
+  margin: 0px;
+  bottom: 22px;
+  left: 222px;
+
 }
 
 .cover-photo-box > img {

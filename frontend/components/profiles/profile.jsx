@@ -45,6 +45,7 @@ var Profile = React.createClass({
         <header className="profile-header-box group">
           <div className="cover-photo-box">
             <img src={this.state.profile.cover_url} />
+            <h1 className="profile-username-display"> {this.state.profile.full_name} </h1>
           </div>
           <ul className="profile-nav group">
             <li> <a href={about}> About </a> </li>

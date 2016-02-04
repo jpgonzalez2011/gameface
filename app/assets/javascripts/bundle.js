@@ -31540,7 +31540,14 @@
 	        React.createElement(
 	          'div',
 	          { className: 'cover-photo-box' },
-	          React.createElement('img', { src: this.state.profile.cover_url })
+	          React.createElement('img', { src: this.state.profile.cover_url }),
+	          React.createElement(
+	            'h1',
+	            { className: 'profile-username-display' },
+	            ' ',
+	            this.state.profile.full_name,
+	            ' '
+	          )
 	        ),
 	        React.createElement(
 	          'ul',
