@@ -4,6 +4,11 @@ var React = require('react'),
     SearchStore = require('../stores/search_store');
 
 var NavSearchField = React.createClass({
+
+  mixins: [
+    require('react-onclickoutside')
+  ],
+
   getInitialState: function () {
     return ({query: "", searchResults: [],
     show: false
@@ -15,7 +20,11 @@ var NavSearchField = React.createClass({
   },
 
   handleBlur: function (e) {
-    this.setState({show: false});
+  setTimeout(this.setState({show: false}),100);
+  },
+
+  handleClickOutside: function(evt) {
+  this.setState({show: false}); 
   },
 
   handleKey: function (e) {
@@ -34,8 +43,8 @@ var NavSearchField = React.createClass({
 
   render: function () {
     return (
-      <div onFocus={this.handleFocus} onBlur={this.handleBlur}>
-        <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey} />
+      <div onFocus={this.handleFocus}>
+        <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
         <NavSearchResultsPopup show={this.state.show} searchResults={this.state.searchResults} />
       </div>
     );
