@@ -49,6 +49,7 @@
 }
 .comment-header > p {
   float: left;
+  width: 375px;
   margin-top: 0px;
   text-align: left;
   font-size: 12px;
