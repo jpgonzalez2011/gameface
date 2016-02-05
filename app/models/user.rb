@@ -122,9 +122,16 @@ class User < ActiveRecord::Base
   def friends
     requested_friendships = self.requested_friendships.includes(:requested_friend).where(confirmed: true).to_a
     received_friendships = self.received_friendships.includes(:received_friend).where(confirmed: true).to_a
-    requested_friends = requested_friendships.map { |friendship| friendship.requested_friend }
-    received_friends = received_friendships.map { |friendship| friendship.received_friend }
-    all_friends = requested_friends + received_friends
+    all_friendships = requested_friendships + received_friendships
+    sorted_friendships = all_friendships.sort { |x,y| y[:rating] <=> x[:rating] }
+    all_friends = sorted_friendships.map do |friendship|
+      if friendship.received_friend.id == self.id
+        friendship.requested_friend
+      else
+        friendship.received_friend
+      end
+    end
+    all_friends
   end
 
   private
