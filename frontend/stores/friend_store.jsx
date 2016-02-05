@@ -11,7 +11,9 @@ var FriendStore = new Store(Dispatcher);
 FriendStore.findByUser = function (userId) {
   if (friends.length === 0) {
     friends = "loading";
-    }
+  } else if (friends[0].user_id === userId) {
+    return friends;
+  }
     FriendApiUtil.fetchFriends(userId);
     return friends;
 };
