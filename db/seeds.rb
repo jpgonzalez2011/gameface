@@ -125,6 +125,23 @@ ganondorf_friends.each do |friend|
   Friendship.create!(received_friend: User.find_by(username: "ganondorf"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
 end
 
+photo1 = Photo.create!(uploader_id: User.find_by(username: "toad").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/Toad1.jpg"))
+post1 = Post.create!(poster_id: User.find_by(username: "ganondorf").id, target_id: User.find_by(username: "bowser").id, content: "Where did you get those blocks that drop down on people? I need some for my castle.")
+photo2 = Photo.create!(uploader_id: User.find_by(username: "toad").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/Toad2.jpg"))
+post2 = Post.create!(poster_id: User.find_by(username: "luigi").id, target_id: User.find_by(username: "mario").id, content: "Hey bro! I finally joined GameFaces! This thing is awesome! Whhhaaaaaa!!!!")
+photo3 = Photo.create!(uploader_id: User.find_by(username: "toad").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/Toad3.jpg"))
+post3 = Post.create!(poster_id: User.find_by(username: "peach").id, target_id: User.find_by(username: "laracroft").id, content: "Awesome cover photo!.")
+post4 = Post.create!(poster_id: User.find_by(username: "link").id, target_id: User.find_by(username: "zelda").id, content: "Hey, do you want to go to Gerudo Valley? I hear they have awesome music.")
+comment1 = Comment.create!(commenter_id: User.find_by(username: "zelda").id, commentable_id: post4.id, commentable_type: "Post", content: "Sure! Can I bring my friend Sheik?")
+photo5 = Photo.create!(uploader_id: User.find_by(username: "luigi").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/Luigi1.png"))
+photo6 = Photo.create!(uploader_id: User.find_by(username: "kirby").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/Kirby1.gif"))
+post5 = Post.create!(poster_id: User.find_by(username: "tetrisline").id, target_id: User.find_by(username: "mario").id, content: "Why won't more people be my friend?!")
+post6 = Post.create!(poster_id: User.find_by(username: "mario").id, target_id: User.find_by(username: "bowser").id, content: "Your name is Bowser Koopa? So its King Bowser Koopa? I guess that works. How have you been?")
+comment2 = Comment.create!(commenter_id: User.find_by(username: "peach").id, commentable_id: post6.id, commentable_type: "Post", content: "Mario! What the hell? You're friends with Bowser?!")
+comment3 = Comment.create!(commenter_id: User.find_by(username: "mario").id, commentable_id: post6.id, commentable_type: "Post", content: "What? Why shouldn't we be friends?")
+comment4 = Comment.create!(commenter_id: User.find_by(username: "peach").id, commentable_id: post6.id, commentable_type: "Post", content: "Maybe because he's kidnapped me multiple times?! Or that he wants to take over Mushroom Kingdom?!")
+comment5 = Comment.create!(commenter_id: User.find_by(username: "mario").id, commentable_id: post6.id, commentable_type: "Post", content: "I guess this is a bad time to tell you that I planned a doubles tennis match for us with him and a goomba..")
+photo4 = Photo.create!(uploader_id: User.find_by(username: "kingboo").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/KingBoo1.png"))
 
 
 User.all.each do |user|

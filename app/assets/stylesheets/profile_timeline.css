@@ -144,11 +144,12 @@
 }
 .timeline-index-item > ul > li > h1 > p {
   float: left;
+  width: 355px;
   margin-top: 0px;
   text-align: left;
   font-size: 12px;
   font-weight: 400;
-  margin-bottom: -7px;
+  margin-bottom: 0px;
 }
 
 .timeline-index-item > ul > li > span {
