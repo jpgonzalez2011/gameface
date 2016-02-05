@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true;
   validates :password_digest, :session_token,
-            :fname, :date_of_birth, presence: true
+            :fname, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many(
@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   after_initialize :ensure_session_token
+  after_save :ensure_profile_cover
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
@@ -76,6 +77,24 @@ class User < ActiveRecord::Base
     else
       return nil
     end
+  end
+
+  def self.find_or_create_by_auth_hash(auth_hash)
+    provider = auth_hash[:provider]
+    uid = auth_hash[:uid]
+
+    user = User.find_by(provider: provider, uid: uid)
+
+    return user if user
+
+    User.create(
+      provider: provider,
+      uid: uid,
+      username: auth_hash[:info][:name],
+      fname: auth_hash[:info][:name].split(" ")[0],
+      lname: auth_hash[:info][:name].split(" ")[1], #come back to this to make it robust for full live push
+      password: SecureRandom::urlsafe_base64
+    )
   end
 
   def password=(password)
@@ -112,6 +131,11 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= SecureRandom::urlsafe_base64(16)
+  end
+
+  def ensure_profile_cover
+    ProfilePicture.create!(user_id: self.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/default.png")) unless self.profile_picture
+    CoverPhoto.create!(user_id: self.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/default.jpg")) unless self.cover_photo
   end
 
 end

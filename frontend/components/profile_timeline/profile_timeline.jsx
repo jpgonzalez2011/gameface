@@ -35,6 +35,7 @@ var ProfileTimeline = React.createClass({
   },
 
   render: function () {
+    debugger
     return (
       <div className="timeline-container group">
         <div className="timeline-right-side">

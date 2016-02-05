@@ -59,7 +59,8 @@
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(254),
 	    FriendsIndex = __webpack_require__(267),
-	    Timeline = __webpack_require__(269);
+	    Timeline = __webpack_require__(269),
+	    SessionForm = __webpack_require__(282);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -31292,7 +31293,6 @@
 
 	var CurrentUserApiUtil = {
 	  transmitCredentials: function (credentials) {
-	    debugger;
 	    $.ajax({
 	      type: "POST",
 	      url: "/api/session",
@@ -31492,6 +31492,15 @@
 	          ' Log in as Mario! '
 	        ),
 	        React.createElement(
+	          'a',
+	          { href: '/auth/facebook' },
+	          React.createElement(
+	            'button',
+	            { className: 'mario-log-in' },
+	            'LOG IN WITH FACEBOOK'
+	          )
+	        ),
+	        React.createElement(
 	          'header',
 	          { className: 'sign-in-header group' },
 	          React.createElement(
@@ -31507,7 +31516,6 @@
 	              { htmlFor: 'password' },
 	              'Password'
 	            ),
-	            React.createElement('br', null),
 	            React.createElement('input', { onChange: this.updateUsername, type: 'text', name: 'user[username]', id: 'username' }),
 	            React.createElement('input', { onChange: this.updatePassword, type: 'password', name: 'user[password]', id: 'password' }),
 	            React.createElement(
@@ -32515,6 +32523,7 @@
 	  },
 
 	  render: function () {
+	    debugger;
 	    return React.createElement(
 	      'div',
 	      { className: 'timeline-container group' },
@@ -32915,11 +32924,11 @@
 	    this.storeCBToken.remove();
 	  },
 
-	  componentWillMount: function () {
-	    this.getStateFromStore(this.props);
-	  },
+	  // componentWillMount: function () {
+	  //   this.getStateFromStore(this.props);
+	  // },
 
-	  componentWillReceiveProps: function (newProps) {
+	  componentWillReceiveNewProps: function (newProps) {
 	    this.setState(this.getStateFromStore(newProps));
 	  },
 
@@ -32976,13 +32985,11 @@
 	FriendStore.findByUser = function (userId) {
 	  //friends[0].user_id is referring to a user_id trait that will be placed onto
 	  //the friend object by the back end to identify the owner of the friendships
-	  if (friends.length > 0 && (friends[0].user_id == userId || friends[0] === "no friends yet")) {
-	    return friends;
-	  } else {
+	  if (friends.length === 0) {
 	    friends = "loading";
-	    FriendApiUtil.fetchFriends(userId);
-	    return friends;
 	  }
+	  FriendApiUtil.fetchFriends(userId);
+	  return friends;
 	};
 
 	FriendStore.acceptNewFriend = function (friend) {
@@ -33766,6 +33773,56 @@
 
 	}));
 
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var History = __webpack_require__(159).History;
+	var CurrentUserApiUtil = __webpack_require__(232);
+
+	var SessionForm = React.createClass({
+	  displayName: 'SessionForm',
+
+	  render: function () {
+
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.submit },
+	      React.createElement(
+	        'a',
+	        { href: '/auth/facebook' },
+	        'LOG IN WITH FACEBOOK'
+	      ),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Logn In!'
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Email',
+	        React.createElement('input', { type: 'text', name: 'email' })
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Password',
+	        React.createElement('input', { type: 'password', name: 'password' })
+	      ),
+	      React.createElement(
+	        'button',
+	        null,
+	        'Log In!'
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = SessionForm;
 
 /***/ }
 /******/ ]);

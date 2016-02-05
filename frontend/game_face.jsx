@@ -13,7 +13,8 @@ var LoggedInNavHeader = require('./components/logged_in_nav_header'),
     CurrentUserStore = require('./stores/current_user_store'),
     ProfileTimeline = require('./components/profile_timeline/profile_timeline'),
     FriendsIndex = require('./components/friends/friends_index'),
-    Timeline = require('./components/timeline/timeline');
+    Timeline = require('./components/timeline/timeline'),
+    SessionForm = require('./components/sessions/new');
 
 var GameFace = React.createClass({
 

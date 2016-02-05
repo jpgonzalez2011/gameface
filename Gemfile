@@ -29,6 +29,7 @@ gem 'bcrypt'
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.6'
 gem 'figaro'
+gem 'omniauth-facebook'
 
 gem 'pg_search'
 gem 'kaminari'

@@ -65,7 +65,7 @@
 
 .sign-in-header{
   float: right;
-  width: 500px;
+  width: 350px;
 }
 
 .signed-in-header {
@@ -95,7 +95,7 @@
 .sign-in-header-form {
   float: left;
   margin-top: 10px;
-  margin-left: 115px;
+  margin-left: 60px;
 }
 
 
@@ -109,7 +109,7 @@
   line-height: 13px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
   font-size: 16px;
-  margin-left: 125px;
+  margin-left: 10px;
   margin-top: 30px;
   height: 40px;
 }
@@ -142,13 +142,13 @@
   font-family: helvetica, arial, sans-serif;
   font-size: 12px;
   line-height: 16.08px;
-  width: 160px;
+  width: 140px;
   color: #fff;
 }
 
 .sign-in-header-form > button {
   float :right;
-  margin-right: 10px;
+  margin-right: 23px;
   background-color: #3a5795;
   color: #fff;
   border: 1px solid black;
@@ -161,9 +161,9 @@
 
 .sign-in-header-form > input {
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border: 1px solid black;
   height: 14px;
-  width: 142px;
+  width: 122px;
   padding: 3px 3px 4px 3px;
 }
