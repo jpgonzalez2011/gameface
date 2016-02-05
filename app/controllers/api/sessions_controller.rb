@@ -17,7 +17,7 @@ class Api::SessionsController < ApplicationController
       )
     if @user
       sign_in!(@user)
-      render json: [{id: @user.id, username: @user.username,
+      render json: [{id: @user.id, username: @user.username, fname: @user.fname,
         profile_thumb_url: @user.profile_picture.image.url(:thumb)}]
     else
       render json: ["Invalid Credentials!"], status: 401

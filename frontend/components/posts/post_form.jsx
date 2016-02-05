@@ -10,9 +10,9 @@ var PostForm = React.createClass({
     });
   },
 
-  componentWillMount: function () {
-    this.setState( {posterName: CurrentUserStore.currentUser().fname });
-  },
+  // componentWillMount: function () {
+  //   this.setState( {posterName: CurrentUserStore.currentUser().fname });
+  // },
 
   render: function () {
     if (this.state.showFooter) {
@@ -20,7 +20,7 @@ var PostForm = React.createClass({
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
             <label className="post-form-header" for="text">
-              Make a Post, {this.state.posterName}
+              Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
             <textarea className="post-form-input" type="text" id="text" onChange={this.changeText}/>
             <feature className="post-form-footer group">
@@ -34,7 +34,7 @@ var PostForm = React.createClass({
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
             <label className="post-form-header" for="text">
-              Make a Post, {this.state.posterName}
+              Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
             <input className="post-form-input" type="text" id="text" onClick={this.showFooter} onChange={this.changeText}/>
           </form>

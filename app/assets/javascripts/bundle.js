@@ -32598,9 +32598,9 @@
 	    };
 	  },
 
-	  componentWillMount: function () {
-	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
-	  },
+	  // componentWillMount: function () {
+	  //   this.setState( {posterName: CurrentUserStore.currentUser().fname });
+	  // },
 
 	  render: function () {
 	    if (this.state.showFooter) {
@@ -32614,7 +32614,7 @@
 	            'label',
 	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
-	            this.state.posterName
+	            CurrentUserStore.currentUser().fname
 	          ),
 	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
 	          React.createElement(
@@ -32639,7 +32639,7 @@
 	            'label',
 	            { className: 'post-form-header', 'for': 'text' },
 	            'Make a Post, ',
-	            this.state.posterName
+	            CurrentUserStore.currentUser().fname
 	          ),
 	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
 	        )
