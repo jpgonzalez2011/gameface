@@ -17,92 +17,91 @@ User.create!(
 )
 User.create!(
   username: "luigi", password: "luigimansion",
-  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983"
+  fname: "Luigi", lname: "Mario", date_of_birth: "14/7/1983", first_log_in: false
 )
 User.create!(
   username: "link", password: "ocarina",
-  fname: "Link", lname: "", date_of_birth: "21/2/1986"
+  fname: "Link", lname: "", date_of_birth: "21/2/1986", first_log_in: false
 )
 User.create!(
   username: "zelda", password: "hyrule",
-  fname: "Princess", lname: "Zelda", date_of_birth: "21/2/1986"
+  fname: "Princess", lname: "Zelda", date_of_birth: "21/2/1986", first_log_in: false
 )
 User.create!(
   username: "bowser", password: "koopas",
-  fname: "Bowser", lname: "Koopa", date_of_birth: "13/9/1985"
+  fname: "Bowser", lname: "Koopa", date_of_birth: "13/9/1985", first_log_in: false
 )
 User.create!(
   username: "ganondorf", password: "triforce",
-  fname: "Ganondorf", lname: "Dragmire", date_of_birth: "21/11/1998"
+  fname: "Ganondorf", lname: "Dragmire", date_of_birth: "21/11/1998", first_log_in: false
 )
 User.create!(
   username: "solidsnake", password: "metalgear",
-  fname: "Iroquois", lname: "Pliskin", date_of_birth: "07/07/1987"
+  fname: "Iroquois", lname: "Pliskin", date_of_birth: "07/07/1987", first_log_in: false
 )
 User.create!(
   username: "peach", password: "toadstool",
-  fname: "Peach", lname: "Toadstool", date_of_birth: "13/9/1985"
+  fname: "Peach", lname: "Toadstool", date_of_birth: "13/9/1985", first_log_in: false
 )
 User.create!(
   username: "toad", password: "supertoad",
-  fname: "Toad", lname: "", date_of_birth: "9/10/1988"
+  fname: "Toad", lname: "", date_of_birth: "9/10/1988", first_log_in: false
 )
 User.create!(
   username: "ryu", password: "hadouken",
-  fname: "Ryu", lname: "Hoshi", date_of_birth: "30/8/1987"
+  fname: "Ryu", lname: "Hoshi", date_of_birth: "30/8/1987", first_log_in: false
 )
 User.create!(
   username: "ken", password: "shoryuken",
-  fname: "Ken", lname: "Masters", date_of_birth: "09/07/1981"
+  fname: "Ken", lname: "Masters", date_of_birth: "09/07/1981", first_log_in: false
 )
 User.create!(
   username: "kirby", password: "password",
-  fname: "Kirby", lname: "", date_of_birth: "27/4/1992"
+  fname: "Kirby", lname: "", date_of_birth: "27/4/1992", first_log_in: false
 )
 User.create!(
   username: "samus", password: "shoryuken",
-  fname: "Samus", lname: "Aran", date_of_birth: "6/8/1988"
+  fname: "Samus", lname: "Aran", date_of_birth: "6/8/1988", first_log_in: false
 )
 User.create!(
   username: "pacman", password: "password",
-  fname: "Pacman", lname: "", date_of_birth: "22/5/1980"
+  fname: "Pacman", lname: "", date_of_birth: "22/5/1980", first_log_in: false
 )
 User.create!(
   username: "mspacman", password: "password",
-  fname: "Ms. Pacman", lname: "", date_of_birth: "13/1/1982"
+  fname: "Ms. Pacman", lname: "", date_of_birth: "13/1/1982", first_log_in: false
 )
 User.create!(
   username: "boo", password: "password",
-  fname: "Boo", lname: "", date_of_birth: "23/10/1988"
+  fname: "Boo", lname: "", date_of_birth: "23/10/1988", first_log_in: false
 )
 User.create!(
   username: "yoshi", password: "password",
-  fname: "Yoshi", lname: "", date_of_birth: "21/11/1991"
+  fname: "Yoshi", lname: "", date_of_birth: "21/11/1991", first_log_in: false
 )
 User.create!(
   username: "kingboo", password: "password",
-  fname: "King", lname: "Boo", date_of_birth: "14/9/2001"
+  fname: "King", lname: "Boo", date_of_birth: "14/9/2001", first_log_in: false
 )
 User.create!(
   username: "frogger", password: "password",
-  fname: "Frogger", lname: "", date_of_birth: "5/6/1981"
+  fname: "Frogger", lname: "", date_of_birth: "5/6/1981", first_log_in: false
 )
 User.create!(
   username: "tetrisline", password: "password",
-  fname: "Line", lname: "", date_of_birth: "6/6/1984"
+  fname: "Line", lname: "", date_of_birth: "6/6/1984", first_log_in: false
 )
 User.create!(
   username: "laracroft", password: "password",
-  fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996"
+  fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996", first_log_in: false
 )
-
-
-User.all.each do |user|
-user.cover_photo.update!(image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
-user.profile_picture.update!(image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
-end
 
 User.all.each do |user|
   next if user.username == "mario"
   Friendship.create!(received_friend: User.find_by(username: "mario"), requested_friend: User.find_by(username: "#{user.username}"), confirmed: true)
+end
+
+User.all.each do |user|
+user.cover_photo.update!(image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
+user.profile_picture.update!(image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
 end
