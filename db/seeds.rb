@@ -102,6 +102,6 @@ User.all.each do |user|
 end
 
 User.all.each do |user|
-ProfilePicture.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
-CoverPhoto.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
+CoverPhoto.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
+ProfilePicture.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
 end

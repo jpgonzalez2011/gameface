@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
   def target_name
     name = self.target.fname
     if self.target.lname
-      name = name + " " + self.poster.lname
+      name = name + " " + self.target.lname
     end
     name
   end
