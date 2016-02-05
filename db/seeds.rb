@@ -98,13 +98,13 @@ User.create!(
 
 User.all.each do |user|
   next if user.username == "mario"
-  Friendship.create!(received_friend: User.find_by(username: "mario"), requested_friend: User.find_by(username: "#{user.username}"), confirmed: true)
+  Friendship.create!(received_friend: User.find_by(username: "mario"), requested_friend: User.find_by(username: "#{user.username}"), confirmed: true, rating: 0)
 end
 
 peach_friends = ["luigi", "zelda", "toad", "yoshi", "link", "laracroft", "samus", "kirby"]
 
 peach_friends.each do |friend|
-  Friendship.create!(received_friend: User.find_by(username: "peach"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
+  Friendship.create!(received_friend: User.find_by(username: "peach"), requested_friend: User.find_by(username: friend), confirmed: true, rating: [1,2,3].sample)
 end
 
 link_friends = ["luigi", "zelda", "solidsnake", "frogger", "pacman", "boo", "ryu", "ken", "toad"]
@@ -144,6 +144,8 @@ comment5 = Comment.create!(commenter_id: User.find_by(username: "mario").id, com
 photo4 = Photo.create!(uploader_id: User.find_by(username: "kingboo").id, image: File.new("#{Rails.root}/app/assets/images/seed_photos/KingBoo1.png"))
 
 
+ProfilePicture.destroy_all
+CoverPhoto.destroy_all
 User.all.each do |user|
 CoverPhoto.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
 ProfilePicture.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))

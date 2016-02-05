@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
             :fname, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  after_commit :ensure_cover_photo, on: :create
+
   has_many(
     :photos,
     primary_key: :id,
@@ -134,6 +136,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def ensure_cover_photo
+    ProfilePicture.create!(user_id: self.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/default.png"))
+    CoverPhoto.create!(user_id: self.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/default.jpg"))
+  end
 
   def ensure_session_token
     self.session_token ||= SecureRandom::urlsafe_base64(16)
