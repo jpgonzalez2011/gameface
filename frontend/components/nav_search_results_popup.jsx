@@ -27,7 +27,7 @@ var NavSearchResultsPopup = React.createClass({
         </div>
       );
     } else {
-      return(
+      return (
         <div>
 
         </div>

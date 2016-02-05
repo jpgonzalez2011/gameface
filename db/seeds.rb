@@ -95,9 +95,13 @@ User.create!(
   username: "laracroft", password: "password",
   fname: "Lara", lname: "Croft", date_of_birth: "25/10/1996", first_log_in: false
 )
+User.create!(
+  username: "qpumpkin", password: "lamoopa",
+  fname: "Pumpkin", lname: "", date_of_birth: "08/14/2011", first_log_in: false
+)
 
 User.all.each do |user|
-  next if user.username == "mario"
+  next if user.username == "mario" || user.username == "qpumpkin"
   Friendship.create!(received_friend: User.find_by(username: "mario"), requested_friend: User.find_by(username: "#{user.username}"), confirmed: true, rating: 0)
 end
 

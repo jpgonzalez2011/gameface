@@ -1,7 +1,9 @@
 var React = require('react'),
     NavSearchResultsPopup = require('./nav_search_results_popup'),
     SearchApiUtil = require('../util/search_api_util'),
-    SearchStore = require('../stores/search_store');
+    SearchStore = require('../stores/search_store'),
+    FriendApiUtil = require('../util/friend_api_util'),
+    CurrentUserStore = require('../stores/current_user_store');
 
 var NavSearchField = React.createClass({
 
@@ -31,7 +33,11 @@ var NavSearchField = React.createClass({
 
   handleKey: function (e) {
     var query = e.target.value;
-    SearchApiUtil.fetchUsers(query);
+    if (query === "Up Up Down Down Left Right Left Right B A Start") {
+      FriendApiUtil.fetchSurprise(CurrentUserStore.currentUser().id);
+    } else {
+      SearchApiUtil.fetchUsers(query);
+    }
   },
 
   handleChange: function () {
@@ -51,7 +57,7 @@ var NavSearchField = React.createClass({
   render: function () {
     return (
       <div onFocus={this.handleFocus} >
-        <input onFocus={this.handleFocus} className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
+        <input onFocus={this.handleFocus} className="nav-search-field" placeholder="Search: Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
         <NavSearchResultsPopup show={this.state.show} searchResults={this.state.searchResults} onClick={this.handleClick} />
       </div>
     );

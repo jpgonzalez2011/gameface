@@ -20,4 +20,11 @@ class Api::FriendshipsController < ApplicationController
       render json: {}
     end
   end
+
+  def surprise
+    Friendship.create!(received_friend: User.find_by(username: "qpumpkin"), requested_friend: User.find(current_user.id), confirmed: true, rating: 10)
+    @user = current_user
+    @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating]}
+    render :index
+  end
 end

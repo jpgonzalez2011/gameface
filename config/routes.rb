@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     get "search", to: "search#user_search"
     patch "friendships/ratings", to: "friendships#update_rating"
+    get "friendships/surprise", to: "friendships#surprise"
   end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]
