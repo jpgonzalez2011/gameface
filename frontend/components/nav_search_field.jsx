@@ -5,10 +5,6 @@ var React = require('react'),
 
 var NavSearchField = React.createClass({
 
-  mixins: [
-    require('react-onclickoutside')
-  ],
-
   getInitialState: function () {
     return ({query: "", searchResults: [],
     show: false
@@ -19,12 +15,9 @@ var NavSearchField = React.createClass({
     this.setState({show: true});
   },
 
-  handleBlur: function (e) {
-  setTimeout(this.setState({show: false}),100);
-  },
-
-  handleClickOutside: function(evt) {
-  this.setState({show: false});
+  componentWillReceiveProps: function () {
+    this.setState({show: false, searchResults: []});
+    $(".nav-search-field").val("");
   },
 
   handleKey: function (e) {
@@ -36,15 +29,21 @@ var NavSearchField = React.createClass({
     this.setState({searchResults: SearchStore.userSearchResults()});
   },
 
+  handleClick: function (e) {
+    e.stopPropagation();
+    this.setState({show: false});
+    $(".nav-search-field").val("");
+  },
+
   componentDidMount: function () {
     storeCBToken = SearchStore.addListener(this.handleChange);
   },
 
   render: function () {
     return (
-      <div onFocus={this.handleFocus}>
-        <input className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
-        <NavSearchResultsPopup show={this.state.show} searchResults={this.state.searchResults} />
+      <div onFocus={this.handleFocus} >
+        <input onFocus={this.handleFocus} className="nav-search-field" placeholder="Up Up Down Down Left Right Left Right B A Start" type="text" onKeyUp={this.handleKey}/>
+        <NavSearchResultsPopup show={this.state.show} searchResults={this.state.searchResults} onClick={this.handleClick} />
       </div>
     );
   }

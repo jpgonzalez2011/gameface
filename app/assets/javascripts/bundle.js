@@ -31376,8 +31376,6 @@
 	var NavSearchField = React.createClass({
 	  displayName: 'NavSearchField',
 
-	  mixins: [__webpack_require__(241)],
-
 	  getInitialState: function () {
 	    return { query: "", searchResults: [],
 	      show: false
@@ -31388,12 +31386,9 @@
 	    this.setState({ show: true });
 	  },
 
-	  handleBlur: function (e) {
-	    setTimeout(this.setState({ show: false }), 100);
-	  },
-
-	  handleClickOutside: function (evt) {
-	    this.setState({ show: false });
+	  componentWillReceiveProps: function () {
+	    this.setState({ show: false, searchResults: [] });
+	    $(".nav-search-field").val("");
 	  },
 
 	  handleKey: function (e) {
@@ -31405,6 +31400,12 @@
 	    this.setState({ searchResults: SearchStore.userSearchResults() });
 	  },
 
+	  handleClick: function (e) {
+	    e.stopPropagation();
+	    this.setState({ show: false });
+	    $(".nav-search-field").val("");
+	  },
+
 	  componentDidMount: function () {
 	    storeCBToken = SearchStore.addListener(this.handleChange);
 	  },
@@ -31413,8 +31414,8 @@
 	    return React.createElement(
 	      'div',
 	      { onFocus: this.handleFocus },
-	      React.createElement('input', { className: 'nav-search-field', placeholder: 'Up Up Down Down Left Right Left Right B A Start', type: 'text', onKeyUp: this.handleKey }),
-	      React.createElement(NavSearchResultsPopup, { show: this.state.show, searchResults: this.state.searchResults })
+	      React.createElement('input', { onFocus: this.handleFocus, className: 'nav-search-field', placeholder: 'Up Up Down Down Left Right Left Right B A Start', type: 'text', onKeyUp: this.handleKey }),
+	      React.createElement(NavSearchResultsPopup, { show: this.state.show, searchResults: this.state.searchResults, onClick: this.handleClick })
 	    );
 	  }
 	});
@@ -31432,11 +31433,13 @@
 	var NavSearchResultsPopup = React.createClass({
 	  displayName: 'NavSearchResultsPopup',
 
+	  handleClick: function () {},
+
 	  render: function () {
 	    if (this.props.show && this.props.searchResults.length > 0) {
 	      return React.createElement(
 	        'div',
-	        { className: 'search-results-pop-container group' },
+	        { className: 'search-results-pop-container group', onClick: this.handleClick },
 	        React.createElement(
 	          'ul',
 	          { className: 'search-results-pop-list group' },
@@ -31567,141 +31570,7 @@
 	module.exports = SearchActions;
 
 /***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
-	 * A mixin for handling (effectively) onClickOutside for React components.
-	 * Note that we're not intercepting any events in this approach, and we're
-	 * not using double events for capturing and discarding in layers or wrappers.
-	 *
-	 * The idea is that components define function
-	 *
-	 *   handleClickOutside: function() { ... }
-	 *
-	 * If no such function is defined, an error will be thrown, as this means
-	 * either it still needs to be written, or the component should not be using
-	 * this mixing since it will not exhibit onClickOutside behaviour.
-	 *
-	 */
-	(function (root, factory) {
-	  if (true) {
-	    // AMD. Register as an anonymous module.
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(158)], __WEBPACK_AMD_DEFINE_RESULT__ = function(reactDom) {
-	      return factory(root, reactDom);
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if (typeof exports === 'object') {
-	    // Node. Note that this does not work with strict
-	    // CommonJS, but only CommonJS-like environments
-	    // that support module.exports
-	    module.exports = factory(root, require('react-dom'));
-	  } else {
-	    // Browser globals (root is window)
-	    root.OnClickOutside = factory(root, ReactDOM);
-	  }
-	}(this, function (root, ReactDOM) {
-	  "use strict";
-
-	  // Use a parallel array because we can't use
-	  // objects as keys, they get toString-coerced
-	  var registeredComponents = [];
-	  var handlers = [];
-
-	  var IGNORE_CLASS = 'ignore-react-onclickoutside';
-
-	  var isSourceFound = function(source, localNode) {
-	    if (source === localNode) {
-	      return true;
-	    }
-	    // SVG <use/> elements do not technically reside in the rendered DOM, so
-	    // they do not have classList directly, but they offer a link to their
-	    // corresponding element, which can have classList. This extra check is for
-	    // that case.
-	    // See: http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGUseElement
-	    // Discussion: https://github.com/Pomax/react-onclickoutside/pull/17
-	    if (source.correspondingElement) {
-	      return source.correspondingElement.classList.contains(IGNORE_CLASS);
-	    }
-	    return source.classList.contains(IGNORE_CLASS);
-	  };
-
-	  return {
-	    componentDidMount: function() {
-	      if(typeof this.handleClickOutside !== "function")
-	        throw new Error("Component lacks a handleClickOutside(event) function for processing outside click events.");
-
-	      var fn = this.__outsideClickHandler = (function(localNode, eventHandler) {
-	        return function(evt) {
-	          evt.stopPropagation();
-	          var source = evt.target;
-	          var found = false;
-	          // If source=local then this event came from "somewhere"
-	          // inside and should be ignored. We could handle this with
-	          // a layered approach, too, but that requires going back to
-	          // thinking in terms of Dom node nesting, running counter
-	          // to React's "you shouldn't care about the DOM" philosophy.
-	          while(source.parentNode) {
-	            found = isSourceFound(source, localNode);
-	            if(found) return;
-	            source = source.parentNode;
-	          }
-	          eventHandler(evt);
-	        }
-	      }(ReactDOM.findDOMNode(this), this.handleClickOutside));
-
-	      var pos = registeredComponents.length;
-	      registeredComponents.push(this);
-	      handlers[pos] = fn;
-
-	      // If there is a truthy disableOnClickOutside property for this
-	      // component, don't immediately start listening for outside events.
-	      if (!this.props.disableOnClickOutside) {
-	        this.enableOnClickOutside();
-	      }
-	    },
-
-	    componentWillUnmount: function() {
-	      this.disableOnClickOutside();
-	      this.__outsideClickHandler = false;
-	      var pos = registeredComponents.indexOf(this);
-	      if( pos>-1) {
-	        if (handlers[pos]) {
-	          // clean up so we don't leak memory
-	          handlers.splice(pos, 1);
-	          registeredComponents.splice(pos, 1);
-	        }
-	      }
-	    },
-
-	    /**
-	     * Can be called to explicitly enable event listening
-	     * for clicks and touches outside of this element.
-	     */
-	    enableOnClickOutside: function() {
-	      var fn = this.__outsideClickHandler;
-	      if (document != null) {
-	        document.addEventListener("mousedown", fn);
-	        document.addEventListener("touchstart", fn);
-	      }
-	    },
-
-	    /**
-	     * Can be called to explicitly disable event listening
-	     * for clicks and touches outside of this element.
-	     */
-	    disableOnClickOutside: function() {
-	      var fn = this.__outsideClickHandler;
-	      if (document != null) {
-	        document.removeEventListener("mousedown", fn);
-	        document.removeEventListener("touchstart", fn);
-	      }
-	    }
-	  };
-
-	}));
-
-
-/***/ },
+/* 241 */,
 /* 242 */
 /***/ function(module, exports, __webpack_require__) {
 

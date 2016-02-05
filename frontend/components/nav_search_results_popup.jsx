@@ -4,10 +4,14 @@ var React = require('react'),
 
 
 var NavSearchResultsPopup = React.createClass({
+
+  handleClick: function () {
+  },
+
   render: function () {
     if (this.props.show && this.props.searchResults.length > 0) {
       return (
-        <div className="search-results-pop-container group">
+        <div className="search-results-pop-container group" onClick={this.handleClick}>
           <ul className="search-results-pop-list group">
             {this.props.searchResults.map( function (result, i) {
               var url = "#/users/" + result.id;

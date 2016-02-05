@@ -101,6 +101,32 @@ User.all.each do |user|
   Friendship.create!(received_friend: User.find_by(username: "mario"), requested_friend: User.find_by(username: "#{user.username}"), confirmed: true)
 end
 
+peach_friends = ["luigi", "zelda", "toad", "yoshi", "link", "laracroft", "samus", "kirby"]
+
+peach_friends.each do |friend|
+  Friendship.create!(received_friend: User.find_by(username: "peach"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
+end
+
+link_friends = ["luigi", "zelda", "solidsnake", "frogger", "pacman", "boo", "ryu", "ken", "toad"]
+
+link_friends.each do |friend|
+  Friendship.create!(received_friend: User.find_by(username: "link"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
+end
+
+toad_friends = ["luigi", "kingboo", "boo", "yoshi", "kirby", "samus", "ryu", "ken", "zelda"]
+
+toad_friends.each do |friend|
+  Friendship.create!(received_friend: User.find_by(username: "toad"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
+end
+
+ganondorf_friends = ["kingboo", "boo", "bowser", "solidsnake", "frogger", "pacman", "mspacman", "laracroft", "samus"]
+
+ganondorf_friends.each do |friend|
+  Friendship.create!(received_friend: User.find_by(username: "ganondorf"), requested_friend: User.find_by(username: friend), confirmed: true, rating: 3)
+end
+
+
+
 User.all.each do |user|
 CoverPhoto.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
 ProfilePicture.create!(user_id: user.id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
