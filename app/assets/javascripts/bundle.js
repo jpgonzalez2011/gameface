@@ -31401,7 +31401,6 @@
 	  handleKey: function (e) {
 	    var query = e.target.value;
 	    SearchApiUtil.fetchUsers(query);
-	    // this.setState( { query: query} );
 	  },
 
 	  handleChange: function () {
@@ -31454,10 +31453,6 @@
 	    CurrentUserStore.acceptCredentials({ username: "mario", password: "password" });
 	  },
 
-	  // userReceived: function () {
-	  //   this.getCurrentUserFromStore();
-	  // },
-
 	  updateUsername: function (e) {
 	    this.setState({ username: e.target.value.toLowerCase() });
 	  },
@@ -31465,10 +31460,6 @@
 	  updatePassword: function (e) {
 	    this.setState({ password: e.target.value });
 	  },
-
-	  // componentDidMount: function () {
-	  //   CurrentUserStore.addListener(this.userReceived);
-	  // },
 
 	  render: function () {
 	    return React.createElement(
@@ -32108,10 +32099,10 @@
 	    }.bind(this);
 
 	    if (file) {
-	      reader.readAsDataURL(file); // will trigger a load end event when it completes, and invoke reader.onloadend
+	      reader.readAsDataURL(file);
 	    } else {
-	        this.setState({ imageFile: null, imageUrl: "" });
-	      }
+	      this.setState({ imageFile: null, imageUrl: "" });
+	    }
 	  },
 
 	  resetForm: function () {
@@ -32523,7 +32514,6 @@
 	  },
 
 	  render: function () {
-	    debugger;
 	    return React.createElement(
 	      'div',
 	      { className: 'timeline-container group' },
@@ -32607,7 +32597,7 @@
 	      showFooter: false
 	    };
 	  },
-	  //why assign this on WillMount instead of on initialize?
+
 	  componentWillMount: function () {
 	    this.setState({ posterName: CurrentUserStore.currentUser().fname });
 	  },
@@ -32716,9 +32706,7 @@
 	};
 
 	PostStore.emptyPosts = function (targetId) {
-	  // if (posts.length > 0 && posts[0].target_id !== targetId) {
 	  posts = [];
-	  // }
 	};
 
 	PostStore.__onDispatch = function (payload) {
@@ -32924,10 +32912,6 @@
 	    this.storeCBToken.remove();
 	  },
 
-	  // componentWillMount: function () {
-	  //   this.getStateFromStore(this.props);
-	  // },
-
 	  componentWillReceiveNewProps: function (newProps) {
 	    this.setState(this.getStateFromStore(newProps));
 	  },
@@ -32983,8 +32967,6 @@
 	var FriendStore = new Store(Dispatcher);
 
 	FriendStore.findByUser = function (userId) {
-	  //friends[0].user_id is referring to a user_id trait that will be placed onto
-	  //the friend object by the back end to identify the owner of the friendships
 	  if (friends.length === 0) {
 	    friends = "loading";
 	  }
@@ -32993,7 +32975,7 @@
 	};
 
 	FriendStore.acceptNewFriend = function (friend) {
-	  FriendApiUtil.acceptNewFriend(friend); //to be used when friend request accepted
+	  FriendApiUtil.acceptNewFriend(friend);
 	};
 
 	FriendStore.emptyFriends = function (userId) {

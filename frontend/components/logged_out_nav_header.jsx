@@ -26,10 +26,6 @@ var LoggedOutNavHeader = React.createClass({
     );
   },
 
-  // userReceived: function () {
-  //   this.getCurrentUserFromStore();
-  // },
-
   updateUsername: function (e) {
     this.setState({ username: e.target.value.toLowerCase() });
   },
@@ -37,10 +33,6 @@ var LoggedOutNavHeader = React.createClass({
   updatePassword: function (e) {
     this.setState({ password: e.target.value });
   },
-
-  // componentDidMount: function () {
-  //   CurrentUserStore.addListener(this.userReceived);
-  // },
 
   render: function () {
     return (

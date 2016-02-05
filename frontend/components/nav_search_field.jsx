@@ -24,13 +24,12 @@ var NavSearchField = React.createClass({
   },
 
   handleClickOutside: function(evt) {
-  this.setState({show: false}); 
+  this.setState({show: false});
   },
 
   handleKey: function (e) {
     var query = e.target.value;
     SearchApiUtil.fetchUsers(query);
-    // this.setState( { query: query} );
   },
 
   handleChange: function () {

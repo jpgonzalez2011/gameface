@@ -23,9 +23,7 @@ PostStore.addNewComment = function (comment) {
 };
 
 PostStore.emptyPosts = function (targetId) {
-  // if (posts.length > 0 && posts[0].target_id !== targetId) {
     posts = [];
-  // }
 };
 
 PostStore.__onDispatch = function (payload) {

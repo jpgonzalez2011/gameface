@@ -9,8 +9,6 @@ var FriendStore = new Store(Dispatcher);
 
 
 FriendStore.findByUser = function (userId) {
-  //friends[0].user_id is referring to a user_id trait that will be placed onto
-  //the friend object by the back end to identify the owner of the friendships
   if (friends.length === 0) {
     friends = "loading";
     }
@@ -19,7 +17,7 @@ FriendStore.findByUser = function (userId) {
 };
 
 FriendStore.acceptNewFriend = function (friend) {
-  FriendApiUtil.acceptNewFriend(friend); //to be used when friend request accepted
+  FriendApiUtil.acceptNewFriend(friend);
 };
 
 FriendStore.emptyFriends = function (userId) {

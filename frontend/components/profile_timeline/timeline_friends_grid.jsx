@@ -21,10 +21,6 @@ var FriendGrid = React.createClass({
     this.storeCBToken.remove();
   },
 
-  // componentWillMount: function () {
-  //   this.getStateFromStore(this.props);
-  // },
-
   componentWillReceiveNewProps: function (newProps) {
     this.setState(this.getStateFromStore(newProps));
   },
