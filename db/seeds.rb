@@ -98,8 +98,8 @@ User.create!(
 
 
 User.all.each do |user|
-CoverPhoto.create!(user_id: User.find_by(username: "#{user.username}").id, image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
-ProfilePicture.create!(user_id: User.find_by(username: "#{user.username}").id, image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
+user.cover_photo.update!(image: File.new("#{Rails.root}/app/assets/images/cover_photos/#{user.username}.jpg"))
+user.profile_picture.update!(image: File.new("#{Rails.root}/app/assets/images/profile_pictures/#{user.username}.jpg"))
 end
 
 User.all.each do |user|

@@ -34,6 +34,8 @@ gem 'omniauth-facebook'
 gem 'pg_search'
 gem 'kaminari'
 
+gem 'multipart-post'
+
 group :production do
 gem 'rails_12factor'
 end
