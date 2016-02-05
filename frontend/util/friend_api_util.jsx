@@ -12,6 +12,21 @@ var FriendApiUtil = {
         FriendActions.receiveFriends(friends);
       }
     });
+  },
+
+  updateFriendshipRating: function (firstUser, secondUser) {
+    var friendsToUpdate;
+    friends = [firstUser, secondUser];
+    $.ajax ({
+      type: "PATCH",
+      url: "api/friendships/ratings",
+      dataType: "json",
+      data: {firstFriend: firstUser, secondFriend: secondUser},
+      success: function (data) {
+        var friends = data.friends;
+        FriendActions.receiveFriends(friends);
+      }
+    });
   }
 };
 

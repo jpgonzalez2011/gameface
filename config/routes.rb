@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :friendships, only: [:index, :show, :create]
     end
     get "search", to: "search#user_search"
+    patch "friendships/ratings", to: "friendships#update_rating"
   end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]

@@ -1,33 +1,30 @@
 var React = require('react'),
     FriendStore = require('../../stores/friend_store'),
-    FriendIndexItem = require('./friend_index_item');
+    FriendIndexItem = require('./friend_index_item'),
+    FriendApiUtil = require('../../util/friend_api_util');
 
 var FriendsIndex = React.createClass({
   getInitialState: function () {
-    return (this.getStateFromStore(this.props));
+    return {friends: []};
   },
 
-  getStateFromStore: function (props) {
-    return ({ friends: FriendStore.findByUser(props.params.userId)});
+  __onChange: function (props) {
+     this.setState({ friends: FriendStore.friends() });
   },
 
   componentDidMount: function () {
     this.storeCBToken = FriendStore.addListener( function () {
-      this.setState(this.getStateFromStore(this.props));
+      this.setState(this.__onChange);
     }.bind(this));
+    FriendApiUtil.fetchFriends(this.props.params.userId);
   },
 
   componentWillUnmount: function () {
     this.storeCBToken.remove();
   },
 
-  componentWillMount: function () {
-    this.getStateFromStore(this.props);
-  },
-
   componentWillReceiveProps: function (newProps) {
-    FriendStore.emptyFriends(newProps.params.userId);
-    this.setState(this.getStateFromStore(newProps));
+    FriendApiUtil.fetchFriends(newProps.params.userId);
   },
 
   render: function () {

@@ -1,28 +1,31 @@
 var React = require('react'),
     FriendStore = require('../../stores/friend_store'),
+    FriendApiUtil = require('../../util/friend_api_util'),
     FriendGridItem = require('./friend_grid_item');
 
 var FriendGrid = React.createClass({
+
   getInitialState: function () {
-    return (this.getStateFromStore(this.props));
+    return { gridFriends: [] };
   },
 
-  getStateFromStore: function (props) {
-    return ({ gridFriends: FriendStore.findByUser(props.userId).slice(0,9)});
+  __onChange: function (props) {
+     this.setState({ gridFriends: FriendStore.friends().slice(0,9)});
   },
 
   componentDidMount: function () {
     this.storeCBToken = FriendStore.addListener( function () {
-      this.setState(this.getStateFromStore(this.props));
+      this.setState(this.__onChange);
     }.bind(this));
+    FriendApiUtil.fetchFriends(this.props.userId);
   },
 
   componentWillUnmount: function () {
     this.storeCBToken.remove();
   },
 
-  componentWillReceiveNewProps: function (newProps) {
-    this.setState(this.getStateFromStore(newProps));
+  componentWillReceiveProps: function (newProps) {
+    FriendApiUtil.fetchFriends(newProps.userId);
   },
 
   render: function () {
