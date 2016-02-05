@@ -5,6 +5,15 @@ var React = require('react'),
 
 var NavSearchField = React.createClass({
 
+  mixins: [
+    require('react-onclickoutside')
+  ],
+
+  handleClickOutside: function(evt) {
+    this.setState({show: false, searchResults: []});
+    $(".nav-search-field").val("");
+  },
+
   getInitialState: function () {
     return ({query: "", searchResults: [],
     show: false
