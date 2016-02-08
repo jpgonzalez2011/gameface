@@ -33,11 +33,7 @@ var NavSearchField = React.createClass({
 
   handleKey: function (e) {
     var query = e.target.value;
-    if (query === "Up Up Down Down Left Right Left Right B A Start") {
-      FriendApiUtil.fetchSurprise(CurrentUserStore.currentUser().id);
-    } else {
-      SearchApiUtil.fetchUsers(query);
-    }
+    SearchApiUtil.fetchUsers(query);
   },
 
   handleChange: function () {

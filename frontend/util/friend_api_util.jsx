@@ -29,17 +29,4 @@ var FriendApiUtil = {
     });
   },
 
-  fetchSurprise: function (userId) {
-    $.ajax ({
-      type: "GET",
-      url: "api/friendships/surprise",
-      dataType: "json",
-      success: function(data) {
-        var friends = data.friends;
-        FriendActions.receiveFriends(friends);
-      }
-    });
-  }
-};
-
 module.exports = FriendApiUtil;
