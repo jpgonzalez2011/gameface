@@ -65,6 +65,7 @@
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
 
+
 	  mixins: [History],
 
 	  getInitialState: function () {
@@ -24390,6 +24391,7 @@
 	var LoggedInNavHeader = React.createClass({
 	  displayName: 'LoggedInNavHeader',
 
+
 	  logOut: function (e) {
 	    CurrentUserStore.logOut();
 	  },
@@ -31378,6 +31380,7 @@
 	var NavSearchField = React.createClass({
 	  displayName: 'NavSearchField',
 
+
 	  mixins: [__webpack_require__(244)],
 
 	  handleClickOutside: function (evt) {
@@ -31446,6 +31449,7 @@
 	var NavSearchResultsPopup = React.createClass({
 	  displayName: 'NavSearchResultsPopup',
 
+
 	  handleClick: function () {},
 
 	  render: function () {
@@ -31486,6 +31490,7 @@
 
 	var FriendIndexItem = React.createClass({
 	  displayName: "FriendIndexItem",
+
 
 	  render: function () {
 	    var url = "#/users/" + this.props.friend.id;
@@ -31903,6 +31908,7 @@
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
+
 
 	  mixins: [History],
 
@@ -32538,6 +32544,7 @@
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
+
 
 	  doNothing: function (e) {
 	    e.stopPropagation();
@@ -33309,6 +33316,7 @@
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
 
+
 	  getInitialState: function () {
 	    return { gridFriends: [] };
 	  },
@@ -33443,6 +33451,7 @@
 
 	var FriendGridItem = React.createClass({
 	  displayName: "FriendGridItem",
+
 
 	  render: function () {
 	    var url = "#/users/" + this.props.friend.id;
@@ -33822,6 +33831,7 @@
 
 	var SessionForm = React.createClass({
 	  displayName: 'SessionForm',
+
 
 	  render: function () {
 
