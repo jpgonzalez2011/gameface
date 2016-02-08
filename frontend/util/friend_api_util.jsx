@@ -28,5 +28,6 @@ var FriendApiUtil = {
       }
     });
   },
+}
 
 module.exports = FriendApiUtil;

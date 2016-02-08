@@ -31374,7 +31374,7 @@
 	    NavSearchResultsPopup = __webpack_require__(235),
 	    SearchApiUtil = __webpack_require__(239),
 	    SearchStore = __webpack_require__(237),
-	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/friend_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    FriendApiUtil = __webpack_require__(241),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var NavSearchField = React.createClass({
@@ -31584,8 +31584,61 @@
 	module.exports = SearchActions;
 
 /***/ },
-/* 241 */,
-/* 242 */,
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var FriendActions = __webpack_require__(242);
+
+	var FriendApiUtil = {
+	  fetchFriends: function (userId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + userId + "/friendships",
+	      dataType: "json",
+	      success: function (data) {
+	        var friends = data.friends;
+	        FriendActions.receiveFriends(friends);
+	      }
+	    });
+	  },
+
+	  updateFriendshipRating: function (firstUser, secondUser) {
+	    var friendsToUpdate;
+	    friends = [firstUser, secondUser];
+	    $.ajax({
+	      type: "PATCH",
+	      url: "api/friendships/ratings",
+	      dataType: "json",
+	      data: { firstFriend: firstUser, secondFriend: secondUser },
+	      success: function (data) {
+	        var friends = data.friends;
+	        FriendActions.receiveFriends(friends);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = FriendApiUtil;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    FriendConstants = __webpack_require__(243);
+
+	var FriendActions = {
+	  receiveFriends: function (friends) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.RECEIVED_FRIENDS,
+	      friends: friends
+	    });
+	  }
+	};
+
+	module.exports = FriendActions;
+
+/***/ },
 /* 243 */
 /***/ function(module, exports) {
 
@@ -33241,7 +33294,7 @@
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(273),
-	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../util/friend_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    FriendApiUtil = __webpack_require__(241),
 	    FriendGridItem = __webpack_require__(274);
 
 	var FriendGrid = React.createClass({
@@ -33315,7 +33368,7 @@
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    FriendConstants = __webpack_require__(243),
-	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/friend_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	    FriendApiUtil = __webpack_require__(241),
 	    PostConstants = __webpack_require__(267),
 	    PhotoConstants = __webpack_require__(253),
 	    TimelineConstants = __webpack_require__(257);
@@ -33416,7 +33469,7 @@
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(273),
 	    FriendIndexItem = __webpack_require__(236),
-	    FriendApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../util/friend_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	    FriendApiUtil = __webpack_require__(241);
 
 	var FriendsIndex = React.createClass({
 	  displayName: 'FriendsIndex',
