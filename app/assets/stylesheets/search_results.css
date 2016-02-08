@@ -1,6 +1,6 @@
 .search-results-pop-container {
-  position: fixed;
-  left: 755px;
+  position: absolute;
+  left: 318px;
   top: 60px;
   background-color: white;
   width: 420px;

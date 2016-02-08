@@ -24,6 +24,7 @@
   padding: 5px;
   padding-left: 60px;
   height: 72px;
+  position: relative;
 }
 
 .left-side-header {
