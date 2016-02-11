@@ -12,7 +12,7 @@ json.timeline(@timeline) do |item|
     json.full_url item.full_size_url
     json.uploader item.uploader.full_name
   end
-  json.comments(item.comments.reverse) do |comment|
+  json.comments(item.comments) do |comment|
     json.id comment.id
     json.commenter_name comment.commenter.full_name
     json.commenter_id comment.commenter.id
