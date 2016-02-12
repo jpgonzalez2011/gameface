@@ -54,13 +54,13 @@
 	var LoggedInNavHeader = __webpack_require__(208),
 	    LoggedOutNavHeader = __webpack_require__(245),
 	    Profile = __webpack_require__(246),
-	    PhotosIndex = __webpack_require__(251),
-	    About = __webpack_require__(263),
+	    PhotosIndex = __webpack_require__(256),
+	    About = __webpack_require__(266),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(264),
-	    FriendsIndex = __webpack_require__(275),
-	    Timeline = __webpack_require__(276),
-	    SessionForm = __webpack_require__(282);
+	    ProfileTimeline = __webpack_require__(267),
+	    FriendsIndex = __webpack_require__(276),
+	    Timeline = __webpack_require__(277),
+	    SessionForm = __webpack_require__(283);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -31888,6 +31888,8 @@
 
 	var React = __webpack_require__(1),
 	    ProfileStore = __webpack_require__(247),
+	    FriendshipButton = __webpack_require__(251),
+	    FriendStore = __webpack_require__(252),
 	    History = __webpack_require__(159).History;
 
 	var Profile = React.createClass({
@@ -31938,6 +31940,7 @@
 	          'div',
 	          { className: 'cover-photo-box' },
 	          React.createElement('img', { src: this.state.profile.cover_url }),
+	          React.createElement(FriendshipButton, null),
 	          React.createElement(
 	            'h1',
 	            { className: 'profile-username-display' },
@@ -32106,10 +32109,132 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    FriendStore = __webpack_require__(252),
+	    FriendApiUtil = __webpack_require__(241);
+
+	var FriendshipButton = React.createClass({
+	  displayName: 'FriendshipButton',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { className: 'friendship-button' },
+	        ' FriendShipButton '
+	      )
+	    );
+	  }
+	});
+
+	module.exports = FriendshipButton;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    FriendConstants = __webpack_require__(243),
+	    FriendApiUtil = __webpack_require__(241),
+	    PostConstants = __webpack_require__(253),
+	    PhotoConstants = __webpack_require__(254),
+	    TimelineConstants = __webpack_require__(255);
+
+	var comment;
+	var friends = [];
+
+	var FriendStore = new Store(Dispatcher);
+
+	FriendStore.friends = function () {
+	  return friends;
+	};
+
+	FriendStore.acceptNewFriend = function (friend) {
+	  FriendApiUtil.acceptNewFriend(friend);
+	};
+
+	FriendStore.emptyFriends = function (userId) {
+	  if (friends.length > 0 && friends[0].user_id !== userId) {
+	    friends = [];
+	  }
+	};
+
+	FriendStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FriendConstants.RECEIVED_FRIENDS:
+	      if (payload.friends.length === 0) {
+	        friends = ["no friends yet"];
+	      } else {
+	        friends = payload.friends;
+	      }
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.RECEIVE_NEW_FRIEND:
+	      friends.unshift(payload.friend);
+	      this.__emitChange();
+	      break;
+	    case PostConstants.RECEIVE_UPDATED_COMMENT:
+	      comment = payload.comment;
+	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      break;
+	    case PhotoConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
+	      comment = payload.comment;
+	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      break;
+	    case PostConstants.RECEIVE_UPDATED_POST:
+	      post = payload.post;
+	      FriendApiUtil.updateFriendshipRating(post.poster, post.target);
+	      break;
+	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+	      comment = payload.comment;
+	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      break;
+	  }
+	};
+
+	module.exports = FriendStore;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_POSTS: "RECEIVED_POSTS",
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_POST_COMMENT"
+	};
+
+/***/ },
+/* 254 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
+	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO",
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_PHOTO_COMMENT"
+	};
+
+/***/ },
+/* 255 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
+	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
+	};
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    PhotoStore = __webpack_require__(252),
-	    PhotoForm = __webpack_require__(258),
-	    PhotoPreview = __webpack_require__(259);
+	    PhotoStore = __webpack_require__(257),
+	    PhotoForm = __webpack_require__(261),
+	    PhotoPreview = __webpack_require__(262);
 
 	var _photoForm;
 
@@ -32211,13 +32336,13 @@
 	module.exports = PhotosIndex;
 
 /***/ },
-/* 252 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    PhotoConstants = __webpack_require__(253),
-	    PhotoApiUtil = __webpack_require__(254);
+	    PhotoConstants = __webpack_require__(254),
+	    PhotoApiUtil = __webpack_require__(258);
 
 	var photos = [];
 
@@ -32275,21 +32400,11 @@
 	module.exports = PhotoStore;
 
 /***/ },
-/* 253 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVED_PHOTOS: "RECEIVED_PHOTOS",
-	  RECEIVE_UPDATED_PHOTO: "RECEIVE_UPDATED_PHOTO",
-	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_PHOTO_COMMENT"
-	};
-
-/***/ },
-/* 254 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PhotoActions = __webpack_require__(255),
-	    TimelineActions = __webpack_require__(256);
+	var PhotoActions = __webpack_require__(259),
+	    TimelineActions = __webpack_require__(260);
 
 	var PhotoApiUtil = {
 	  fetchOwnedPhotos: function (ownerId) {
@@ -32339,11 +32454,11 @@
 	module.exports = PhotoApiUtil;
 
 /***/ },
-/* 255 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    PhotoConstants = __webpack_require__(253);
+	    PhotoConstants = __webpack_require__(254);
 
 	var PhotoActions = {
 	  receivePhotos: function (photos) {
@@ -32371,11 +32486,11 @@
 	module.exports = PhotoActions;
 
 /***/ },
-/* 256 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    TimelineConstants = __webpack_require__(257);
+	    TimelineConstants = __webpack_require__(255);
 
 	var TimelineActions = {
 	  receiveItems: function (items) {
@@ -32397,21 +32512,11 @@
 	module.exports = TimelineActions;
 
 /***/ },
-/* 257 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
-	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
-	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
-	};
-
-/***/ },
-/* 258 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(252),
+	    PhotoStore = __webpack_require__(257),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoForm = React.createClass({
@@ -32485,11 +32590,11 @@
 	module.exports = PhotoForm;
 
 /***/ },
-/* 259 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoShow = __webpack_require__(260);
+	    PhotoShow = __webpack_require__(263);
 
 	var PhotoPreview = React.createClass({
 	  displayName: 'PhotoPreview',
@@ -32519,12 +32624,12 @@
 	module.exports = PhotoPreview;
 
 /***/ },
-/* 260 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentDisplay = __webpack_require__(261),
-	    PhotoCommentForm = __webpack_require__(262);
+	    PhotoCommentDisplay = __webpack_require__(264),
+	    PhotoCommentForm = __webpack_require__(265);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -32639,7 +32744,7 @@
 	module.exports = PhotoShow;
 
 /***/ },
-/* 261 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32683,11 +32788,11 @@
 	module.exports = PhotoCommentDisplay;
 
 /***/ },
-/* 262 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(252),
+	    PhotoStore = __webpack_require__(257),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoCommentForm = React.createClass({
@@ -32739,7 +32844,7 @@
 	module.exports = PhotoCommentForm;
 
 /***/ },
-/* 263 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -32833,15 +32938,15 @@
 	module.exports = About;
 
 /***/ },
-/* 264 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(265),
-	    PostStore = __webpack_require__(266),
-	    PostCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(271),
-	    FriendGrid = __webpack_require__(272);
+	    PostForm = __webpack_require__(268),
+	    PostStore = __webpack_require__(269),
+	    PostCommentForm = __webpack_require__(272),
+	    CommentDisplay = __webpack_require__(273),
+	    FriendGrid = __webpack_require__(274);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -32942,11 +33047,11 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 265 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(266),
+	    PostStore = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostForm = React.createClass({
@@ -33039,13 +33144,13 @@
 	module.exports = PostForm;
 
 /***/ },
-/* 266 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    PostConstants = __webpack_require__(267),
-	    PostApiUtil = __webpack_require__(268);
+	    PostConstants = __webpack_require__(253),
+	    PostApiUtil = __webpack_require__(270);
 
 	var posts = [];
 
@@ -33096,21 +33201,11 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 267 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVED_POSTS: "RECEIVED_POSTS",
-	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
-	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_POST_COMMENT"
-	};
-
-/***/ },
-/* 268 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(269),
-	    TimelineActions = __webpack_require__(256);
+	var PostActions = __webpack_require__(271),
+	    TimelineActions = __webpack_require__(260);
 
 	var PostApiUtil = {
 	  fetchTargetedPosts: function (targetId) {
@@ -33157,11 +33252,11 @@
 	module.exports = PostApiUtil;
 
 /***/ },
-/* 269 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(267);
+	    PostConstants = __webpack_require__(253);
 
 	var PostActions = {
 	  receivePosts: function (posts) {
@@ -33189,11 +33284,11 @@
 	module.exports = PostActions;
 
 /***/ },
-/* 270 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(266),
+	    PostStore = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostCommentForm = React.createClass({
@@ -33245,7 +33340,7 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 271 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33289,13 +33384,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 272 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(273),
+	    FriendStore = __webpack_require__(252),
 	    FriendApiUtil = __webpack_require__(241),
-	    FriendGridItem = __webpack_require__(274);
+	    FriendGridItem = __webpack_require__(275);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -33362,73 +33457,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    Store = __webpack_require__(214).Store,
-	    FriendConstants = __webpack_require__(243),
-	    FriendApiUtil = __webpack_require__(241),
-	    PostConstants = __webpack_require__(267),
-	    PhotoConstants = __webpack_require__(253),
-	    TimelineConstants = __webpack_require__(257);
-
-	var comment;
-	var friends = [];
-
-	var FriendStore = new Store(Dispatcher);
-
-	FriendStore.friends = function () {
-	  return friends;
-	};
-
-	FriendStore.acceptNewFriend = function (friend) {
-	  FriendApiUtil.acceptNewFriend(friend);
-	};
-
-	FriendStore.emptyFriends = function (userId) {
-	  if (friends.length > 0 && friends[0].user_id !== userId) {
-	    friends = [];
-	  }
-	};
-
-	FriendStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case FriendConstants.RECEIVED_FRIENDS:
-	      if (payload.friends.length === 0) {
-	        friends = ["no friends yet"];
-	      } else {
-	        friends = payload.friends;
-	      }
-	      this.__emitChange();
-	      break;
-	    case FriendConstants.RECEIVE_NEW_FRIEND:
-	      friends.unshift(payload.friend);
-	      this.__emitChange();
-	      break;
-	    case PostConstants.RECEIVE_UPDATED_COMMENT:
-	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
-	      break;
-	    case PhotoConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
-	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
-	      break;
-	    case PostConstants.RECEIVE_UPDATED_POST:
-	      post = payload.post;
-	      FriendApiUtil.updateFriendshipRating(post.poster, post.target);
-	      break;
-	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
-	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
-	      break;
-	  }
-	};
-
-	module.exports = FriendStore;
-
-/***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33463,11 +33492,11 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(273),
+	    FriendStore = __webpack_require__(252),
 	    FriendIndexItem = __webpack_require__(236),
 	    FriendApiUtil = __webpack_require__(241);
 
@@ -33544,19 +33573,19 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(277),
-	    PostForm = __webpack_require__(265),
-	    PostCommentForm = __webpack_require__(270),
-	    PhotoCommentForm = __webpack_require__(262),
-	    CommentDisplay = __webpack_require__(271),
-	    TimelinePostItem = __webpack_require__(279),
-	    TimelinePhotoItem = __webpack_require__(280),
-	    SearchResults = __webpack_require__(281);
+	    TimelineStore = __webpack_require__(278),
+	    PostForm = __webpack_require__(268),
+	    PostCommentForm = __webpack_require__(272),
+	    PhotoCommentForm = __webpack_require__(265),
+	    CommentDisplay = __webpack_require__(273),
+	    TimelinePostItem = __webpack_require__(280),
+	    TimelinePhotoItem = __webpack_require__(281),
+	    SearchResults = __webpack_require__(282);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -33613,15 +33642,15 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    TimelineConstants = __webpack_require__(257),
-	    TimelineApiUtil = __webpack_require__(278),
-	    PostConstants = __webpack_require__(267),
-	    PhotoConstants = __webpack_require__(253);
+	    TimelineConstants = __webpack_require__(255),
+	    TimelineApiUtil = __webpack_require__(279),
+	    PostConstants = __webpack_require__(253),
+	    PhotoConstants = __webpack_require__(254);
 
 	var items = [];
 
@@ -33660,10 +33689,10 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var TimelineActions = __webpack_require__(256);
+	var TimelineActions = __webpack_require__(260);
 
 	var TimelineApiUtil = {
 	  fetchAllItems: function () {
@@ -33682,12 +33711,12 @@
 	module.exports = TimelineApiUtil;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(271);
+	    PostCommentForm = __webpack_require__(272),
+	    CommentDisplay = __webpack_require__(273);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -33734,12 +33763,12 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentForm = __webpack_require__(262),
-	    CommentDisplay = __webpack_require__(271);
+	    PhotoCommentForm = __webpack_require__(265),
+	    CommentDisplay = __webpack_require__(273);
 
 	var TimelinePhotoItem = React.createClass({
 	  displayName: 'TimelinePhotoItem',
@@ -33782,7 +33811,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33806,7 +33835,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);

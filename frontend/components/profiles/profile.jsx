@@ -1,5 +1,7 @@
 var React = require('react'),
     ProfileStore = require('../../stores/profile_store'),
+    FriendshipButton = require('./friendship_button'),
+    FriendStore = require('../../stores/friend_store'),
     History = require('react-router').History;
 
 var Profile = React.createClass({
@@ -45,6 +47,7 @@ var Profile = React.createClass({
         <header className="profile-header-box group">
           <div className="cover-photo-box">
             <img src={this.state.profile.cover_url} />
+            <FriendshipButton />
             <h1 className="profile-username-display"> {this.state.profile.full_name} </h1>
           </div>
           <ul className="profile-nav group">

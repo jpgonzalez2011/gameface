@@ -25,6 +25,12 @@
   outline: 1px solid #ccc;
 }
 
+.friendship-button {
+  position: absolute;
+  right: 30px;
+  bottom: 25px;
+}
+
 .profile-username-display {
   position: absolute;
   z-index: 1;
