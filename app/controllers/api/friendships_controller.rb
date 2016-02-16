@@ -21,10 +21,13 @@ class Api::FriendshipsController < ApplicationController
     end
   end
 
-  def surprise
-    Friendship.create!(received_friend: User.find_by(username: "qpumpkin"), requested_friend: User.find(current_user.id), confirmed: true, rating: 10)
-    @user = current_user
-    @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating]}
-    render :index
+  def check_friends
+    @friendship = Friendship.where("requested_friend = :first and received_friend = :second", {first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+    @friendship = @friendship + Friendship.where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+    if !@friendship.empty?
+      render json: {friendship: @friendship[0].confirmed}
+    else
+      render json: {friendship: "none"}
+    end
   end
 end

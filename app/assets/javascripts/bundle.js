@@ -31603,7 +31603,7 @@
 	  },
 
 	  updateFriendshipRating: function (firstUser, secondUser) {
-	    var friendsToUpdate;
+	    var friends;
 	    friends = [firstUser, secondUser];
 	    $.ajax({
 	      type: "PATCH",
@@ -31613,6 +31613,20 @@
 	      success: function (data) {
 	        var friends = data.friends;
 	        FriendActions.receiveFriends(friends);
+	      }
+	    });
+	  },
+
+	  fetchFriendshipStatus: function (currentUser, otherUser) {
+	    var friends = [currentUser, otherUser];
+	    $.ajax({
+	      type: "GET",
+	      url: "api/friendships/checkfriends",
+	      dataType: "json",
+	      data: { firstFriend: currentUser, secondFriend: otherUser },
+	      success: function (data) {
+	        var friendshipStatus = data.friendship;
+	        FriendActions.receiveFriendshipStatus(friendshipStatus);
 	      }
 	    });
 	  }
@@ -31633,6 +31647,13 @@
 	      actionType: FriendConstants.RECEIVED_FRIENDS,
 	      friends: friends
 	    });
+	  },
+
+	  receiveFriendshipStatus: function (friendshipStatus) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.RECEIVED_FRIENDSHIP_STATUS,
+	      friendshipStatus: friendshipStatus
+	    });
 	  }
 	};
 
@@ -31644,7 +31665,8 @@
 
 	module.exports = {
 	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
-	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND"
+	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND",
+	  RECEIVED_FRIENDSHIP_STATUS: "RECEIVED_FRIENDSHIP_STATUS"
 	};
 
 /***/ },
@@ -31940,7 +31962,7 @@
 	          'div',
 	          { className: 'cover-photo-box' },
 	          React.createElement('img', { src: this.state.profile.cover_url }),
-	          React.createElement(FriendshipButton, null),
+	          React.createElement(FriendshipButton, { userId: this.props.params.userId }),
 	          React.createElement(
 	            'h1',
 	            { className: 'profile-username-display' },
@@ -32109,22 +32131,58 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(209),
 	    FriendStore = __webpack_require__(252),
 	    FriendApiUtil = __webpack_require__(241);
 
 	var FriendshipButton = React.createClass({
 	  displayName: 'FriendshipButton',
 
+	  getInitialState: function () {
+	    return { friendshipStatus: [] };
+	  },
+
+	  __onChange: function () {
+	    this.setState({ friendshipStatus: FriendStore.friendshipStatus() });
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = FriendStore.addListener(function () {
+	      this.setState(this.__onChange);
+	    }.bind(this));
+	    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, this.props.userId);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, newProps.userId);
+	  },
+
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'button',
-	        { className: 'friendship-button' },
-	        ' FriendShipButton '
-	      )
-	    );
+	    if (this.state.friendshipStatus == true) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { className: 'friendship-button' },
+	          ' Friends! '
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { className: 'friendship-button' },
+	          ' Friendship Button '
+	        )
+	      );
+	    }
 	  }
 	});
 
@@ -32144,6 +32202,7 @@
 
 	var comment;
 	var friends = [];
+	var friendshipStatus;
 
 	var FriendStore = new Store(Dispatcher);
 
@@ -32151,8 +32210,8 @@
 	  return friends;
 	};
 
-	FriendStore.acceptNewFriend = function (friend) {
-	  FriendApiUtil.acceptNewFriend(friend);
+	FriendStore.friendshipStatus = function () {
+	  return friendshipStatus;
 	};
 
 	FriendStore.emptyFriends = function (userId) {
@@ -32173,6 +32232,10 @@
 	      break;
 	    case FriendConstants.RECEIVE_NEW_FRIEND:
 	      friends.unshift(payload.friend);
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.RECEIVED_FRIENDSHIP_STATUS:
+	      friendshipStatus = payload.friendshipStatus;
 	      this.__emitChange();
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_COMMENT:

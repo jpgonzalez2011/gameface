@@ -8,6 +8,13 @@ var FriendActions = {
       actionType: FriendConstants.RECEIVED_FRIENDS,
       friends: friends
     });
+  },
+
+  receiveFriendshipStatus: function (friendshipStatus) {
+    Dispatcher.dispatch({
+      actionType: FriendConstants.RECEIVED_FRIENDSHIP_STATUS,
+      friendshipStatus: friendshipStatus
+    });
   }
 };
 

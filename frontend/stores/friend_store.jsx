@@ -8,6 +8,7 @@ var Dispatcher = require('../dispatcher/dispatcher'),
 
 var comment;
 var friends = [];
+var friendshipStatus;
 
 var FriendStore = new Store(Dispatcher);
 
@@ -16,8 +17,8 @@ FriendStore.friends = function () {
     return friends;
 };
 
-FriendStore.acceptNewFriend = function (friend) {
-  FriendApiUtil.acceptNewFriend(friend);
+FriendStore.friendshipStatus = function () {
+  return friendshipStatus;
 };
 
 FriendStore.emptyFriends = function (userId) {
@@ -38,6 +39,10 @@ FriendStore.__onDispatch = function (payload) {
       break;
     case FriendConstants.RECEIVE_NEW_FRIEND:
       friends.unshift(payload.friend);
+      this.__emitChange();
+      break;
+    case FriendConstants.RECEIVED_FRIENDSHIP_STATUS:
+      friendshipStatus = payload.friendshipStatus;
       this.__emitChange();
       break;
     case PostConstants.RECEIVE_UPDATED_COMMENT:

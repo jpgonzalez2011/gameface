@@ -15,7 +15,7 @@ var FriendApiUtil = {
   },
 
   updateFriendshipRating: function (firstUser, secondUser) {
-    var friendsToUpdate;
+    var friends;
     friends = [firstUser, secondUser];
     $.ajax ({
       type: "PATCH",
@@ -28,6 +28,20 @@ var FriendApiUtil = {
       }
     });
   },
-}
+
+  fetchFriendshipStatus: function (currentUser, otherUser) {
+    var friends = [currentUser, otherUser];
+    $.ajax ({
+      type: "GET",
+      url: "api/friendships/checkfriends",
+      dataType: "json",
+      data: {firstFriend: currentUser, secondFriend: otherUser},
+      success: function (data) {
+        var friendshipStatus = data.friendship;
+        FriendActions.receiveFriendshipStatus(friendshipStatus);
+      }
+    })
+  }
+};
 
 module.exports = FriendApiUtil;
