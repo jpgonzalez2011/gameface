@@ -32162,7 +32162,9 @@
 	  },
 
 	  render: function () {
-	    if (this.state.friendship.friendshipStatus == true) {
+	    if (CurrentUserStore.currentUser().id == this.props.userId) {
+	      return React.createElement('div', null);
+	    } else if (this.state.friendship.friendshipStatus == true) {
 	      return React.createElement(
 	        'div',
 	        null,

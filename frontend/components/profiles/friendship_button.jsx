@@ -29,7 +29,12 @@ var FriendshipButton = React.createClass({
   },
 
   render: function () {
-    if (this.state.friendship.friendshipStatus == true) {
+    if (CurrentUserStore.currentUser().id == this.props.userId) {
+      return (
+        <div>
+        </div>
+      );
+    } else if (this.state.friendship.friendshipStatus == true) {
       return (
         <div>
           <button className="friendship-button"> Friends! </button>
