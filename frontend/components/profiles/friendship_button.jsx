@@ -36,6 +36,10 @@ var FriendshipButton = React.createClass({
     FriendApiUtil.confirmFriend(this.props.userId);
   },
 
+  cancelFriend: function () {
+    FriendApiUtil.cancelFriend(this.props.userId);
+  },
+
   render: function () {
     if (CurrentUserStore.currentUser().id == this.props.userId) {
       return (
@@ -52,7 +56,7 @@ var FriendshipButton = React.createClass({
       if (this.state.friendship.received_friend_id == CurrentUserStore.currentUser().id) {
         return (
           <div>
-            <button className="friendship-button"> Cancel Friend Request </button>
+            <button onClick={this.cancelFriend} className="friendship-button"> Cancel Friend Request </button>
           </div>
         );
       } else if (this.state.friendship.requested_friend_id == CurrentUserStore.currentUser().id) {

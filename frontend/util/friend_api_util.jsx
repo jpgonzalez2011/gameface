@@ -67,6 +67,19 @@ var FriendApiUtil = {
         FriendActions.confirmFriend(friendship);
       }
     })
+  },
+
+  cancelFriend: function(friend) {
+    $.ajax ({
+      type: "DELETE",
+      url: "api/friendships/cancelfriend",
+      dataType: "json",
+      data: {friend: friend},
+      success: function(data) {
+        var friendship = data.friendship;
+        FriendActions.cancelFriend(friendship);
+      }
+    })
   }
 };
 

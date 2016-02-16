@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     patch "friendships/ratings", to: "friendships#update_rating"
     get "friendships/checkfriends", to: "friendships#check_friends"
     patch "friendships/confirmfriend", to: "friendships#confirm_friend"
+    delete "friendships/cancelfriend", to: "friendships#cancel_friend"
   end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]

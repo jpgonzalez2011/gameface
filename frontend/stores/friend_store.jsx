@@ -54,6 +54,10 @@ FriendStore.__onDispatch = function (payload) {
       FriendApiUtil.fetchFriends(friendship.received_friend_id);
       this.__emitChange();
       break;
+    case FriendConstants.CANCEL_FRIEND:
+      friendship = [];
+      this.__emitChange();
+      break;
     case PostConstants.RECEIVE_UPDATED_COMMENT:
       comment = payload.comment;
       FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);

@@ -78,4 +78,25 @@ class Api::FriendshipsController < ApplicationController
       render json: {}, status: 420
     end
   end
+
+  def cancel_friend
+    @received_friend = current_user
+    @requested_friend = User.find(params[:friend])
+    @friendship = Friendship.where(
+      requested_friend: @requested_friend,
+      received_friend: @received_friend
+    ).to_a[0]
+    if @friendship.destroy
+      render json: {
+        friendship:
+          {
+            requested_friend_id: @friendship.requested_friend.id,
+            received_friend_id: @friendship.received_friend.id,
+            friendshipStatus: @friendship.confirmed
+          }
+      }
+    else
+      render json: {}, status: 420
+    end
+  end
 end

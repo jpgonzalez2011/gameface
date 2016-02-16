@@ -29,6 +29,13 @@ var FriendActions = {
       actionType: FriendConstants.CONFIRMED_FRIEND,
       friendship: friendship
     });
+  },
+
+  cancelFriend: function (friendship) {
+    Dispatcher.dispatch({
+      actionType: FriendConstants.CANCEL_FRIEND,
+      friendship: friendship
+    });
   }
 };
 

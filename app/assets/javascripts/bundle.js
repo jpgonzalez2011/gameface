@@ -31655,6 +31655,19 @@
 	        FriendActions.confirmFriend(friendship);
 	      }
 	    });
+	  },
+
+	  cancelFriend: function (friend) {
+	    $.ajax({
+	      type: "DELETE",
+	      url: "api/friendships/cancelfriend",
+	      dataType: "json",
+	      data: { friend: friend },
+	      success: function (data) {
+	        var friendship = data.friendship;
+	        FriendActions.cancelFriend(friendship);
+	      }
+	    });
 	  }
 	};
 
@@ -31694,6 +31707,13 @@
 	      actionType: FriendConstants.CONFIRMED_FRIEND,
 	      friendship: friendship
 	    });
+	  },
+
+	  cancelFriend: function (friendship) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.CANCEL_FRIEND,
+	      friendship: friendship
+	    });
 	  }
 	};
 
@@ -31708,7 +31728,8 @@
 	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND",
 	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP",
 	  ADDED_FRIEND: "ADDED_FRIEND",
-	  CONFIRMED_FRIEND: "CONFIRMED_FRIEND"
+	  CONFIRMED_FRIEND: "CONFIRMED_FRIEND",
+	  CANCEL_FRIEND: "CANCEL_FRIEND"
 	};
 
 /***/ },
@@ -32211,6 +32232,10 @@
 	    FriendApiUtil.confirmFriend(this.props.userId);
 	  },
 
+	  cancelFriend: function () {
+	    FriendApiUtil.cancelFriend(this.props.userId);
+	  },
+
 	  render: function () {
 	    if (CurrentUserStore.currentUser().id == this.props.userId) {
 	      return React.createElement('div', null);
@@ -32231,7 +32256,7 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            { className: 'friendship-button' },
+	            { onClick: this.cancelFriend, className: 'friendship-button' },
 	            ' Cancel Friend Request '
 	          )
 	        );
@@ -32319,6 +32344,10 @@
 	    case FriendConstants.CONFIRMED_FRIEND:
 	      friendship = payload.friendship;
 	      FriendApiUtil.fetchFriends(friendship.received_friend_id);
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.CANCEL_FRIEND:
+	      friendship = [];
 	      this.__emitChange();
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_COMMENT:
