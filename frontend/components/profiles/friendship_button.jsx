@@ -28,6 +28,10 @@ var FriendshipButton = React.createClass({
     FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, newProps.userId);
   },
 
+  addFriend: function () {
+    FriendApiUtil.addFriend(this.props.userId);
+  },
+
   render: function () {
     if (CurrentUserStore.currentUser().id == this.props.userId) {
       return (
@@ -54,13 +58,14 @@ var FriendshipButton = React.createClass({
           </div>
         );
       }
-    } else
+    } else {
       return (
         <div>
-          <button className="friendship-button"> Add Friend! </button>
+          <button onClick={this.addFriend} className="friendship-button"> Add Friend! </button>
         </div>
       );
     }
+  }
 });
 
 

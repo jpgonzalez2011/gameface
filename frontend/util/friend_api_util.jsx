@@ -41,6 +41,18 @@ var FriendApiUtil = {
         FriendActions.receiveFriendship(friendship);
       }
     })
+  },
+
+  addFriend: function (friend) {
+    $.ajax ({
+      type: "POST",
+      url: "api/friendships/",
+      dataType: "json",
+      data: {friend: friend},
+      success: function () {
+        FriendActions.addFriend();
+      }
+    })
   }
 };
 

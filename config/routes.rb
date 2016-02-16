@@ -8,10 +8,11 @@ Rails.application.routes.draw do
     resources :posts, only: [:create]
     resources :comments, only: [:create]
     resources :timeline, only: [:index]
+    resources :friendships, only: [:create]
     resources :users, only: [:show] do
       resources :posts, only: [:index]
       resources :photos, only: [:index, :create]
-      resources :friendships, only: [:index, :show, :create]
+      resources :friendships, only: [:index, :show]
     end
     get "search", to: "search#user_search"
     patch "friendships/ratings", to: "friendships#update_rating"

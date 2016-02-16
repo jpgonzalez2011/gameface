@@ -5,7 +5,7 @@ class Api::FriendshipsController < ApplicationController
     @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating] }
   end
 
-  def update_rating()
+  def update_rating
     @first_friendship = Friendship.where("requested_friend = :first and received_friend = :second", { first: User.find(params[:firstFriend][:id]), second: User.find(params[:secondFriend][:id]) }).to_a
     @second_friendship = Friendship.where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend][:id]), second: User.find(params[:secondFriend][:id])}).to_a
     @friendship = @first_friendship[0] || @second_friendship[0]
@@ -34,6 +34,20 @@ class Api::FriendshipsController < ApplicationController
       }
     else
       render json: {friendship: "none"}
+    end
+  end
+
+  def create
+    @friend = User.find(params[:friend])
+    @friendship = Friendship.new(
+      requested_friend: @friend,
+      received_friend: current_user,
+      confirmed: false
+    )
+    if @friendship.save
+      render :create
+    else
+      render json: {}, status: 420
     end
   end
 end

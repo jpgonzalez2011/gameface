@@ -31629,6 +31629,18 @@
 	        FriendActions.receiveFriendship(friendship);
 	      }
 	    });
+	  },
+
+	  addFriend: function (friend) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/friendships/",
+	      dataType: "json",
+	      data: { friend: friend },
+	      success: function () {
+	        FriendActions.addFriend();
+	      }
+	    });
 	  }
 	};
 
@@ -32161,6 +32173,10 @@
 	    FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, newProps.userId);
 	  },
 
+	  addFriend: function () {
+	    FriendApiUtil.addFriend(this.props.userId);
+	  },
+
 	  render: function () {
 	    if (CurrentUserStore.currentUser().id == this.props.userId) {
 	      return React.createElement('div', null);
@@ -32196,15 +32212,17 @@
 	          )
 	        );
 	      }
-	    } else return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'button',
-	        { className: 'friendship-button' },
-	        ' Add Friend! '
-	      )
-	    );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.addFriend, className: 'friendship-button' },
+	          ' Add Friend! '
+	        )
+	      );
+	    }
 	  }
 	});
 
