@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get "search", to: "search#user_search"
     patch "friendships/ratings", to: "friendships#update_rating"
     get "friendships/checkfriends", to: "friendships#check_friends"
+    patch "friendships/confirmfriend", to: "friendships#confirm_friend"
   end
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy]

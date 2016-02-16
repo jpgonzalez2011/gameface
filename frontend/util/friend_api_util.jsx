@@ -54,6 +54,19 @@ var FriendApiUtil = {
         FriendActions.addFriend(friendship);
       }
     })
+  },
+
+  confirmFriend: function (friend) {
+    $.ajax ({
+      type: "PATCH",
+      url: "api/friendships/confirmfriend",
+      dataType: "json",
+      data: {friend: friend},
+      success: function(data) {
+        var friendship = data.friendship;
+        FriendActions.confirmFriend(friendship);
+      }
+    })
   }
 };
 

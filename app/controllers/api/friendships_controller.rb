@@ -56,4 +56,26 @@ class Api::FriendshipsController < ApplicationController
       render json: {}, status: 420
     end
   end
+
+  def confirm_friend
+    @requested_friend = current_user
+    @received_friend = User.find(params[:friend])
+    @friendship = Friendship.where(
+      requested_friend: @requested_friend,
+      received_friend: @received_friend
+    ).to_a[0]
+    @friendship.confirmed = true
+    if @friendship.save
+      render json: {
+        friendship:
+          {
+            requested_friend_id: @friendship.requested_friend.id,
+            received_friend_id: @friendship.received_friend.id,
+            friendshipStatus: @friendship.confirmed
+          }
+      }
+    else
+      render json: {}, status: 420
+    end
+  end
 end

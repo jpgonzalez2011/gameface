@@ -31642,6 +31642,19 @@
 	        FriendActions.addFriend(friendship);
 	      }
 	    });
+	  },
+
+	  confirmFriend: function (friend) {
+	    $.ajax({
+	      type: "PATCH",
+	      url: "api/friendships/confirmfriend",
+	      dataType: "json",
+	      data: { friend: friend },
+	      success: function (data) {
+	        var friendship = data.friendship;
+	        FriendActions.confirmFriend(friendship);
+	      }
+	    });
 	  }
 	};
 
@@ -31674,6 +31687,13 @@
 	      actionType: FriendConstants.ADDED_FRIEND,
 	      friendship: friendship
 	    });
+	  },
+
+	  confirmFriend: function (friendship) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.CONFIRMED_FRIEND,
+	      friendship: friendship
+	    });
 	  }
 	};
 
@@ -31687,7 +31707,8 @@
 	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
 	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND",
 	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP",
-	  ADDED_FRIEND: "ADDED_FRIEND"
+	  ADDED_FRIEND: "ADDED_FRIEND",
+	  CONFIRMED_FRIEND: "CONFIRMED_FRIEND"
 	};
 
 /***/ },
@@ -32186,6 +32207,10 @@
 	    FriendApiUtil.addFriend(this.props.userId);
 	  },
 
+	  confirmFriend: function () {
+	    FriendApiUtil.confirmFriend(this.props.userId);
+	  },
+
 	  render: function () {
 	    if (CurrentUserStore.currentUser().id == this.props.userId) {
 	      return React.createElement('div', null);
@@ -32216,7 +32241,7 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            { className: 'friendship-button' },
+	            { onClick: this.confirmFriend, className: 'friendship-button' },
 	            ' Accept Friend Request '
 	          )
 	        );
@@ -32289,6 +32314,11 @@
 	      break;
 	    case FriendConstants.ADDED_FRIEND:
 	      friendship = payload.friendship;
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.CONFIRMED_FRIEND:
+	      friendship = payload.friendship;
+	      FriendApiUtil.fetchFriends(friendship.received_friend_id);
 	      this.__emitChange();
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_COMMENT:
