@@ -49,8 +49,9 @@ var FriendApiUtil = {
       url: "api/friendships/",
       dataType: "json",
       data: {friend: friend},
-      success: function () {
-        FriendActions.addFriend();
+      success: function (data) {
+        var friendship = data.friendship;
+        FriendActions.addFriend(friendship);
       }
     })
   }

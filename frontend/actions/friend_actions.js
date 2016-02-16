@@ -15,6 +15,13 @@ var FriendActions = {
       actionType: FriendConstants.RECEIVED_FRIENDSHIP,
       friendship: friendship
     });
+  },
+
+  addFriend: function (friendship) {
+    Dispatcher.dispatch({
+      actionType: FriendConstants.ADDED_FRIEND,
+      friendship: friendship
+    });
   }
 };
 

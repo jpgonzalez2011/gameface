@@ -31637,8 +31637,9 @@
 	      url: "api/friendships/",
 	      dataType: "json",
 	      data: { friend: friend },
-	      success: function () {
-	        FriendActions.addFriend();
+	      success: function (data) {
+	        var friendship = data.friendship;
+	        FriendActions.addFriend(friendship);
 	      }
 	    });
 	  }
@@ -31666,6 +31667,13 @@
 	      actionType: FriendConstants.RECEIVED_FRIENDSHIP,
 	      friendship: friendship
 	    });
+	  },
+
+	  addFriend: function (friendship) {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.ADDED_FRIEND,
+	      friendship: friendship
+	    });
 	  }
 	};
 
@@ -31678,7 +31686,8 @@
 	module.exports = {
 	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
 	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND",
-	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP"
+	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP",
+	  ADDED_FRIEND: "ADDED_FRIEND"
 	};
 
 /***/ },
@@ -32275,6 +32284,10 @@
 	      this.__emitChange();
 	      break;
 	    case FriendConstants.RECEIVED_FRIENDSHIP:
+	      friendship = payload.friendship;
+	      this.__emitChange();
+	      break;
+	    case FriendConstants.ADDED_FRIEND:
 	      friendship = payload.friendship;
 	      this.__emitChange();
 	      break;

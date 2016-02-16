@@ -45,6 +45,10 @@ FriendStore.__onDispatch = function (payload) {
       friendship = payload.friendship;
       this.__emitChange();
       break;
+    case FriendConstants.ADDED_FRIEND:
+      friendship = payload.friendship;
+      this.__emitChange();
+      break;
     case PostConstants.RECEIVE_UPDATED_COMMENT:
       comment = payload.comment;
       FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);

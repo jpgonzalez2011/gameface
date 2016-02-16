@@ -45,7 +45,13 @@ class Api::FriendshipsController < ApplicationController
       confirmed: false
     )
     if @friendship.save
-      render :create
+      render json: { friendship:
+        {
+          requested_friend_id: @friendship.requested_friend.id,
+          received_friend_id: @friendship.received_friend.id,
+          friendshipStatus: @friendship.confirmed
+        }
+      }
     else
       render json: {}, status: 420
     end
