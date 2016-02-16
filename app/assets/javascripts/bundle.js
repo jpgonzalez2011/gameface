@@ -31617,7 +31617,7 @@
 	    });
 	  },
 
-	  fetchFriendshipStatus: function (currentUser, otherUser) {
+	  fetchFriendship: function (currentUser, otherUser) {
 	    var friends = [currentUser, otherUser];
 	    $.ajax({
 	      type: "GET",
@@ -31625,8 +31625,8 @@
 	      dataType: "json",
 	      data: { firstFriend: currentUser, secondFriend: otherUser },
 	      success: function (data) {
-	        var friendshipStatus = data.friendship;
-	        FriendActions.receiveFriendshipStatus(friendshipStatus);
+	        var friendship = data.friendship;
+	        FriendActions.receiveFriendship(friendship);
 	      }
 	    });
 	  }
@@ -31649,10 +31649,10 @@
 	    });
 	  },
 
-	  receiveFriendshipStatus: function (friendshipStatus) {
+	  receiveFriendship: function (friendship) {
 	    Dispatcher.dispatch({
-	      actionType: FriendConstants.RECEIVED_FRIENDSHIP_STATUS,
-	      friendshipStatus: friendshipStatus
+	      actionType: FriendConstants.RECEIVED_FRIENDSHIP,
+	      friendship: friendship
 	    });
 	  }
 	};
@@ -31666,7 +31666,7 @@
 	module.exports = {
 	  RECEIVED_FRIENDS: "RECEIVED_FRIENDS",
 	  RECEIVE_NEW_FRIEND: "RECEIVE_NEW_FRIEND",
-	  RECEIVED_FRIENDSHIP_STATUS: "RECEIVED_FRIENDSHIP_STATUS"
+	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP"
 	};
 
 /***/ },
@@ -32139,18 +32139,18 @@
 	  displayName: 'FriendshipButton',
 
 	  getInitialState: function () {
-	    return { friendshipStatus: [] };
+	    return { friendship: [] };
 	  },
 
 	  __onChange: function () {
-	    this.setState({ friendshipStatus: FriendStore.friendshipStatus() });
+	    this.setState({ friendship: FriendStore.friendship() });
 	  },
 
 	  componentDidMount: function () {
 	    this.storeCBToken = FriendStore.addListener(function () {
 	      this.setState(this.__onChange);
 	    }.bind(this));
-	    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, this.props.userId);
+	    FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, this.props.userId);
 	  },
 
 	  componentWillUnmount: function () {
@@ -32158,11 +32158,11 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
-	    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, newProps.userId);
+	    FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, newProps.userId);
 	  },
 
 	  render: function () {
-	    if (this.state.friendshipStatus == true) {
+	    if (this.state.friendship.friendshipStatus == true) {
 	      return React.createElement(
 	        'div',
 	        null,
@@ -32172,17 +32172,37 @@
 	          ' Friends! '
 	        )
 	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'button',
-	          { className: 'friendship-button' },
-	          ' Friendship Button '
-	        )
-	      );
-	    }
+	    } else if (this.state.friendship.friendshipStatus == false) {
+	      if (this.state.friendship.received_friend_id == CurrentUserStore.currentUser().id) {
+	        return React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { className: 'friendship-button' },
+	            ' Cancel Friend Request '
+	          )
+	        );
+	      } else if (this.state.friendship.requested_friend_id == CurrentUserStore.currentUser().id) {
+	        return React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { className: 'friendship-button' },
+	            ' Accept Friend Request '
+	          )
+	        );
+	      }
+	    } else return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { className: 'friendship-button' },
+	        ' Add Friend! '
+	      )
+	    );
 	  }
 	});
 
@@ -32202,7 +32222,7 @@
 
 	var comment;
 	var friends = [];
-	var friendshipStatus;
+	var friendship = [];
 
 	var FriendStore = new Store(Dispatcher);
 
@@ -32210,8 +32230,8 @@
 	  return friends;
 	};
 
-	FriendStore.friendshipStatus = function () {
-	  return friendshipStatus;
+	FriendStore.friendship = function () {
+	  return friendship;
 	};
 
 	FriendStore.emptyFriends = function (userId) {
@@ -32234,8 +32254,8 @@
 	      friends.unshift(payload.friend);
 	      this.__emitChange();
 	      break;
-	    case FriendConstants.RECEIVED_FRIENDSHIP_STATUS:
-	      friendshipStatus = payload.friendshipStatus;
+	    case FriendConstants.RECEIVED_FRIENDSHIP:
+	      friendship = payload.friendship;
 	      this.__emitChange();
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_COMMENT:

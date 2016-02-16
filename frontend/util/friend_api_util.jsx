@@ -29,7 +29,7 @@ var FriendApiUtil = {
     });
   },
 
-  fetchFriendshipStatus: function (currentUser, otherUser) {
+  fetchFriendship: function (currentUser, otherUser) {
     var friends = [currentUser, otherUser];
     $.ajax ({
       type: "GET",
@@ -37,8 +37,8 @@ var FriendApiUtil = {
       dataType: "json",
       data: {firstFriend: currentUser, secondFriend: otherUser},
       success: function (data) {
-        var friendshipStatus = data.friendship;
-        FriendActions.receiveFriendshipStatus(friendshipStatus);
+        var friendship = data.friendship;
+        FriendActions.receiveFriendship(friendship);
       }
     })
   }

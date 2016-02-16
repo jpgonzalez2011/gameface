@@ -6,18 +6,18 @@ var React = require('react'),
 
 var FriendshipButton = React.createClass({
   getInitialState: function () {
-    return {friendshipStatus: []}
+    return {friendship: []}
   },
 
   __onChange: function () {
-    this.setState({friendshipStatus: FriendStore.friendshipStatus()})
+    this.setState({friendship: FriendStore.friendship()})
   },
 
   componentDidMount: function () {
     this.storeCBToken = FriendStore.addListener( function () {
       this.setState(this.__onChange);
     }.bind(this));
-    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, this.props.userId);
+    FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, this.props.userId);
   },
 
   componentWillUnmount: function () {
@@ -25,24 +25,37 @@ var FriendshipButton = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    FriendApiUtil.fetchFriendshipStatus(CurrentUserStore.currentUser().id, newProps.userId);
+    FriendApiUtil.fetchFriendship(CurrentUserStore.currentUser().id, newProps.userId);
   },
 
   render: function () {
-    if (this.state.friendshipStatus == true) {
+    if (this.state.friendship.friendshipStatus == true) {
       return (
         <div>
           <button className="friendship-button"> Friends! </button>
         </div>
       );
-    } else {
+    } else if (this.state.friendship.friendshipStatus == false) {
+      if (this.state.friendship.received_friend_id == CurrentUserStore.currentUser().id) {
+        return (
+          <div>
+            <button className="friendship-button"> Cancel Friend Request </button>
+          </div>
+        );
+      } else if (this.state.friendship.requested_friend_id == CurrentUserStore.currentUser().id) {
+        return (
+          <div>
+            <button className="friendship-button"> Accept Friend Request </button>
+          </div>
+        );
+      }
+    } else
       return (
         <div>
-          <button className="friendship-button"> Friendship Button </button>
+          <button className="friendship-button"> Add Friend! </button>
         </div>
       );
     }
-  }
 });
 
 

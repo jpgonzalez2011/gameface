@@ -10,10 +10,10 @@ var FriendActions = {
     });
   },
 
-  receiveFriendshipStatus: function (friendshipStatus) {
+  receiveFriendship: function (friendship) {
     Dispatcher.dispatch({
-      actionType: FriendConstants.RECEIVED_FRIENDSHIP_STATUS,
-      friendshipStatus: friendshipStatus
+      actionType: FriendConstants.RECEIVED_FRIENDSHIP,
+      friendship: friendship
     });
   }
 };

@@ -8,7 +8,7 @@ var Dispatcher = require('../dispatcher/dispatcher'),
 
 var comment;
 var friends = [];
-var friendshipStatus;
+var friendship = [];
 
 var FriendStore = new Store(Dispatcher);
 
@@ -17,8 +17,8 @@ FriendStore.friends = function () {
     return friends;
 };
 
-FriendStore.friendshipStatus = function () {
-  return friendshipStatus;
+FriendStore.friendship = function () {
+  return friendship;
 };
 
 FriendStore.emptyFriends = function (userId) {
@@ -41,8 +41,8 @@ FriendStore.__onDispatch = function (payload) {
       friends.unshift(payload.friend);
       this.__emitChange();
       break;
-    case FriendConstants.RECEIVED_FRIENDSHIP_STATUS:
-      friendshipStatus = payload.friendshipStatus;
+    case FriendConstants.RECEIVED_FRIENDSHIP:
+      friendship = payload.friendship;
       this.__emitChange();
       break;
     case PostConstants.RECEIVE_UPDATED_COMMENT:
