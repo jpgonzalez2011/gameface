@@ -21,6 +21,8 @@ GameFaces is an app inspired by Facebook for the Faces of Video Games:
 - [x] Users can become friends with other users.
 - [x] Users can view posts made by their friends via a main feed.
 - [x] App allows searching by User’s name or username.
+- [x] App rates friendships to establish top friends.
+- [x] App updates friendship ratings on all user actions and updates top friends in real time.
 - [ ] Users can update cover photos and profile pictures.
 
 ## Design Docs
@@ -85,7 +87,7 @@ database with users, friendships and content (photos, posts, comments, likes).
 - [ ] App allows searching of posts via posting user, text content or hash tags.
 - [ ] Users can be tagged in posts and pictures.
 - [ ] Users can play games and track progress versus other users.
-- [ ] App suggests friends based on common friends/personal information between users.
+- [ ] App suggests friends based on common friends/interactions between users.
 - [ ] Multiple sessions with geolocation.
 - [ ] App provides trending topics feed.
 - [ ] Infinite scroll for main feed and profile feed.
