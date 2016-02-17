@@ -37,6 +37,7 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 
 ### Libraries and APIs
 
+- BCrypt
 - OmniAuth
 - Paperclip
 - PgSearch
