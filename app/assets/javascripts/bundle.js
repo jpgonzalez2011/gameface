@@ -32814,6 +32814,7 @@
 	    e.stopPropagation();
 	  },
 	  render: function () {
+	    var url = "#/users/" + this.props.photo.uploader_id;
 	    if (this.props.show) {
 	      return React.createElement(
 	        'div',
@@ -32821,11 +32822,7 @@
 	        React.createElement(
 	          'feature',
 	          { onClick: this.doNothing, className: 'photo-show-container-display group' },
-	          React.createElement(
-	            'figure',
-	            { className: 'photo-show-container-display-close' },
-	            'Close Photo'
-	          ),
+	          React.createElement('figure', { className: 'photo-show-container-display-close' }),
 	          React.createElement(
 	            'figure',
 	            { className: 'photo-show-container-display-image-holder' },
@@ -32840,7 +32837,11 @@
 	              React.createElement(
 	                'h1',
 	                null,
-	                this.props.photo.uploader_name
+	                React.createElement(
+	                  'a',
+	                  { href: url },
+	                  this.props.photo.uploader_name
+	                )
 	              ),
 	              React.createElement(
 	                'h2',
@@ -33539,7 +33540,11 @@
 	        React.createElement(
 	          "div",
 	          null,
-	          this.props.comment.commenter_name
+	          React.createElement(
+	            "a",
+	            { href: url },
+	            this.props.comment.commenter_name
+	          )
 	        ),
 	        React.createElement(
 	          "p",
@@ -33800,10 +33805,47 @@
 	            this.state.items.map(function (item, i) {
 	              var header;
 	              if (item.type === "Post") {
-	                header = item.poster_name + " to " + item.target_name;
+	                var poster_url = "#/users/" + item.poster_id;
+	                if (item.poster_name === item.target_name) {
+	                  header = React.createElement(
+	                    'div',
+	                    null,
+	                    React.createElement(
+	                      'a',
+	                      { href: poster_url },
+	                      item.poster_name
+	                    )
+	                  );
+	                } else {
+	                  var target_url = "#/users/" + item.target_id;
+	                  header = React.createElement(
+	                    'div',
+	                    null,
+	                    React.createElement(
+	                      'a',
+	                      { href: poster_url },
+	                      item.poster_name
+	                    ),
+	                    ' to ',
+	                    React.createElement(
+	                      'a',
+	                      { href: target_url },
+	                      item.target_name
+	                    )
+	                  );
+	                }
 	                return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
 	              } else if (item.type === "Photo") {
-	                header = item.uploader;
+	                var uploader_url = "#/users/" + item.uploader_url;
+	                header = React.createElement(
+	                  'div',
+	                  null,
+	                  React.createElement(
+	                    'a',
+	                    { href: uploader_url },
+	                    item.uploader_name
+	                  )
+	                );
 	                return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
 	              }
 	            }.bind(this))

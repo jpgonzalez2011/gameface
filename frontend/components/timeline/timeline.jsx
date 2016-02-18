@@ -38,12 +38,19 @@ var Timeline = React.createClass({
               {this.state.items.map (function (item, i) {
                 var header;
                 if (item.type === "Post") {
-                      header = item.poster_name + " to " + item.target_name;
+                      var poster_url = "#/users/" + item.poster_id;
+                      if (item.poster_name === item.target_name) {
+                        header = <div><a href={poster_url}>{item.poster_name}</a></div>;
+                      } else {
+                        var target_url = "#/users/" + item.target_id;
+                        header = <div><a href={poster_url}>{item.poster_name}</a> to <a href={target_url}>{item.target_name}</a></div>
+                      }
                     return (
                       <TimelinePostItem key={i} header={header} item={item} mainTimeLine={this.state.mainTimeLine} i={i} />
                     );
                   } else if (item.type === "Photo") {
-                    header = item.uploader;
+                    var uploader_url = "#/users/" + item.uploader_url;
+                    header = <div><a href={uploader_url}>{item.uploader_name}</a></div>;
                     return (
                       <TimelinePhotoItem key={i} i={i} item={item} mainTimeLine={this.state.mainTimeLine} header={header} />
                     );

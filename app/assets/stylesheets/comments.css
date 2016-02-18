@@ -47,6 +47,12 @@
   width: auto;
   color: #3a5795;
 }
+
+.comment-header > div > a {
+  text-decoration: none;
+  color: #3a5795;
+}
+
 .comment-header > p {
   float: left;
   width: 375px;

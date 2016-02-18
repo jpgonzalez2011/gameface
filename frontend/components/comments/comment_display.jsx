@@ -9,13 +9,13 @@ var CommentDisplay = React.createClass({
           <img className="comment-thumbnail" src={this.props.comment.thumbnail}></img>
         </a>
         <h1 className="comment-header">
-          <div>{this.props.comment.commenter_name}</div>
+            <div><a href={url}>{this.props.comment.commenter_name}</a></div>
           <p className="comment-content">
             {this.props.comment.content}
           </p>
         </h1>
-        <span className="comment-timestamp">{
-            this.props.comment.date_and_time}
+        <span className="comment-timestamp">
+          {this.props.comment.date_and_time}
         </span>
       </li>
     );

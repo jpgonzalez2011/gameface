@@ -8,19 +8,19 @@ var PhotoShow = React.createClass({
     e.stopPropagation();
   },
   render: function () {
+    var url = "#/users/" + this.props.photo.uploader_id;
     if (this.props.show) {
       return (
         <div className="photo-show-container">
           <feature onClick={this.doNothing} className="photo-show-container-display group">
             <figure className="photo-show-container-display-close">
-              Close Photo
             </figure>
             <figure className="photo-show-container-display-image-holder">
               <img className="photo-show-image" src={this.props.photo.full_url}/>
             </figure>
             <figure className="photo-show-container-information-pane">
               <header className="photo-show-container-information-pane-header">
-                <h1>{this.props.photo.uploader_name}</h1>
+                <h1><a href={url}>{this.props.photo.uploader_name}</a></h1>
                 <h2>{this.props.photo.date_and_time}</h2>
               </header>
               <ul className="photo-show-container-information-pane-comments">

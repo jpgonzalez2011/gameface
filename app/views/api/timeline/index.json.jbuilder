@@ -5,12 +5,15 @@ json.timeline(@timeline) do |item|
   json.date_and_time item.date_and_time
   if (item.class.name == "Post")
     json.content item.content
+    json.poster_id item.poster_id
+    json.target_id item.target_id
     json.poster_name item.poster_name
     json.target_name item.target_name
   elsif (item.class.name == "Photo")
+    json.uploader_id item.uploader_id
     json.medium_url item.medium_size_url
     json.full_url item.full_size_url
-    json.uploader item.uploader.full_name
+    json.uploader_name item.uploader.full_name
   end
   json.comments(item.comments) do |comment|
     json.id comment.id
