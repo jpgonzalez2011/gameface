@@ -6,6 +6,11 @@
 
 GameFaces is a technical recreation of Facebook built as a single page app with Ruby on Rails and React.js. GameFaces' single-page app design has zero full page refreshes, allowing for a fast and smooth user experience.
 
+**Screenshots**
+
+![screenshot1](/app/assets/screenshots/screenshot1.png)
+![screenshot2](/app/assets/screenshots/screenshot2.png)
+
 ###Features
 
 - [x] Login and Account Creation through Facebook.
