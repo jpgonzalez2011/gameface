@@ -31426,7 +31426,7 @@
 	    return React.createElement(
 	      'div',
 	      { onFocus: this.handleFocus },
-	      React.createElement('input', { onFocus: this.handleFocus, className: 'nav-search-field', placeholder: 'Search: Up Up Down Down Left Right Left Right B A Start', type: 'text', onKeyUp: this.handleKey }),
+	      React.createElement('input', { onFocus: this.handleFocus, className: 'nav-search-field', placeholder: 'Search for Users (Enter Username or User\'s First/Last Name)', type: 'text', onKeyUp: this.handleKey }),
 	      React.createElement(NavSearchResultsPopup, { show: this.state.show, searchResults: this.state.searchResults, onClick: this.handleClick })
 	    );
 	  }
