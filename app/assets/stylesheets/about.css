@@ -3,6 +3,7 @@
   margin: auto;
   background-color: white;
   border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .about-header {
@@ -14,6 +15,7 @@
   padding-bottom: 12px;
   background-color: rgb(237, 240, 245);
   border-bottom: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .about-nav {

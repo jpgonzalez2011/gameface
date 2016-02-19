@@ -2,6 +2,7 @@
   display: block;
   width: 508px;
   border-bottom: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .timeline-intex-item-comment-content {
@@ -89,4 +90,5 @@
 
 .comment-form-input {
   overflow: auto;
+  border-radius: 3px;
 }
