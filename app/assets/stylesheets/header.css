@@ -78,8 +78,8 @@
 
 .signed-in-header {
   float: right;
-  width: 250px;
-  margin-top: -40px;
+  width: 170px;
+  margin-right: 90px;
   color: white;
   font-family: helvetica, arial, sans-serif;
 }
@@ -88,15 +88,18 @@
   display: inline;
   color: white;
   text-decoration: none;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-left: -15px;
 }
 
 .signed-in-header-name > a {
+  float: left;
+  display: inline-block;
   cursor: pointer;
   color: white;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 5px;
   text-decoration: none;
 }
 
@@ -123,6 +126,7 @@
 }
 
 .log-out {
+  float: right;
   margin: auto;
   background-color: rgb(78, 105, 162);
   color: #fff;
@@ -136,7 +140,6 @@
   line-height: 22px;
   box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;
   font-size: 12px;
-  margin-left: 125px;
   margin-top: 7px;
 }
 

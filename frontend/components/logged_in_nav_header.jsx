@@ -19,9 +19,9 @@ var LoggedInNavHeader = React.createClass({
               <a href="#/timeline">GameFaces!</a>
             </header>
             <NavSearchField />
-            <button onClick={this.logOut} className="log-out"> Sign Out! </button>
             <header className="signed-in-header">
               <div className="signed-in-header-name">
+              <button onClick={this.logOut} className="log-out"> Sign Out! </button>
                 <a href={profileUrl}>My Profile</a>
               </div>
             </header>

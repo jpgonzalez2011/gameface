@@ -24418,16 +24418,16 @@
 	          ),
 	          React.createElement(NavSearchField, null),
 	          React.createElement(
-	            'button',
-	            { onClick: this.logOut, className: 'log-out' },
-	            ' Sign Out! '
-	          ),
-	          React.createElement(
 	            'header',
 	            { className: 'signed-in-header' },
 	            React.createElement(
 	              'div',
 	              { className: 'signed-in-header-name' },
+	              React.createElement(
+	                'button',
+	                { onClick: this.logOut, className: 'log-out' },
+	                ' Sign Out! '
+	              ),
 	              React.createElement(
 	                'a',
 	                { href: profileUrl },
