@@ -36,8 +36,8 @@ var LoggedOutNavHeader = React.createClass({
 
   render: function () {
     return (
-      <header className="header group">
-        <nav className="nav-header group">
+      <header className="out-header group">
+        <nav className="out-nav-header group">
           <header className="header-text">
             <a href="#/">GameFaces!</a>
           </header>

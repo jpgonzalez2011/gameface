@@ -9,7 +9,7 @@
   background-color: #3a5795;
 }
 
-.header {
+.in-header {
   position: fixed;
   background-color: #3a5795;
   height: 42px;
@@ -20,13 +20,38 @@
   z-index: 2;
 }
 
-.nav-header {
+.out-header {
+  position: fixed;
+  background-color: #3a5795;
+  height: 82px;
+  border-bottom: 1px solid rgb(19, 55, 131);
+  border-radius: 0px;
+  box-shadow: rgba(0, 0, 0, 0.521569) 0px 2px 2px -2px;
+  width: 100%;
+  z-index: 2;
+}
+
+.in-nav-header {
   width: 1030px;
   margin: 0 auto;
   background-color: #3a5795;
   padding: 0px;
   padding-left: 60px;
   height: 42px;
+  border-bottom: 1px solid rgb(19, 55, 131);
+  border-radius: 0px;
+  box-shadow: rgba(0, 0, 0, 0.521569) 0px 2px 2px -2px;
+  position: relative;
+}
+
+.out-nav-header {
+  width: 1030px;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #3a5795;
+  padding: 0px;
+  padding-left: 60px;
+  height: 62px;
   border-bottom: 1px solid rgb(19, 55, 131);
   border-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.521569) 0px 2px 2px -2px;
@@ -103,11 +128,6 @@
   text-decoration: none;
 }
 
-.sign-in-header-form {
-  float: left;
-  margin-top: 1px;
-  margin-left: 60px;
-}
 
 
 .mario-log-in {
@@ -165,6 +185,13 @@
   margin-top: 7px;
 }
 
+.sign-in-header-form {
+  float: left;
+  margin-top: 1px;
+  margin-left: 60px;
+  position: relative;
+}
+
 .sign-in-header-form > label {
   float: left;
   font-family: helvetica, arial, sans-serif;
@@ -177,14 +204,17 @@
 .sign-in-header-form > button {
   float :right;
   margin-right: 23px;
-  background-color: #3a5795;
+  background-color: #5b74a8;
   color: #fff;
-  border: 1px solid black;
+  font-size: 12px;
   font-weight: 700;
   font-family: helvetica, arial, sans-serif;
-  line-height: 13px;
+  line-height: 1.5;
+  border: 1px solid #999;
+  border-color: #2f477a #29447e #1a356e;
   box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
-  font-size: 12px;
+  position: absolute;
+  bottom: 5px;
 }
 
 .sign-in-header-form > input {

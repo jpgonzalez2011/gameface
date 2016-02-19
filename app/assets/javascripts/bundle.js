@@ -24403,10 +24403,10 @@
 	      null,
 	      React.createElement(
 	        'header',
-	        { className: 'header group' },
+	        { className: 'in-header group' },
 	        React.createElement(
 	          'nav',
-	          { className: 'nav-header group' },
+	          { className: 'in-nav-header group' },
 	          React.createElement(
 	            'header',
 	            { className: 'header-text' },
@@ -31908,10 +31908,10 @@
 	  render: function () {
 	    return React.createElement(
 	      'header',
-	      { className: 'header group' },
+	      { className: 'out-header group' },
 	      React.createElement(
 	        'nav',
-	        { className: 'nav-header group' },
+	        { className: 'out-nav-header group' },
 	        React.createElement(
 	          'header',
 	          { className: 'header-text' },

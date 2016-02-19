@@ -13,8 +13,8 @@ var LoggedInNavHeader = React.createClass({
     var profileUrl = "#/users/" + CurrentUserStore.currentUser().id;
     return (
       <div>
-        <header className="header group">
-          <nav className="nav-header group">
+        <header className="in-header group">
+          <nav className="in-nav-header group">
             <header className="header-text">
               <a href="#/timeline">GameFaces!</a>
             </header>
