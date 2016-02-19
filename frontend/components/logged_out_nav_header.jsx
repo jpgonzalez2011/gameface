@@ -42,7 +42,7 @@ var LoggedOutNavHeader = React.createClass({
             <a href="#/">GameFaces!</a>
           </header>
             <button onClick={this.logInAsMario} className="mario-log-in"> Log in as Mario! </button>
-            <a href="/auth/facebook"><button className="mario-log-in">LOG IN WITH FACEBOOK</button></a>
+            <a className="facebook-link" href="/auth/facebook"><button className="facebook-log-in">Log in with Facebook</button></a>
           <header className="sign-in-header group">
             <form onSubmit={this.submitCredentials} className="sign-in-header-form group">
                 <label htmlFor="username">Username</label>

@@ -31928,11 +31928,11 @@
 	        ),
 	        React.createElement(
 	          'a',
-	          { href: '/auth/facebook' },
+	          { className: 'facebook-link', href: '/auth/facebook' },
 	          React.createElement(
 	            'button',
-	            { className: 'mario-log-in' },
-	            'LOG IN WITH FACEBOOK'
+	            { className: 'facebook-log-in' },
+	            'Log in with Facebook'
 	          )
 	        ),
 	        React.createElement(
