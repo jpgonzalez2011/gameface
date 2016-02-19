@@ -33530,25 +33530,25 @@
 	      "li",
 	      { key: this.props.key, className: "comment-item group" },
 	      React.createElement(
-	        "a",
-	        { href: url },
-	        React.createElement("img", { className: "comment-thumbnail", src: this.props.comment.thumbnail })
-	      ),
-	      React.createElement(
 	        "h1",
 	        { className: "comment-header" },
 	        React.createElement(
-	          "div",
-	          null,
-	          React.createElement(
-	            "a",
-	            { href: url },
-	            this.props.comment.commenter_name
-	          )
+	          "a",
+	          { href: url },
+	          React.createElement("img", { className: "comment-thumbnail", src: this.props.comment.thumbnail })
 	        ),
 	        React.createElement(
-	          "p",
-	          { className: "comment-content" },
+	          "span",
+	          null,
+	          React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: url },
+	              this.props.comment.commenter_name
+	            )
+	          ),
 	          this.props.comment.content
 	        )
 	      ),

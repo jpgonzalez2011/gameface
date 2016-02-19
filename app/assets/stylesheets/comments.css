@@ -38,10 +38,21 @@
 }
 
 
-.comment-header > div {
+
+
+.comment-header > span {
   float: left;
-  margin-top: 10px;
-  padding: 10px;
+  width: 375px;
+  margin-top: 0px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.comment-header > span > div {
+  float: left;
+  margin-top: 0px;
   padding-right: 10px;
   font-size: 12px;
   font-weight: bold;
@@ -49,21 +60,10 @@
   color: #3a5795;
 }
 
-.comment-header > div > a {
+.comment-header > span > div > a {
   text-decoration: none;
   color: #3a5795;
 }
-
-.comment-header > p {
-  float: left;
-  width: 375px;
-  margin-top: 0px;
-  text-align: left;
-  font-size: 12px;
-  font-weight: 400;
-  margin-bottom: 7px;
-}
-
 .comment-timestamp {
   float: left;
   margin: 0px;
