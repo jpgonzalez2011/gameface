@@ -88,5 +88,5 @@
 }
 
 .comment-form-input {
-  resize: none;
+  overflow: auto;
 }
