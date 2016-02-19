@@ -5,14 +5,14 @@ var PhotoCommentDisplay = React.createClass({
     var url = "#/users/" + this.props.comment.commenter_id;
     return (
       <li key={this.props.key} className="photo-comment-item group">
-        <a href={url}>
-          <img className="photo-comment-thumbnail" src={this.props.comment.thumbnail}></img>
-        </a>
         <h1 className="photo-comment-header">
-          <div>{this.props.comment.commenter_name}</div>
-          <p className="photo-comment-content">
+          <a href={url}>
+          <img className="photo-comment-thumbnail" src={this.props.comment.thumbnail}></img>
+          </a>
+          <span>
+            <div><a href={url}>{this.props.comment.commenter_name}</a></div>
             {this.props.comment.content}
-          </p>
+          </span>
         </h1>
         <span className="photo-comment-timestamp">{
             this.props.comment.date_and_time}

@@ -46,23 +46,30 @@
 }
 
 
-.photo-comment-header > div {
+.photo-comment-header > span {
   float: left;
-  margin: 0px;
-  padding-left: 10px;
+  width: 375px;
+  margin-top: 0px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.photo-comment-header > span > div {
+  float: left;
+  margin-top: 0px;
   padding-right: 10px;
   font-size: 12px;
   font-weight: bold;
   width: auto;
   color: #3a5795;
 }
-.photo-comment-header > p {
-  float: left;
-  margin: 0px;
-  text-align: left;
-  font-size: 12px;
-  font-weight: 400;
-  margin-bottom: 0px;
+
+.photo-comment-header > span > div > a {
+  text-decoration: none;
+  color: #3a5795;
 }
 
 .photo-comment-timestamp {
