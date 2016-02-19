@@ -27,14 +27,16 @@
   width: 392px;
   padding: 5px;
   margin: 10px;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 .friend-picture-container {
   float: left;
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   margin: 0px;
   margin-right: 10px;
 }
