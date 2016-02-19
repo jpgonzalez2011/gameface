@@ -21,7 +21,7 @@
 }
 
 .nav-header {
-  width: 980px;
+  width: 1030px;
   margin: 0 auto;
   background-color: #3a5795;
   padding: 0px;
@@ -73,7 +73,7 @@
 
 .sign-in-header{
   float: right;
-  width: 350px;
+  width: 420px;
 }
 
 .signed-in-header {
@@ -105,24 +105,26 @@
 
 .sign-in-header-form {
   float: left;
-  margin-top: 10px;
+  margin-top: 1px;
   margin-left: 60px;
 }
 
 
 .mario-log-in {
   margin: auto;
-  background-color: #3a5795;
+  background-color: #5b74a8;
   color: #fff;
-  border: 1px solid black;
+  border: 1px solid #999;
   font-weight: 700;
   font-family: helvetica, arial, sans-serif;
-  line-height: 13px;
+  line-height: 1.5;
+  border-color: #2f477a #29447e #1a356e;
   box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
   font-size: 16px;
   margin-left: 10px;
-  margin-top: 30px;
-  height: 40px;
+  margin-top: 5px;
+  height: auto;
+  padding: 2px 6px;
 }
 
 .log-out {
