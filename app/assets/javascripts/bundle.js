@@ -31872,6 +31872,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    SignUpForm = __webpack_require__(284),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var NavSearchField = __webpack_require__(234);
@@ -31907,60 +31908,70 @@
 
 	  render: function () {
 	    return React.createElement(
-	      'header',
-	      { className: 'out-header group' },
+	      'div',
+	      null,
 	      React.createElement(
-	        'nav',
-	        { className: 'out-nav-header group' },
+	        'header',
+	        { className: 'out-header group' },
 	        React.createElement(
-	          'header',
-	          { className: 'header-text' },
+	          'nav',
+	          { className: 'out-nav-header group' },
 	          React.createElement(
-	            'a',
-	            { href: '#/' },
-	            'GameFaces!'
-	          )
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.logInAsMario, className: 'mario-log-in' },
-	          ' Log in as Mario! '
-	        ),
-	        React.createElement(
-	          'a',
-	          { className: 'facebook-link', href: '/auth/facebook' },
+	            'header',
+	            { className: 'header-text' },
+	            React.createElement(
+	              'a',
+	              { href: '#/' },
+	              'GameFaces!'
+	            )
+	          ),
 	          React.createElement(
 	            'button',
-	            { className: 'facebook-log-in' },
-	            'Log in with Facebook'
-	          )
-	        ),
-	        React.createElement(
-	          'header',
-	          { className: 'sign-in-header group' },
+	            { onClick: this.logInAsMario, className: 'mario-log-in' },
+	            ' Log in as Mario! '
+	          ),
 	          React.createElement(
-	            'form',
-	            { onSubmit: this.submitCredentials, className: 'sign-in-header-form group' },
-	            React.createElement(
-	              'label',
-	              { htmlFor: 'username' },
-	              'Username'
-	            ),
-	            React.createElement(
-	              'label',
-	              { htmlFor: 'password' },
-	              'Password'
-	            ),
-	            React.createElement('input', { onChange: this.updateUsername, type: 'text', name: 'user[username]', id: 'username' }),
-	            React.createElement('input', { onChange: this.updatePassword, type: 'password', name: 'user[password]', id: 'password' }),
+	            'a',
+	            { className: 'facebook-link', href: '/auth/facebook' },
 	            React.createElement(
 	              'button',
-	              null,
-	              'Submit'
+	              { className: 'facebook-log-in' },
+	              'Log in with Facebook'
+	            )
+	          ),
+	          React.createElement(
+	            'header',
+	            { className: 'sign-in-header group' },
+	            React.createElement(
+	              'form',
+	              { onSubmit: this.submitCredentials, className: 'sign-in-header-form group' },
+	              React.createElement(
+	                'label',
+	                { htmlFor: 'username' },
+	                'Username'
+	              ),
+	              React.createElement(
+	                'label',
+	                { htmlFor: 'password' },
+	                'Password'
+	              ),
+	              React.createElement('input', { onChange: this.updateUsername, type: 'text', name: 'user[username]', id: 'username' }),
+	              React.createElement('input', { onChange: this.updatePassword, type: 'password', name: 'user[password]', id: 'password' }),
+	              React.createElement(
+	                'button',
+	                null,
+	                'Submit'
+	              )
 	            )
 	          )
 	        )
-	      )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'out-position-corrector' },
+	        ' Content to not be seen'
+	      ),
+	      React.createElement(SignUpForm, null)
 	    );
 	  }
 	});
@@ -34105,6 +34116,26 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var SignUpForm = React.createClass({
+	  displayName: "SignUpForm",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "sign-up-form" },
+	      "Hello from the sign up form."
+	    );
+	  }
+	});
+
+	module.exports = SignUpForm;
 
 /***/ }
 /******/ ]);
