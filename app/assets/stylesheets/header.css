@@ -215,6 +215,7 @@
 .sign-in-header-form > button {
   float :right;
   margin-right: 23px;
+  padding: 1px 5px;
   background-color: #5b74a8;
   color: #fff;
   font-size: 12px;
