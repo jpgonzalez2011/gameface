@@ -1,0 +1,114 @@
+.landing-page-container {
+  width: 980px;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.right-side-container {
+  float: right;
+  width: 490px;
+}
+
+.sign-up-form {
+  float: left;
+}
+
+.sign-up-form-header {
+  font-size: 36px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+  line-height: 120%;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.sign-up-form-tagline {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 19px;
+  line-height: 126%;
+}
+
+.first-name-input {
+  width: 172px;
+  height: 21px;
+  padding: 8px 10px;
+  margin: 1px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+}
+
+.last-name-input {
+  width: 172px;
+  height: 21px;
+  padding: 8px 10px;
+  margin: 1px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+}
+
+.username-input {
+  width: 377px;
+  height: 21px;
+  padding: 8px 10px;
+  margin: 1px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.password-input {
+  width: 377px;
+  height: 21px;
+  padding: 8px 10px;
+  margin: 1px;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.birthday-header {
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  color: #141823;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+}
+
+.birthday-selector {
+  align-items: center;
+  background-color: rgb(248, 248, 248);
+  border: 1px solid rgb(189,199,216);
+  border-radius: 5px;
+  height: 30px;
+  padding: 5px;
+  overflow: visible;
+  float: left;
+  margin-right: 5px;
+}
+
+.sign-up-submit-button {
+  color: white;
+  font-size: 19px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  min-width: 152px;
+  padding: 7px 20px;
+  text-align: center;
+  line-height: 126%;
+  background-color: #69a74e;
+  box-shadow: inset 0 1px 1px #a4e388;
+  border: 1px solid #ccc;
+  border-color: #3b6e22 #3b6e22 #2c5115;
+}
