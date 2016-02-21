@@ -6,7 +6,7 @@ var React = require('react'),
     IndexRoute = require('react-router').IndexRoute;
 
 var LoggedInNavHeader = require('./components/logged_in_nav_header'),
-    LoggedOutNavHeader = require('./components/logged_out_nav_header'),
+    LandingPage = require('./components/landing_page'),
     Profile = require('./components/profiles/profile'),
     PhotosIndex = require('./components/photos/photos_index'),
     About = require('./components/about/about'),
@@ -50,7 +50,7 @@ var GameFace = React.createClass({
     } else {
       return (
         <div id="gamefaces">
-          <LoggedOutNavHeader />
+          <LandingPage />
         </div>
       );
     }

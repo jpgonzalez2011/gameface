@@ -1,5 +1,6 @@
 var React = require('react'),
     SignUpForm = require('./sign_up_form'),
+    LandingContent = require('./landing_content'),
     CurrentUserStore = require('../stores/current_user_store');
 
 var NavSearchField = require('./nav_search_field');
@@ -56,9 +57,17 @@ var LoggedOutNavHeader = React.createClass({
             </header>
           </nav>
         </header>
-        <div className="out-position-corrector"> Content to not be seen
+        <div className="out-position-corrector">
+          Content to not be seen
         </div>
-        <SignUpForm />
+        <div className="landing-page-container group">
+          <div className="right-side-container group">
+            <SignUpForm />
+          </div>
+          <div className="left-side-container group">
+            <LandingContent />
+          </div>
+        </div>
       </div>
     );
   }

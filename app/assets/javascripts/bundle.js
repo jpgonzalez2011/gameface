@@ -52,15 +52,15 @@
 	    IndexRoute = __webpack_require__(159).IndexRoute;
 
 	var LoggedInNavHeader = __webpack_require__(208),
-	    LoggedOutNavHeader = __webpack_require__(245),
-	    Profile = __webpack_require__(248),
-	    PhotosIndex = __webpack_require__(258),
-	    About = __webpack_require__(268),
+	    LandingPage = __webpack_require__(245),
+	    Profile = __webpack_require__(246),
+	    PhotosIndex = __webpack_require__(256),
+	    About = __webpack_require__(266),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(269),
-	    FriendsIndex = __webpack_require__(278),
-	    Timeline = __webpack_require__(279),
-	    SessionForm = __webpack_require__(285);
+	    ProfileTimeline = __webpack_require__(267),
+	    FriendsIndex = __webpack_require__(276),
+	    Timeline = __webpack_require__(277),
+	    SessionForm = __webpack_require__(283);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -99,7 +99,7 @@
 	      return React.createElement(
 	        'div',
 	        { id: 'gamefaces' },
-	        React.createElement(LoggedOutNavHeader, null)
+	        React.createElement(LandingPage, null)
 	      );
 	    }
 	  }
@@ -31872,7 +31872,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    SignUpForm = __webpack_require__(246),
+	    SignUpForm = __webpack_require__(284),
+	    LandingContent = __webpack_require__(286),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var NavSearchField = __webpack_require__(234);
@@ -31969,9 +31970,22 @@
 	      React.createElement(
 	        'div',
 	        { className: 'out-position-corrector' },
-	        ' Content to not be seen'
+	        'Content to not be seen'
 	      ),
-	      React.createElement(SignUpForm, null)
+	      React.createElement(
+	        'div',
+	        { className: 'landing-page-container group' },
+	        React.createElement(
+	          'div',
+	          { className: 'right-side-container group' },
+	          React.createElement(SignUpForm, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'left-side-container group' },
+	          React.createElement(LandingContent, null)
+	        )
+	      )
 	    );
 	  }
 	});
@@ -31983,402 +31997,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    SignUpApiUtil = __webpack_require__(247);
-
-	var SignUpForm = React.createClass({
-	  displayName: 'SignUpForm',
-
-	  getInitialState: function () {
-	    return { username: "",
-	      firstName: "",
-	      lastName: "",
-	      password: "",
-	      birthdayMonth: "",
-	      birthdayDay: "",
-	      birthdayYear: "",
-	      creatingUser: false
-	    };
-	  },
-
-	  yearRange: function () {
-	    range = [];
-	    current_year = new Date().getFullYear();
-	    for (i = current_year; i > 1949 + 1; i--) {
-	      range.push(i);
-	    }
-	    return range;
-	  },
-
-	  updateUsername: function (e) {
-	    this.setState({ username: e.target.value.toLowerCase() });
-	  },
-
-	  updateFname: function (e) {
-	    this.setState({ fname: e.target.value });
-	  },
-
-	  updateLname: function (e) {
-	    this.setState({ lname: e.target.value });
-	  },
-
-	  updatePassword: function (e) {
-	    this.setState({ password: e.target.value });
-	  },
-
-	  updateBirthdayMonth: function (e) {
-	    this.setState({ birthdayMonth: e.target.value });
-	  },
-
-	  updateBirthdayDay: function (e) {
-	    this.setState({ birthdayDay: e.target.value });
-	  },
-
-	  updateBirthdayYear: function (e) {
-	    this.setState({ birthdayYear: e.target.value });
-	  },
-
-	  onSubmit: function (e) {
-	    e.preventDefault();
-	    var newUser = { newUser: this.state };
-	    SignUpApiUtil.submitNewUser(newUser);
-	    this.setState({ creatingUser: true });
-	  },
-
-	  render: function () {
-	    var buttonText;
-	    if (this.state.creatingUser) {
-	      buttonText = "Creating account...";
-	    } else {
-	      buttonText = "Sign Up";
-	    }
-	    return React.createElement(
-	      'div',
-	      { className: 'landing-page-container' },
-	      React.createElement(
-	        'div',
-	        { className: 'right-side-container group' },
-	        React.createElement(
-	          'div',
-	          { className: 'sign-up-form' },
-	          React.createElement(
-	            'header',
-	            { className: 'sign-up-form-header' },
-	            'Sign Up'
-	          ),
-	          React.createElement(
-	            'header',
-	            { className: 'sign-up-form-tagline' },
-	            'Games are fun and always will be.'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'group' },
-	            React.createElement('input', { onChange: this.updateFname, className: 'first-name-input', placeholder: 'First name' }),
-	            React.createElement('input', { onChange: this.updateLname, className: 'last-name-input', placeholder: 'Last name' })
-	          ),
-	          React.createElement('input', { onChange: this.updateUsername, className: 'username-input', placeholder: 'Username' }),
-	          React.createElement('input', { onChange: this.updatePassword, className: 'password-input', placeholder: 'Password' }),
-	          React.createElement(
-	            'header',
-	            { className: 'birthday-header' },
-	            'Birthday'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'group' },
-	            React.createElement(
-	              'select',
-	              { onChange: this.updateBirthdayMonth, 'aria-label': 'Month', title: 'Month', className: 'birthday-selector', defaultValue: '0' },
-	              React.createElement(
-	                'option',
-	                { value: '0' },
-	                'Month'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '1' },
-	                'Jan'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '2' },
-	                'Feb'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '3' },
-	                'Mar'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '4' },
-	                'Apr'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '5' },
-	                'May'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '6' },
-	                'Jun'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '7' },
-	                'Jul'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '8' },
-	                'Aug'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '9' },
-	                'Sep'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '10' },
-	                'Oct'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '11' },
-	                'Nov'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '12' },
-	                'Dec'
-	              )
-	            ),
-	            React.createElement(
-	              'select',
-	              { onChange: this.updateBirthdayDay, 'aria-label': 'Month', title: 'Month', className: 'birthday-selector', defaultValue: '0' },
-	              React.createElement(
-	                'option',
-	                { value: '0' },
-	                'Day'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '01' },
-	                '01'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '02' },
-	                '02'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '03' },
-	                '03'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '04' },
-	                '04'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '05' },
-	                '05'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '06' },
-	                '06'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '07' },
-	                '07'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '08' },
-	                '08'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '09' },
-	                '09'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '10' },
-	                '10'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '11' },
-	                '11'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '12' },
-	                '12'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '13' },
-	                '13'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '14' },
-	                '14'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '15' },
-	                '15'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '16' },
-	                '16'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '17' },
-	                '17'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '18' },
-	                '18'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '19' },
-	                '19'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '20' },
-	                '20'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '21' },
-	                '21'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '22' },
-	                '22'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '23' },
-	                '23'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '24' },
-	                '24'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '25' },
-	                '25'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '26' },
-	                '26'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '27' },
-	                '27'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '28' },
-	                '28'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '29' },
-	                '29'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '30' },
-	                '30'
-	              ),
-	              React.createElement(
-	                'option',
-	                { value: '31' },
-	                '31'
-	              )
-	            ),
-	            React.createElement(
-	              'select',
-	              { onChange: this.updateBirthdayYear, 'aria-label': 'Year', title: 'Year', className: 'birthday-selector', defaultValue: '0' },
-	              React.createElement(
-	                'option',
-	                { value: '0' },
-	                'Year'
-	              ),
-	              this.yearRange().map(function (year, i) {
-	                return React.createElement(
-	                  'option',
-	                  { key: i, value: year },
-	                  year
-	                );
-	              })
-	            )
-	          ),
-	          React.createElement(
-	            'button',
-	            { onClick: this.onSubmit, className: 'sign-up-submit-button' },
-	            buttonText
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = SignUpForm;
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var CurrentUserActions = __webpack_require__(233);
-
-	var SignUpApiUtil = {
-	  submitNewUser: function (newUser) {
-	    $.ajax({
-	      type: "POST",
-	      url: "api/users",
-	      dataType: "json",
-	      data: newUser,
-	      success: function (data) {
-	        CurrentUserActions.newUserReceived(data);
-	      }
-	    });
-	  }
-	};
-
-	module.exports = SignUpApiUtil;
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ProfileStore = __webpack_require__(249),
-	    FriendshipButton = __webpack_require__(253),
-	    FriendStore = __webpack_require__(254),
+	    ProfileStore = __webpack_require__(247),
+	    FriendshipButton = __webpack_require__(251),
+	    FriendStore = __webpack_require__(252),
 	    History = __webpack_require__(159).History;
 
 	var Profile = React.createClass({
@@ -32500,13 +32121,13 @@
 	module.exports = Profile;
 
 /***/ },
-/* 249 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    ProfileConstants = __webpack_require__(250),
-	    ProfileApiUtil = __webpack_require__(251);
+	    ProfileConstants = __webpack_require__(248),
+	    ProfileApiUtil = __webpack_require__(249);
 
 	var _profiles = {};
 
@@ -32547,7 +32168,7 @@
 	module.exports = ProfileStore;
 
 /***/ },
-/* 250 */
+/* 248 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -32555,10 +32176,10 @@
 	};
 
 /***/ },
-/* 251 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProfileActions = __webpack_require__(252);
+	var ProfileActions = __webpack_require__(250);
 
 	var ProfileApiUtil = {
 	  fetchSingleProfile: function (id) {
@@ -32576,11 +32197,11 @@
 	module.exports = ProfileApiUtil;
 
 /***/ },
-/* 252 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    ProfileConstants = __webpack_require__(250);
+	    ProfileConstants = __webpack_require__(248);
 
 	var ProfileActions = {
 	  receiveSingleProfile: function (profile) {
@@ -32594,12 +32215,12 @@
 	module.exports = ProfileActions;
 
 /***/ },
-/* 253 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    FriendStore = __webpack_require__(254),
+	    FriendStore = __webpack_require__(252),
 	    FriendApiUtil = __webpack_require__(241);
 
 	var FriendshipButton = React.createClass({
@@ -32692,16 +32313,16 @@
 	module.exports = FriendshipButton;
 
 /***/ },
-/* 254 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    FriendConstants = __webpack_require__(243),
 	    FriendApiUtil = __webpack_require__(241),
-	    PostConstants = __webpack_require__(255),
-	    PhotoConstants = __webpack_require__(256),
-	    TimelineConstants = __webpack_require__(257);
+	    PostConstants = __webpack_require__(253),
+	    PhotoConstants = __webpack_require__(254),
+	    TimelineConstants = __webpack_require__(255);
 
 	var comment;
 	var friends = [];
@@ -32776,7 +32397,7 @@
 	module.exports = FriendStore;
 
 /***/ },
-/* 255 */
+/* 253 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -32786,7 +32407,7 @@
 	};
 
 /***/ },
-/* 256 */
+/* 254 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -32796,7 +32417,7 @@
 	};
 
 /***/ },
-/* 257 */
+/* 255 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -32806,14 +32427,14 @@
 	};
 
 /***/ },
-/* 258 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    PhotoStore = __webpack_require__(259),
-	    PhotoForm = __webpack_require__(263),
-	    PhotoPreview = __webpack_require__(264);
+	    PhotoStore = __webpack_require__(257),
+	    PhotoForm = __webpack_require__(261),
+	    PhotoPreview = __webpack_require__(262);
 
 	var _photoForm;
 
@@ -32915,13 +32536,13 @@
 	module.exports = PhotosIndex;
 
 /***/ },
-/* 259 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    PhotoConstants = __webpack_require__(256),
-	    PhotoApiUtil = __webpack_require__(260);
+	    PhotoConstants = __webpack_require__(254),
+	    PhotoApiUtil = __webpack_require__(258);
 
 	var photos = [];
 
@@ -32979,11 +32600,11 @@
 	module.exports = PhotoStore;
 
 /***/ },
-/* 260 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PhotoActions = __webpack_require__(261),
-	    TimelineActions = __webpack_require__(262);
+	var PhotoActions = __webpack_require__(259),
+	    TimelineActions = __webpack_require__(260);
 
 	var PhotoApiUtil = {
 	  fetchOwnedPhotos: function (ownerId) {
@@ -33033,11 +32654,11 @@
 	module.exports = PhotoApiUtil;
 
 /***/ },
-/* 261 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    PhotoConstants = __webpack_require__(256);
+	    PhotoConstants = __webpack_require__(254);
 
 	var PhotoActions = {
 	  receivePhotos: function (photos) {
@@ -33065,11 +32686,11 @@
 	module.exports = PhotoActions;
 
 /***/ },
-/* 262 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    TimelineConstants = __webpack_require__(257);
+	    TimelineConstants = __webpack_require__(255);
 
 	var TimelineActions = {
 	  receiveItems: function (items) {
@@ -33091,11 +32712,11 @@
 	module.exports = TimelineActions;
 
 /***/ },
-/* 263 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(259),
+	    PhotoStore = __webpack_require__(257),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoForm = React.createClass({
@@ -33169,11 +32790,11 @@
 	module.exports = PhotoForm;
 
 /***/ },
-/* 264 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoShow = __webpack_require__(265);
+	    PhotoShow = __webpack_require__(263);
 
 	var PhotoPreview = React.createClass({
 	  displayName: 'PhotoPreview',
@@ -33203,12 +32824,12 @@
 	module.exports = PhotoPreview;
 
 /***/ },
-/* 265 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentDisplay = __webpack_require__(266),
-	    PhotoCommentForm = __webpack_require__(267);
+	    PhotoCommentDisplay = __webpack_require__(264),
+	    PhotoCommentForm = __webpack_require__(265);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -33324,7 +32945,7 @@
 	module.exports = PhotoShow;
 
 /***/ },
-/* 266 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33372,11 +32993,11 @@
 	module.exports = PhotoCommentDisplay;
 
 /***/ },
-/* 267 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(259),
+	    PhotoStore = __webpack_require__(257),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoCommentForm = React.createClass({
@@ -33428,11 +33049,11 @@
 	module.exports = PhotoCommentForm;
 
 /***/ },
-/* 268 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    ProfileStore = __webpack_require__(249);
+	    ProfileStore = __webpack_require__(247);
 
 	var About = React.createClass({
 	  displayName: 'About',
@@ -33522,15 +33143,15 @@
 	module.exports = About;
 
 /***/ },
-/* 269 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(270),
-	    PostStore = __webpack_require__(271),
-	    PostCommentForm = __webpack_require__(274),
-	    CommentDisplay = __webpack_require__(275),
-	    FriendGrid = __webpack_require__(276);
+	    PostForm = __webpack_require__(268),
+	    PostStore = __webpack_require__(269),
+	    PostCommentForm = __webpack_require__(272),
+	    CommentDisplay = __webpack_require__(273),
+	    FriendGrid = __webpack_require__(274);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33631,11 +33252,11 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 270 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(271),
+	    PostStore = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostForm = React.createClass({
@@ -33728,13 +33349,13 @@
 	module.exports = PostForm;
 
 /***/ },
-/* 271 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    PostConstants = __webpack_require__(255),
-	    PostApiUtil = __webpack_require__(272);
+	    PostConstants = __webpack_require__(253),
+	    PostApiUtil = __webpack_require__(270);
 
 	var posts = [];
 
@@ -33785,11 +33406,11 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 272 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(273),
-	    TimelineActions = __webpack_require__(262);
+	var PostActions = __webpack_require__(271),
+	    TimelineActions = __webpack_require__(260);
 
 	var PostApiUtil = {
 	  fetchTargetedPosts: function (targetId) {
@@ -33836,11 +33457,11 @@
 	module.exports = PostApiUtil;
 
 /***/ },
-/* 273 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(255);
+	    PostConstants = __webpack_require__(253);
 
 	var PostActions = {
 	  receivePosts: function (posts) {
@@ -33868,11 +33489,11 @@
 	module.exports = PostActions;
 
 /***/ },
-/* 274 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(271),
+	    PostStore = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostCommentForm = React.createClass({
@@ -33924,7 +33545,7 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 275 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33972,13 +33593,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 276 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(254),
+	    FriendStore = __webpack_require__(252),
 	    FriendApiUtil = __webpack_require__(241),
-	    FriendGridItem = __webpack_require__(277);
+	    FriendGridItem = __webpack_require__(275);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34045,7 +33666,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 277 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34080,11 +33701,11 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 278 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(254),
+	    FriendStore = __webpack_require__(252),
 	    FriendIndexItem = __webpack_require__(236),
 	    FriendApiUtil = __webpack_require__(241);
 
@@ -34161,19 +33782,19 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 279 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(280),
-	    PostForm = __webpack_require__(270),
-	    PostCommentForm = __webpack_require__(274),
-	    PhotoCommentForm = __webpack_require__(267),
-	    CommentDisplay = __webpack_require__(275),
-	    TimelinePostItem = __webpack_require__(282),
-	    TimelinePhotoItem = __webpack_require__(283),
-	    SearchResults = __webpack_require__(284);
+	    TimelineStore = __webpack_require__(278),
+	    PostForm = __webpack_require__(268),
+	    PostCommentForm = __webpack_require__(272),
+	    PhotoCommentForm = __webpack_require__(265),
+	    CommentDisplay = __webpack_require__(273),
+	    TimelinePostItem = __webpack_require__(280),
+	    TimelinePhotoItem = __webpack_require__(281),
+	    SearchResults = __webpack_require__(282);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34267,15 +33888,15 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 280 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
-	    TimelineConstants = __webpack_require__(257),
-	    TimelineApiUtil = __webpack_require__(281),
-	    PostConstants = __webpack_require__(255),
-	    PhotoConstants = __webpack_require__(256);
+	    TimelineConstants = __webpack_require__(255),
+	    TimelineApiUtil = __webpack_require__(279),
+	    PostConstants = __webpack_require__(253),
+	    PhotoConstants = __webpack_require__(254);
 
 	var items = [];
 
@@ -34314,10 +33935,10 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 281 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var TimelineActions = __webpack_require__(262);
+	var TimelineActions = __webpack_require__(260);
 
 	var TimelineApiUtil = {
 	  fetchAllItems: function () {
@@ -34336,12 +33957,12 @@
 	module.exports = TimelineApiUtil;
 
 /***/ },
-/* 282 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(274),
-	    CommentDisplay = __webpack_require__(275);
+	    PostCommentForm = __webpack_require__(272),
+	    CommentDisplay = __webpack_require__(273);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -34388,12 +34009,12 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 283 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentForm = __webpack_require__(267),
-	    CommentDisplay = __webpack_require__(275);
+	    PhotoCommentForm = __webpack_require__(265),
+	    CommentDisplay = __webpack_require__(273);
 
 	var TimelinePhotoItem = React.createClass({
 	  displayName: 'TimelinePhotoItem',
@@ -34436,7 +34057,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 284 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34460,7 +34081,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 285 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34509,6 +34130,440 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    SignUpApiUtil = __webpack_require__(285);
+
+	var SignUpForm = React.createClass({
+	  displayName: 'SignUpForm',
+
+	  getInitialState: function () {
+	    return { username: "",
+	      firstName: "",
+	      lastName: "",
+	      password: "",
+	      birthdayMonth: "",
+	      birthdayDay: "",
+	      birthdayYear: "",
+	      creatingUser: false
+	    };
+	  },
+
+	  yearRange: function () {
+	    range = [];
+	    current_year = new Date().getFullYear();
+	    for (i = current_year; i > 1949 + 1; i--) {
+	      range.push(i);
+	    }
+	    return range;
+	  },
+
+	  updateUsername: function (e) {
+	    this.setState({ username: e.target.value.toLowerCase() });
+	  },
+
+	  updateFname: function (e) {
+	    this.setState({ fname: e.target.value });
+	  },
+
+	  updateLname: function (e) {
+	    this.setState({ lname: e.target.value });
+	  },
+
+	  updatePassword: function (e) {
+	    this.setState({ password: e.target.value });
+	  },
+
+	  updateBirthdayMonth: function (e) {
+	    this.setState({ birthdayMonth: e.target.value });
+	  },
+
+	  updateBirthdayDay: function (e) {
+	    this.setState({ birthdayDay: e.target.value });
+	  },
+
+	  updateBirthdayYear: function (e) {
+	    this.setState({ birthdayYear: e.target.value });
+	  },
+
+	  onSubmit: function (e) {
+	    e.preventDefault();
+	    var newUser = { newUser: this.state };
+	    SignUpApiUtil.submitNewUser(newUser);
+	    this.setState({ creatingUser: true });
+	  },
+
+	  render: function () {
+	    var buttonText;
+	    if (this.state.creatingUser) {
+	      buttonText = "Creating account...";
+	    } else {
+	      buttonText = "Sign Up";
+	    }
+	    return React.createElement(
+	      'div',
+	      { className: 'sign-up-form' },
+	      React.createElement(
+	        'header',
+	        { className: 'sign-up-form-header' },
+	        'Sign Up'
+	      ),
+	      React.createElement(
+	        'header',
+	        { className: 'sign-up-form-tagline' },
+	        'Games are fun and always will be.'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'group' },
+	        React.createElement('input', { onChange: this.updateFname, className: 'first-name-input', placeholder: 'First name' }),
+	        React.createElement('input', { onChange: this.updateLname, className: 'last-name-input', placeholder: 'Last name' })
+	      ),
+	      React.createElement('input', { onChange: this.updateUsername, className: 'username-input', placeholder: 'Username' }),
+	      React.createElement('input', { onChange: this.updatePassword, className: 'password-input', placeholder: 'Password' }),
+	      React.createElement(
+	        'header',
+	        { className: 'birthday-header' },
+	        'Birthday'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'group' },
+	        React.createElement(
+	          'select',
+	          { onChange: this.updateBirthdayMonth, 'aria-label': 'Month', title: 'Month', className: 'birthday-selector', defaultValue: '0' },
+	          React.createElement(
+	            'option',
+	            { value: '0' },
+	            'Month'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '1' },
+	            'Jan'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '2' },
+	            'Feb'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '3' },
+	            'Mar'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '4' },
+	            'Apr'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '5' },
+	            'May'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '6' },
+	            'Jun'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '7' },
+	            'Jul'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '8' },
+	            'Aug'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '9' },
+	            'Sep'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '10' },
+	            'Oct'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '11' },
+	            'Nov'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '12' },
+	            'Dec'
+	          )
+	        ),
+	        React.createElement(
+	          'select',
+	          { onChange: this.updateBirthdayDay, 'aria-label': 'Month', title: 'Month', className: 'birthday-selector', defaultValue: '0' },
+	          React.createElement(
+	            'option',
+	            { value: '0' },
+	            'Day'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '01' },
+	            '01'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '02' },
+	            '02'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '03' },
+	            '03'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '04' },
+	            '04'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '05' },
+	            '05'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '06' },
+	            '06'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '07' },
+	            '07'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '08' },
+	            '08'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '09' },
+	            '09'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '10' },
+	            '10'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '11' },
+	            '11'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '12' },
+	            '12'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '13' },
+	            '13'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '14' },
+	            '14'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '15' },
+	            '15'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '16' },
+	            '16'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '17' },
+	            '17'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '18' },
+	            '18'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '19' },
+	            '19'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '20' },
+	            '20'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '21' },
+	            '21'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '22' },
+	            '22'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '23' },
+	            '23'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '24' },
+	            '24'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '25' },
+	            '25'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '26' },
+	            '26'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '27' },
+	            '27'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '28' },
+	            '28'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '29' },
+	            '29'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '30' },
+	            '30'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '31' },
+	            '31'
+	          )
+	        ),
+	        React.createElement(
+	          'select',
+	          { onChange: this.updateBirthdayYear, 'aria-label': 'Year', title: 'Year', className: 'birthday-selector', defaultValue: '0' },
+	          React.createElement(
+	            'option',
+	            { value: '0' },
+	            'Year'
+	          ),
+	          this.yearRange().map(function (year, i) {
+	            return React.createElement(
+	              'option',
+	              { key: i, value: year },
+	              year
+	            );
+	          })
+	        )
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.onSubmit, className: 'sign-up-submit-button' },
+	        buttonText
+	      )
+	    );
+	  }
+	});
+
+	module.exports = SignUpForm;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var CurrentUserActions = __webpack_require__(233);
+
+	var SignUpApiUtil = {
+	  submitNewUser: function (newUser) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/users",
+	      dataType: "json",
+	      data: newUser,
+	      success: function (data) {
+	        CurrentUserActions.newUserReceived(data);
+	      }
+	    });
+	  }
+	};
+
+	module.exports = SignUpApiUtil;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var LandingContent = React.createClass({
+	  displayName: "LandingContent",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "header",
+	        { className: "welcome-header" },
+	        "This is GameFaces!"
+	      ),
+	      React.createElement(
+	        "header",
+	        { className: "welcome-tagline" },
+	        "A Project by ",
+	        React.createElement(
+	          "a",
+	          { className: "welcome-link", href: "http://jpgonzalez.io" },
+	          "JP Gonzalez."
+	        )
+	      ),
+	      React.createElement(
+	        "p",
+	        { className: "project-blurb" },
+	        "Built with Ruby on Rails and React.js, GameFaces! is a technical recreation of Facebook.. for video game characters!"
+	      ),
+	      React.createElement(
+	        "p",
+	        { className: "follow-line" },
+	        " More by JP Gonzalez "
+	      ),
+	      React.createElement(
+	        "a",
+	        { className: "portfolio-link", href: "http://jpgonzalez.io" },
+	        " Porfolio Site "
+	      )
+	    );
+	  }
+	});
+
+	module.exports = LandingContent;
 
 /***/ }
 /******/ ]);

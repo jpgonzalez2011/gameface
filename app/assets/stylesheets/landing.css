@@ -5,6 +5,11 @@
   padding-bottom: 20px;
 }
 
+.left-side-container {
+  float: left;
+  width: 490px;
+}
+
 .right-side-container {
   float: right;
   width: 490px;
@@ -111,4 +116,59 @@
   box-shadow: inset 0 1px 1px #a4e388;
   border: 1px solid #ccc;
   border-color: #3b6e22 #3b6e22 #2c5115;
+}
+
+.welcome-header {
+  font-size: 36px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+  line-height: 120%;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.welcome-tagline {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 19px;
+  line-height: 126%;
+}
+
+.welcome-link {
+  text-decoration: underline;
+}
+
+.project-blurb {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 16px;
+  line-height: 126%;
+}
+
+.follow-line {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 19px;
+  line-height: 126%;
+}
+
+.portfolio-link {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 19px;
+  line-height: 126%;
+  text-decoration: underline;
 }
