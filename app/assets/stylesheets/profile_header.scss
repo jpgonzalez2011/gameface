@@ -43,16 +43,12 @@
 
 .friendship-button::before {
   content: image-url("fb_icons/friendship_checkmark.png");
-  width: 10px;
-  height: 10px;
   margin-right: 5px;
   margin-left: 5px;
 }
 
 .add-friendship-button::before {
   content: image-url("fb_icons/add_friend_icon.png");
-  width: 10px;
-  height: 10px;
   margin-right: 5px;
   margin-left: 5px;
 }
