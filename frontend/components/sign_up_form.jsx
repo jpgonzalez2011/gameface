@@ -1,6 +1,21 @@
-var React = require('react');
+var React = require('react'),
+    SignUpApiUtil = require('../util/signup_api_util');
 
 var SignUpForm = React.createClass({
+  getInitialState: function () {
+    return (
+      { username: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        birthdayMonth: "",
+        birthdayDay: "",
+        birthdayYear: "",
+        creatingUser: false
+      }
+    );
+  },
+
   yearRange: function () {
     range = [];
     current_year = new Date().getFullYear();
@@ -10,7 +25,48 @@ var SignUpForm = React.createClass({
     return range;
   },
 
+  updateUsername: function (e) {
+    this.setState({ username: e.target.value.toLowerCase() });
+  },
+
+  updateFname: function (e) {
+    this.setState({ fname: e.target.value });
+  },
+
+  updateLname: function (e) {
+    this.setState({ lname: e.target.value });
+  },
+
+  updatePassword: function (e) {
+    this.setState({ password: e.target.value });
+  },
+
+  updateBirthdayMonth: function (e) {
+    this.setState({ birthdayMonth: e.target.value });
+  },
+
+  updateBirthdayDay: function (e) {
+    this.setState({ birthdayDay: e.target.value });
+  },
+
+  updateBirthdayYear: function (e) {
+    this.setState({ birthdayYear: e.target.value });
+  },
+
+  onSubmit: function (e) {
+    e.preventDefault();
+    var newUser = { newUser: this.state }
+    SignUpApiUtil.submitNewUser(newUser);
+    this.setState({ creatingUser: true })
+  },
+
   render: function () {
+    var buttonText;
+    if (this.state.creatingUser) {
+      buttonText = "Creating account..."
+    } else {
+      buttonText = "Sign Up"
+    }
     return (
     <div className="landing-page-container">
       <div className="right-side-container group">
@@ -22,16 +78,16 @@ var SignUpForm = React.createClass({
             Games are fun and always will be.
           </header>
           <div className="group">
-            <input className="first-name-input" placeholder="First name"/>
-            <input className="last-name-input" placeholder="Last name"/>
+            <input onChange={this.updateFname} className="first-name-input" placeholder="First name"/>
+            <input onChange={this.updateLname} className="last-name-input" placeholder="Last name"/>
           </div>
-          <input className="username-input" placeholder="Username"/>
-          <input className="password-input" placeholder="Password"/>
+          <input onChange={this.updateUsername} className="username-input" placeholder="Username"/>
+          <input onChange={this.updatePassword} className="password-input" placeholder="Password"/>
           <header className="birthday-header">
             Birthday
           </header>
           <div className="group">
-            <select aria-label="Month" title="Month" className="birthday-selector" defaultValue="0">
+            <select onChange={this.updateBirthdayMonth} aria-label="Month" title="Month" className="birthday-selector" defaultValue="0">
               <option value="0">Month</option>
               <option value="1">Jan</option>
               <option value="2">Feb</option>
@@ -46,7 +102,7 @@ var SignUpForm = React.createClass({
               <option value="11">Nov</option>
               <option value="12">Dec</option>
             </select>
-            <select aria-label="Month" title="Month" className="birthday-selector" defaultValue="0">
+            <select onChange={this.updateBirthdayDay} aria-label="Month" title="Month" className="birthday-selector" defaultValue="0">
               <option value="0">Day</option>
               <option value="01">01</option>
               <option value="02">02</option>
@@ -80,7 +136,7 @@ var SignUpForm = React.createClass({
               <option value="30">30</option>
               <option value="31">31</option>
             </select>
-            <select aria-label="Year" title="Year" className="birthday-selector" defaultValue="0">
+            <select onChange={this.updateBirthdayYear} aria-label="Year" title="Year" className="birthday-selector" defaultValue="0">
               <option value="0">Year</option>
               {this.yearRange().map( function (year, i) {
                 return (
@@ -89,7 +145,7 @@ var SignUpForm = React.createClass({
               })}
             </select>
           </div>
-          <button className="sign-up-submit-button"> Sign Up</button>
+          <button onClick={this.onSubmit} className="sign-up-submit-button">{buttonText}</button>
         </div>
       </div>
     </div>

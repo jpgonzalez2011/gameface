@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :timeline, only: [:index]
     resources :friendships, only: [:create]
-    resources :users, only: [:show] do
+    resources :users, only: [:show, :create] do
       resources :posts, only: [:index]
       resources :photos, only: [:index, :create]
       resources :friendships, only: [:index, :show]
