@@ -194,6 +194,7 @@
   box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;
   font-size: 12px;
   margin-top: 7px;
+  padding: 1px 5px;
 }
 
 .sign-in-header-form {
