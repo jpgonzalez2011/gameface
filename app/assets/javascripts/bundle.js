@@ -32705,7 +32705,7 @@
 	        React.createElement(
 	          'button',
 	          { className: 'friendship-button' },
-	          ' Friends! '
+	          'Friends!'
 	        )
 	      );
 	    } else if (this.state.friendship.friendshipStatus == false) {
@@ -32715,7 +32715,7 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            { onClick: this.cancelFriend, className: 'friendship-button' },
+	            { onClick: this.cancelFriend, className: 'cancel-friendship-button' },
 	            ' Cancel Friend Request '
 	          )
 	        );
@@ -32725,7 +32725,7 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            { onClick: this.confirmFriend, className: 'friendship-button' },
+	            { onClick: this.confirmFriend, className: 'confirm-friendship-button' },
 	            ' Accept Friend Request '
 	          )
 	        );
@@ -32736,7 +32736,7 @@
 	        null,
 	        React.createElement(
 	          'button',
-	          { onClick: this.addFriend, className: 'friendship-button' },
+	          { onClick: this.addFriend, className: 'add-friendship-button' },
 	          ' Add Friend! '
 	        )
 	      );

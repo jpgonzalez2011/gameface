@@ -49,27 +49,29 @@ var FriendshipButton = React.createClass({
     } else if (this.state.friendship.friendshipStatus == true) {
       return (
         <div>
-          <button className="friendship-button"> Friends! </button>
+          <button className="friendship-button">
+            Friends!
+          </button>
         </div>
       );
     } else if (this.state.friendship.friendshipStatus == false) {
       if (this.state.friendship.received_friend_id == CurrentUserStore.currentUser().id) {
         return (
           <div>
-            <button onClick={this.cancelFriend} className="friendship-button"> Cancel Friend Request </button>
+            <button onClick={this.cancelFriend} className="cancel-friendship-button"> Cancel Friend Request </button>
           </div>
         );
       } else if (this.state.friendship.requested_friend_id == CurrentUserStore.currentUser().id) {
         return (
           <div>
-            <button onClick={this.confirmFriend} className="friendship-button"> Accept Friend Request </button>
+            <button onClick={this.confirmFriend} className="confirm-friendship-button"> Accept Friend Request </button>
           </div>
         );
       }
     } else {
       return (
         <div>
-          <button onClick={this.addFriend} className="friendship-button"> Add Friend! </button>
+          <button onClick={this.addFriend} className="add-friendship-button"> Add Friend! </button>
         </div>
       );
     }

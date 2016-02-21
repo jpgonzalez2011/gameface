@@ -24,17 +24,37 @@
   bottom: 24px;
 }
 
-.friendship-button {
+.friendship-button, .add-friendship-button,
+.cancel-friendship-button, .confirm-friendship-button {
   position: absolute;
   right: 30px;
   bottom: 25px;
+  padding-right: 5px;
   background-color: #f6f7f8;
   border: 1px solid black;
-  min-width: 95px;
+  min-width: 85px;
+  color: rgb(78, 86, 101);
   height: 26px;
   font-size: 12px;
-  line-height: 26px;
+  line-height: 200%;
   font-weight: bold;
+  text-align: center;
+}
+
+.friendship-button::before {
+  content: image-url("fb_icons/friendship_checkmark.png");
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.add-friendship-button::before {
+  content: image-url("fb_icons/add_friend_icon.png");
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .profile-username-display {
