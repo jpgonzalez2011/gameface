@@ -32424,6 +32424,18 @@
 	        "a",
 	        { className: "portfolio-link", href: "http://jpgonzalez.io" },
 	        " Porfolio Site "
+	      ),
+	      " ",
+	      React.createElement("br", null),
+	      React.createElement(
+	        "span",
+	        { className: "snake-description" },
+	        React.createElement(
+	          "a",
+	          { className: "snake-link", href: "http://jpgonzalez.io/Snake" },
+	          " SnakeS "
+	        ),
+	        " - A fun take on the classic 1970s video game! "
 	      )
 	    );
 	  }

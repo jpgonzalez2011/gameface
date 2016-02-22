@@ -162,7 +162,8 @@
   line-height: 126%;
 }
 
-.portfolio-link {
+.portfolio-link, .snake-link {
+  display: inline-block;
   font-family: helvetica, arial, sans-serif;
   font-weight: normal;
   text-rendering: optimizeLegibility;
@@ -171,4 +172,9 @@
   font-size: 19px;
   line-height: 126%;
   text-decoration: underline;
+}
+
+.snake-description {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 14px;
 }

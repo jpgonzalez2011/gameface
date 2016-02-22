@@ -15,7 +15,9 @@ var LandingContent = React.createClass({
           recreation of Facebook.. for video game characters!
         </p>
         <p className="follow-line"> More by JP Gonzalez </p>
-        <a className="portfolio-link" href="http://jpgonzalez.io"> Porfolio Site </a>
+        <a className="portfolio-link" href="http://jpgonzalez.io"> Porfolio Site </a> <br />
+        <span className="snake-description"><a className="snake-link" href="http://jpgonzalez.io/Snake"> SnakeS </a> - A fun take on the classic 1970s video game! </span>
+
       </div>
     )
   }
