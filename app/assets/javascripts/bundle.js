@@ -33541,7 +33541,11 @@
 	          React.createElement(
 	            'li',
 	            null,
-	            'General Info'
+	            React.createElement(
+	              'span',
+	              { className: 'category-name' },
+	              'General Info'
+	            )
 	          )
 	        )
 	      ),

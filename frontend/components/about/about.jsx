@@ -35,7 +35,7 @@ var About = React.createClass({
         <feature className="about-nav">
           <ul>
             <li>
-              General Info
+              <span className="category-name">General Info</span>
             </li>
           </ul>
         </feature>
