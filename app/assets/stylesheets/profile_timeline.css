@@ -95,11 +95,13 @@
 .post-form-button {
   float: right;
   color: white;
+  padding: 0px 16px;
   background-color: #3a5795;
   border: 1px solid black;
   font-weight: 600;
   font-size: 12px;
-  line-height: 13px;
+  line-height: 22px;
+  vertical-align: baseline;
 }
 
 .timeline-index-item > ul {
