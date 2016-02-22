@@ -24430,8 +24430,13 @@
 	              ),
 	              React.createElement(
 	                'a',
-	                { href: profileUrl },
-	                'My Profile'
+	                { className: 'own-profile group', href: profileUrl },
+	                React.createElement('img', { className: 'own-profile-image', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	                React.createElement(
+	                  'span',
+	                  { className: 'own-profile-name' },
+	                  CurrentUserStore.currentUser().fname
+	                )
 	              )
 	            )
 	          )

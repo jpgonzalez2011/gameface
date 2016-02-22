@@ -22,7 +22,7 @@ var LoggedInNavHeader = React.createClass({
             <header className="signed-in-header">
               <div className="signed-in-header-name">
               <button onClick={this.logOut} className="log-out"> Sign Out! </button>
-                <a href={profileUrl}>My Profile</a>
+                <a className="own-profile group" href={profileUrl}><img className="own-profile-image" src={CurrentUserStore.currentUser().profile_thumb_url}/><span className="own-profile-name">{CurrentUserStore.currentUser().fname}</span></a>
               </div>
             </header>
           </nav>
