@@ -13,6 +13,7 @@
   font-size: 20px;
   padding-top: 16px;
   padding-bottom: 12px;
+  padding-left: 15px;
   background-color: rgb(237, 240, 245);
   border-bottom: 1px solid #ccc;
   border-radius: 3px;
@@ -39,5 +40,6 @@
 .category-name {
   display: inline-block;
   padding: 10px;
+  padding-left: 15px;
   font-family: helvetica, arial, sans-serif;
 }
