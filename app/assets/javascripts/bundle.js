@@ -33624,6 +33624,8 @@
 	  },
 
 	  render: function () {
+	    var poster_url;
+	    var target_url;
 	    return React.createElement(
 	      'div',
 	      { className: 'timeline-container group' },
@@ -33636,10 +33638,34 @@
 	          { className: 'timeline-index-list' },
 	          this.state.posts.map(function (post, i) {
 	            var header;
+	            poster_url = "#/users/" + post.poster_id;
+	            target_url = "#/users/" + post.target_id;
 	            if (post.poster_name === post.target_name) {
-	              header = post.poster_name;
+	              header = React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: poster_url },
+	                  post.poster_name
+	                )
+	              );
 	            } else {
-	              header = post.poster_name + " to " + post.target_name;
+	              header = React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: poster_url },
+	                  post.poster_name
+	                ),
+	                ' to ',
+	                React.createElement(
+	                  'a',
+	                  { href: target_url },
+	                  post.target_name
+	                )
+	              );
 	            }
 	            return React.createElement(
 	              'li',
@@ -33647,11 +33673,7 @@
 	              React.createElement(
 	                'h1',
 	                { className: 'timeline-index-item-header' },
-	                React.createElement(
-	                  'div',
-	                  null,
-	                  header
-	                ),
+	                header,
 	                React.createElement(
 	                  'span',
 	                  null,

@@ -35,6 +35,8 @@ var ProfileTimeline = React.createClass({
   },
 
   render: function () {
+    var poster_url;
+    var target_url;
     return (
       <div className="timeline-container group">
         <div className="timeline-right-side">
@@ -42,16 +44,18 @@ var ProfileTimeline = React.createClass({
           <ul className="timeline-index-list">
             {this.state.posts.map( function (post, i) {
               var header;
+              poster_url = "#/users/" + post.poster_id;
+              target_url = "#/users/" + post.target_id;
               if (post.poster_name === post.target_name) {
-                header = post.poster_name;
+                header = <div><a href={poster_url}>{post.poster_name}</a></div>;
               }
               else {
-                header = post.poster_name + " to " + post.target_name;
+                header = <div><a href={poster_url}>{post.poster_name}</a> to <a href={target_url}>{post.target_name}</a></div>;
               }
               return (
                 <li key={i} className="timeline-index-item">
                   <h1 className="timeline-index-item-header">
-                    <div>{header}</div>
+                    {header}
                     <span>{post.date_and_time}</span>
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
