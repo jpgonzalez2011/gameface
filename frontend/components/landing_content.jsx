@@ -8,7 +8,7 @@ var LandingContent = React.createClass({
           This is GameFaces!
         </header>
         <header className="welcome-tagline">
-          A Project by <a className="welcome-link" href="http://jpgonzalez.io">JP Gonzalez.</a>
+          A Project by <a className="welcome-link" href="http://jpgonzalez.io">JP Gonzalez</a>.
         </header>
         <p className="project-blurb">
           Built with Ruby on Rails and React.js, GameFaces! is a technical
