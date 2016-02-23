@@ -18,6 +18,7 @@
   background-color: white;
   text-align: left;
   margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .timeline-index-item-header {

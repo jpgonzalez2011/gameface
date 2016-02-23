@@ -14,8 +14,13 @@
   padding: 0px;
 }
 
+.timeline-photo-preview-container {
+  border-bottom: 1px solid #ccc;
+}
+
 .timeline-photo-preview {
   width: 300px;
   height: 300px;
   margin: auto;
+  padding: 5px 0px;
 }

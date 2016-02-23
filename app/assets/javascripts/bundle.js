@@ -34527,7 +34527,11 @@
 	          this.props.item.date_and_time
 	        )
 	      ),
-	      React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-photo-preview-container' },
+	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url })
+	      ),
 	      React.createElement(
 	        'ul',
 	        { className: 'timeline-index-item-comments-list' },

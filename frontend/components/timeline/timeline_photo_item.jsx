@@ -10,7 +10,9 @@ var TimelinePhotoItem = React.createClass({
           <div>{this.props.header}</div>
           <span>{this.props.item.date_and_time}</span>
         </h1>
+        <div className="timeline-photo-preview-container">
         <img className="timeline-photo-preview" src={this.props.item.medium_url} />
+        </div>
         <ul className="timeline-index-item-comments-list">
           {this.props.item.comments.map( function (comment, i) {
             return (
