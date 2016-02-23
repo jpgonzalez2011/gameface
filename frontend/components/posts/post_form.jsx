@@ -19,10 +19,13 @@ var PostForm = React.createClass({
       return (
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
-            <label className="post-form-header" for="text">
+            <label className="post-form-header" htmlFor="text">
               Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
-            <textarea className="post-form-input" type="text" id="text" onChange={this.changeText}/>
+            <div className="post-form-input-container group">
+              <img className="post-form-input-picture" src={CurrentUserStore.currentUser().profile_thumb_url}/>
+              <input className="post-form-input" type="text" id="text" placeholder="What's on your mind?" onChange={this.changeText}/>
+            </div>
             <feature className="post-form-footer group">
               <button className="post-form-button"> Post </button>
             </feature>
@@ -33,10 +36,13 @@ var PostForm = React.createClass({
       return (
         <div className="post-form-container">
           <form className="post-form" onSubmit={this.handleSubmit}>
-            <label className="post-form-header" for="text">
+            <label className="post-form-header" htmlFor="text">
               Make a Post, {CurrentUserStore.currentUser().fname}
             </label>
-            <input className="post-form-input" type="text" id="text" onClick={this.showFooter} onChange={this.changeText}/>
+            <div className="post-form-input-container group">
+              <img className="post-form-input-picture" src={CurrentUserStore.currentUser().profile_thumb_url}/>
+              <input className="post-form-input" type="text" id="text" placeholder="What's on your mind?" onClick={this.showFooter} onChange={this.changeText}/>
+            </div>
           </form>
         </div>
       );

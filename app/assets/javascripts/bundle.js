@@ -32407,8 +32407,9 @@
 	        React.createElement(
 	          "a",
 	          { className: "welcome-link", href: "http://jpgonzalez.io" },
-	          "JP Gonzalez."
-	        )
+	          "JP Gonzalez"
+	        ),
+	        "."
 	      ),
 	      React.createElement(
 	        "p",
@@ -33760,11 +33761,16 @@
 	          { className: 'post-form', onSubmit: this.handleSubmit },
 	          React.createElement(
 	            'label',
-	            { className: 'post-form-header', 'for': 'text' },
+	            { className: 'post-form-header', htmlFor: 'text' },
 	            'Make a Post, ',
 	            CurrentUserStore.currentUser().fname
 	          ),
-	          React.createElement('textarea', { className: 'post-form-input', type: 'text', id: 'text', onChange: this.changeText }),
+	          React.createElement(
+	            'div',
+	            { className: 'post-form-input-container group' },
+	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onChange: this.changeText })
+	          ),
 	          React.createElement(
 	            'feature',
 	            { className: 'post-form-footer group' },
@@ -33785,11 +33791,16 @@
 	          { className: 'post-form', onSubmit: this.handleSubmit },
 	          React.createElement(
 	            'label',
-	            { className: 'post-form-header', 'for': 'text' },
+	            { className: 'post-form-header', htmlFor: 'text' },
 	            'Make a Post, ',
 	            CurrentUserStore.currentUser().fname
 	          ),
-	          React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', onClick: this.showFooter, onChange: this.changeText })
+	          React.createElement(
+	            'div',
+	            { className: 'post-form-input-container group' },
+	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onClick: this.showFooter, onChange: this.changeText })
+	          )
 	        )
 	      );
 	    }

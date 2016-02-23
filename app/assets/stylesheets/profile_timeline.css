@@ -55,6 +55,11 @@
   padding: 10px 12px 10px 10px;
 }
 
+.post-form-container {
+  margin-bottom: 10px;
+  display: block;
+}
+
 .post-form-header {
   display: block;
   border: 1px solid #ccc;
@@ -66,23 +71,40 @@
   font-weight: 600;
 }
 
+.post-form-input-container {
+  display: block;
+  border: 1px solid #ccc;
+  border-top: none;
+  background: rgb(246, 247, 248);
+}
+
 
 .post-form-input {
-  display: block;
-  border-top: none;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  width: 485px;
+  display: inline-block;
+  float: right;
+  border: none;
+  width: 441px;
   font-size: 14px;
   line-height: 18px;
   min-height: 18px;
   padding: 13px 12px;
   word-wrap: break-word;
+  background: rgb(246, 247, 248);
+}
+
+.post-form-input-picture {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  float: left;
+  margin: 10px 0px 10px 10px;
+  background: rgb(246, 247, 248);
+
 }
 
 .post-form-input:focus {
   outline: none;
+  background-color: rgb(246, 247, 248);
 }
 
 .post-form-footer {
@@ -90,6 +112,7 @@
   border: 1px solid #ccc;
   border-top: none;
   padding: 7px 12px 5px 10px;
+  background-color: rgb(246, 247, 248);
 }
 
 .post-form-button {
