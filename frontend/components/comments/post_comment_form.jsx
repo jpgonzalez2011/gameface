@@ -38,7 +38,7 @@ var PostCommentForm = React.createClass({
       <div className="comment-form-container group">
         <img className="comment-form-thumbnail" src={CurrentUserStore.currentUser().profile_thumb_url}></img>
         <form className="comment-form">
-          <textarea className="comment-form-input" type="text" id="comment-form-input-id" onKeyUp={this.handleKeydown}>
+          <textarea className="comment-form-input" type="text" id="comment-form-input-id" placeholder="Write a comment..." onKeyUp={this.handleKeydown}>
           </textarea>
         </form>
       </div>

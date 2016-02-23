@@ -15,9 +15,9 @@
 
 .comment-item {
   border: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 50px;
   position: relative;
 }
 
@@ -31,7 +31,7 @@
   display: block;
   padding-top: 10px;
   margin: 10px;
-  margin-left: 10px;
+  margin-left: 15px;
   padding: 0px 12px 0px 0px;
   font-family: helvetica, arial, sans-serif;
   line-height: 16.08px;
@@ -76,13 +76,13 @@
 
 .comment-form-container {
   position: relative;
-  padding-top: 5px;
+  background: rgb(246, 247, 248);
 }
 
 .comment-thumbnail {
   width: 30px;
   height: 30px;
-  top: -1px;
+  top: 4px;
   left: 15px;
   position: absolute;
 }
@@ -98,4 +98,5 @@
 .comment-form-input {
   overflow: auto;
   border-radius: 3px;
+  background-color: white;
 }

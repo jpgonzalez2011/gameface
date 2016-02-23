@@ -33492,7 +33492,7 @@
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form', onKeyUp: this.handleKeydown })
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }
@@ -34026,7 +34026,7 @@
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form-input-id', onKeyUp: this.handleKeydown })
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form-input-id', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }

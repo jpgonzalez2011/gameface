@@ -17,7 +17,7 @@
   border: 1px solid #ccc;
   background-color: white;
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .timeline-index-item-header {
@@ -54,6 +54,7 @@
   display: block;
   margin: 0px;
   padding: 10px 12px 10px 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .post-form-container {
@@ -138,8 +139,7 @@
 
 .timeline-index-item > ul {
   padding: 0px;
-  border-top: 2px solid #ccc;
-  background-color: white;
+  background-color: rgb(246, 247, 248);
   text-align: left;
 }
 
@@ -175,6 +175,7 @@
   width: auto;
   color: #3a5795;
 }
+
 .timeline-index-item > ul > li > h1 > p {
   float: left;
   width: 355px;
@@ -204,7 +205,6 @@
 
 .comment-form-container {
   width: 508px;
-  border-top: 1px solid #ccc;
 }
 
 .comment-form-input {
