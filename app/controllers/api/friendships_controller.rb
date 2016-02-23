@@ -14,11 +14,7 @@ class Api::FriendshipsController < ApplicationController
       @friendship.save!
     end
 
-    if params[:user_id]
       render :index
-    else
-      render json: {}
-    end
   end
 
   def check_friends
