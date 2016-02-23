@@ -5,15 +5,16 @@
   border-radius: 3px;
 }
 
-.timeline-intex-item-comment-content {
+.timeline-index-item-comment-content {
   margin-bottom: 10px;
 }
-.timeline-intex-item-comments-list {
-  border: none !important;
+
+.timeline-index-item-comments-list {
+  border: none;
 }
 
 .comment-item {
-  border: none !important;
+  border: none;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 40px;
@@ -81,7 +82,7 @@
 .comment-thumbnail {
   width: 30px;
   height: 30px;
-  bottom: 0px;
+  top: -1px;
   left: 15px;
   position: absolute;
 }

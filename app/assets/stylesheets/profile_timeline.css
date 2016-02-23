@@ -146,7 +146,6 @@
 .timeline-index-item > ul > li {
   display: block;
   width: 508px;
-  border-bottom: 1px solid #ccc;
 }
 
 .timeline-index-item > ul > li > h1 {
