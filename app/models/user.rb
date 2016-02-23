@@ -64,9 +64,6 @@ class User < ActiveRecord::Base
     class_name: "CoverPhoto"
   )
 
-  # has_many :requested_friends, through: :requested_friendship
-  # has_many :received_friends, through: :received_friendships
-
   attr_reader :password
 
   after_initialize :ensure_session_token
@@ -121,8 +118,8 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    requested_friendships = self.requested_friendships.includes(:requested_friend).where(confirmed: true).to_a
-    received_friendships = self.received_friendships.includes(:received_friend).where(confirmed: true).to_a
+    requested_friendships = self.requested_friendships.includes(requested_friend: :profile_picture).where(confirmed: true).to_a
+    received_friendships = self.received_friendships.includes(received_friend: :profile_picture).where(confirmed: true).to_a
     all_friendships = requested_friendships + received_friendships
     sorted_friendships = all_friendships.sort { |x,y| y[:rating] <=> x[:rating] }
     all_friends = sorted_friendships.map do |friendship|
