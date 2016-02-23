@@ -47,10 +47,10 @@ var ProfileTimeline = React.createClass({
               poster_url = "#/users/" + post.poster_id;
               target_url = "#/users/" + post.target_id;
               if (post.poster_name === post.target_name) {
-                header = <div><a href={poster_url}>{post.poster_name}</a></div>;
+                header = <div><a href={poster_url}><img className="poster-picture" src={post.poster_thumb_url}/>{post.poster_name}</a></div>;
               }
               else {
-                header = <div><a href={poster_url}>{post.poster_name}</a> to <a href={target_url}>{post.target_name}</a></div>;
+                header = <div><a href={poster_url}><img className="poster-picture" src={post.poster_thumb_url}/>{post.poster_name}</a> to <a href={target_url}>{post.target_name}</a></div>;
               }
               return (
                 <li key={i} className="timeline-index-item">

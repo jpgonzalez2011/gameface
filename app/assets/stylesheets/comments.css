@@ -81,6 +81,14 @@
 .comment-thumbnail {
   width: 30px;
   height: 30px;
+  bottom: 0px;
+  left: 15px;
+  position: absolute;
+}
+
+.comment-form-thumbnail {
+  width: 30px;
+  height: 30px;
   bottom: 5px;
   left: 15px;
   position: absolute;

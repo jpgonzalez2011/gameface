@@ -33488,7 +33488,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'comment-form-container group' },
-	      React.createElement('img', { className: 'comment-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
@@ -33664,6 +33664,7 @@
 	                React.createElement(
 	                  'a',
 	                  { href: poster_url },
+	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
 	                  post.poster_name
 	                )
 	              );
@@ -33674,6 +33675,7 @@
 	                React.createElement(
 	                  'a',
 	                  { href: poster_url },
+	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
 	                  post.poster_name
 	                ),
 	                ' to ',
@@ -34020,7 +34022,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'comment-form-container group' },
-	      React.createElement('img', { className: 'comment-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
