@@ -69,11 +69,12 @@ var PostForm = React.createClass({
 
     PostStore.acceptNewPost(post);
 
-    this.resetForm(e);
+    this.resetForm();
   },
 
   resetForm: function (e) {
-    e.target.value = "";
+
+    $(".post-form-input").val("");
     this.setState({ text: "", showFooter: false })
   }
 });
