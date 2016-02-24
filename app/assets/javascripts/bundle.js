@@ -33492,7 +33492,7 @@
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }
@@ -34491,7 +34491,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'timeline-index-item-comment-form' },
-	        React.createElement(PostCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	        React.createElement(PostCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
 	      )
 	    );
 	  }
@@ -34543,7 +34543,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'timeline-index-item-comment-form' },
-	        React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	        React.createElement(PhotoCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
 	      )
 	    );
 	  }

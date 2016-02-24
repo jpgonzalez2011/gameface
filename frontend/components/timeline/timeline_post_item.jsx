@@ -19,7 +19,7 @@ var TimelinePostItem = React.createClass({
           })}
         </ul>
         <div className="timeline-index-item-comment-form">
-          <PostCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
+          <PostCommentForm key={this.props.i} mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
         </div>
       </li>
     );

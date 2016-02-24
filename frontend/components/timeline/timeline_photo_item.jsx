@@ -21,7 +21,7 @@ var TimelinePhotoItem = React.createClass({
           })}
         </ul>
         <div className="timeline-index-item-comment-form">
-          <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
+          <PhotoCommentForm key={this.props.i} mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
         </div>
       </li>
     );
