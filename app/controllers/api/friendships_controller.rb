@@ -1,14 +1,20 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user = User.includes(:requested_friendships, :received_friendships).where(id: params[:user_id]).to_a.first
+    @user = User.includes(requested_friendships: {requested_friend: :profile_picture, received_friend: :cover_photo}, received_friendships: {received_friend: :profile_picture, received_friend: :cover_photo}).where(id: params[:user_id]).to_a.first
     @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating] }
   end
 
   def update_rating
     @first_friendship = Friendship.where("requested_friend = :first and received_friend = :second", { first: User.find(params[:firstFriend][:id]), second: User.find(params[:secondFriend][:id]) }).to_a
     @second_friendship = Friendship.where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend][:id]), second: User.find(params[:secondFriend][:id])}).to_a
-    @friendship = @first_friendship[0] || @second_friendship[0]
+    if @first_friendship
+      @friendship = @first_friendship[0]
+    elsif @second_friendship
+      @second_friendship = @second_friendship[0]
+    else
+      @friendship = nil
+    end
     if @friendship
       @friendship[:rating] += 1
       @friendship.save!
