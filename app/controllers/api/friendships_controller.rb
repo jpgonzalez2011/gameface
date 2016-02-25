@@ -1,7 +1,7 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user = User.find(params[:user_id])
+    @user = User.includes(:requested_friendships, :received_friendships).where(id: params[:user_id]).to_a.first
     @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating] }
   end
 
