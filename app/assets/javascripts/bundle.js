@@ -34505,10 +34505,19 @@
 
 	var React = __webpack_require__(1),
 	    PhotoCommentForm = __webpack_require__(268),
-	    CommentDisplay = __webpack_require__(276);
+	    CommentDisplay = __webpack_require__(276),
+	    PhotoShow = __webpack_require__(266);
 
 	var TimelinePhotoItem = React.createClass({
 	  displayName: 'TimelinePhotoItem',
+
+	  getInitialState: function () {
+	    return { show: false };
+	  },
+
+	  toggleShow: function () {
+	    this.setState({ show: !this.state.show });
+	  },
 
 	  render: function () {
 	    return React.createElement(
@@ -34530,8 +34539,9 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'timeline-photo-preview-container' },
-	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url })
+	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container' },
+	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
+	        React.createElement(PhotoShow, { photo: this.props.item, show: this.state.show })
 	      ),
 	      React.createElement(
 	        'ul',

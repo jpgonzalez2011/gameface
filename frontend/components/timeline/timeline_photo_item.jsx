@@ -1,8 +1,17 @@
 var React = require('react'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
-    CommentDisplay = require('../comments/comment_display');
+    CommentDisplay = require('../comments/comment_display'),
+    PhotoShow = require('../photos/photo_show')
 
 var TimelinePhotoItem = React.createClass({
+  getInitialState: function () {
+    return { show: false };
+  },
+
+  toggleShow: function () {
+    this.setState({ show: !this.state.show});
+  },
+
   render: function () {
     return (
       <li key={this.props.i} className="timeline-index-item">
@@ -10,8 +19,9 @@ var TimelinePhotoItem = React.createClass({
           <div>{this.props.header}</div>
           <span>{this.props.item.date_and_time}</span>
         </h1>
-        <div className="timeline-photo-preview-container">
-        <img className="timeline-photo-preview" src={this.props.item.medium_url} />
+        <div onClick={this.toggleShow} className="timeline-photo-preview-container">
+          <img className="timeline-photo-preview" src={this.props.item.medium_url} />
+          <PhotoShow photo={this.props.item} show={this.state.show} />
         </div>
         <ul className="timeline-index-item-comments-list">
           {this.props.item.comments.map( function (comment, i) {
