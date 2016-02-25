@@ -15,18 +15,20 @@ var FriendApiUtil = {
   },
 
   updateFriendshipRating: function (firstUser, secondUser) {
-    var friends;
-    friends = [firstUser, secondUser];
-    $.ajax ({
-      type: "PATCH",
-      url: "api/friendships/ratings",
-      dataType: "json",
-      data: {firstFriend: firstUser, secondFriend: secondUser},
-      success: function (data) {
-        var friends = data.friends;
-        FriendActions.receiveFriends(friends);
-      }
-    });
+    if (firstUser.id !== secondUser.id) {
+      var friends;
+      friends = [firstUser, secondUser];
+      $.ajax ({
+        type: "PATCH",
+        url: "api/friendships/ratings",
+        dataType: "json",
+        data: {firstFriend: firstUser, secondFriend: secondUser},
+        success: function (data) {
+          var friends = data.friends;
+          FriendActions.receiveFriends(friends);
+        }
+      });
+    }
   },
 
   fetchFriendship: function (currentUser, otherUser) {
