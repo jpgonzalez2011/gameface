@@ -46,7 +46,7 @@ var FriendsIndex = React.createClass({
       return (
         <div className="friends-container group">
           <h1 className="friends-header">
-            FRIENDS
+            Friends <span className="friends-grid-header-count">- {this.state.friends.length}</span>
           </h1>
           <ul className="friends-list group">
               {this.state.friends.map ( function (friend, i) {

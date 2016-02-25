@@ -33,7 +33,7 @@ var FriendGrid = React.createClass({
       return (
         <div className="friends-grid-container group">
           <h1 className="friends-grid-header">
-            TOP FRIENDS
+            Friends <span className="friends-grid-header-count">- {FriendStore.friends().length}</span>
           </h1>
           No friends yet!
         </div>
@@ -47,7 +47,7 @@ var FriendGrid = React.createClass({
       return (
         <div className="friends-grid-container group">
           <h1 className="friends-grid-header">
-            TOP FRIENDS
+            Friends <span className="friends-grid-header-count">- {FriendStore.friends().length}</span>
           </h1>
           <ul className="friends-grid group">
             {this.state.gridFriends.map ( function (friend, i){

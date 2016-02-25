@@ -32954,7 +32954,7 @@
 	        React.createElement(
 	          'h1',
 	          { className: 'photos-header' },
-	          ' PHOTOS '
+	          ' Photos '
 	        ),
 	        _photoForm,
 	        React.createElement(
@@ -32970,7 +32970,7 @@
 	        React.createElement(
 	          'h1',
 	          { className: 'photos-header' },
-	          ' PHOTOS '
+	          ' Photos '
 	        ),
 	        _photoForm,
 	        React.createElement(
@@ -33194,7 +33194,7 @@
 	        { className: 'photo-upload-form', onSubmit: this.handleSubmit },
 	        React.createElement(
 	          'label',
-	          { htmlfor: 'photo' },
+	          { htmlFor: 'photo' },
 	          'Add Photo!'
 	        ),
 	        React.createElement('input', { type: 'file', id: 'photo', onChange: this.changeFile }),
@@ -34031,7 +34031,7 @@
 	      React.createElement(
 	        'form',
 	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', id: 'comment-form-input-id', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
 	      )
 	    );
 	  }
@@ -34131,7 +34131,13 @@
 	        React.createElement(
 	          'h1',
 	          { className: 'friends-grid-header' },
-	          'TOP FRIENDS'
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            FriendStore.friends().length
+	          )
 	        ),
 	        'No friends yet!'
 	      );
@@ -34144,7 +34150,13 @@
 	        React.createElement(
 	          'h1',
 	          { className: 'friends-grid-header' },
-	          'TOP FRIENDS'
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            FriendStore.friends().length
+	          )
 	        ),
 	        React.createElement(
 	          'ul',
@@ -34251,7 +34263,13 @@
 	        React.createElement(
 	          'h1',
 	          { className: 'friends-header' },
-	          'FRIENDS'
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            this.state.friends.length
+	          )
 	        ),
 	        React.createElement(
 	          'ul',

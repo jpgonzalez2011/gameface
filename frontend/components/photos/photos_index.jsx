@@ -56,7 +56,7 @@ var PhotosIndex = React.createClass({
     if (this.state.photos[0] === "no photos") {
       return (
         <div className="photo-index-container group">
-          <h1 className="photos-header"> PHOTOS </h1>
+          <h1 className="photos-header"> Photos </h1>
           {_photoForm}
           <h1> No Photos yet! </h1>
         </div>
@@ -64,7 +64,7 @@ var PhotosIndex = React.createClass({
     } else {
       return (
         <div className="photo-index-container group">
-          <h1 className="photos-header"> PHOTOS </h1>
+          <h1 className="photos-header"> Photos </h1>
           {_photoForm}
           <ul className="photo-index-list group">
             {this.state.photos.map( function (photo, i) {
