@@ -32,7 +32,7 @@ var PhotoShow = React.createClass({
                 )}
               </ul>
               <div className="photo-show-container-information-pane-comment-form">
-                <PhotoCommentForm commentable_id={this.props.photo.id} />
+                <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.photo.id} />
               </div>
             </figure>
           </feature>
@@ -62,7 +62,7 @@ var PhotoShow = React.createClass({
                 )}
               </ul>
               <div className="photo-noshow-container-information-pane-comment-form">
-                <PhotoCommentForm mainTimeLine={undefined} commentable_id={this.props.photo.id} />
+                <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.photo.id} />
               </div>
             </figure>
           </feature>

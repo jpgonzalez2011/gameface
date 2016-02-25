@@ -33268,7 +33268,7 @@
 	        { key: this.props.key },
 	        React.createElement('img', { className: 'photo-preview', src: this.props.photo.medium_url })
 	      ),
-	      React.createElement(PhotoShow, { photo: this.props.photo, show: this.state.show })
+	      React.createElement(PhotoShow, { mainTimeLine: false, photo: this.props.photo, show: this.state.show })
 	    );
 	  }
 	});
@@ -33336,7 +33336,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'photo-show-container-information-pane-comment-form' },
-	              React.createElement(PhotoCommentForm, { commentable_id: this.props.photo.id })
+	              React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.photo.id })
 	            )
 	          )
 	        )
@@ -33385,7 +33385,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'photo-noshow-container-information-pane-comment-form' },
-	              React.createElement(PhotoCommentForm, { mainTimeLine: undefined, commentable_id: this.props.photo.id })
+	              React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.photo.id })
 	            )
 	          )
 	        )
@@ -34541,7 +34541,7 @@
 	        'div',
 	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container' },
 	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
-	        React.createElement(PhotoShow, { photo: this.props.item, show: this.state.show })
+	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
 	      ),
 	      React.createElement(
 	        'ul',
