@@ -21,6 +21,7 @@ var TimelinePhotoItem = React.createClass({
         </h1>
         <div onClick={this.toggleShow} className="timeline-photo-preview-container">
           <img className="timeline-photo-preview" src={this.props.item.medium_url} />
+          <div className="like-comment-bar"> <div className="like-button">Like</div></div>
           <PhotoShow mainTimeLine={true} photo={this.props.item} show={this.state.show} />
         </div>
         <ul className="timeline-index-item-comments-list">

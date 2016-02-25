@@ -11,6 +11,7 @@ var TimelinePostItem = React.createClass({
           <span>{this.props.item.date_and_time}</span>
         </h1>
         <div className="timeline-index-item-content">{this.props.item.content}</div>
+        <div className="like-comment-bar"> <div className="like-button">Like</div></div>
         <ul className="timeline-index-item-comments-list">
           {this.props.item.comments.map( function (comment, i) {
             return (

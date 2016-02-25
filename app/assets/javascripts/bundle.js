@@ -33324,6 +33324,16 @@
 	                'h2',
 	                null,
 	                this.props.photo.date_and_time
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'like-comment-bar' },
+	                ' ',
+	                React.createElement(
+	                  'div',
+	                  { className: 'like-button' },
+	                  'Like'
+	                )
 	              )
 	            ),
 	            React.createElement(
@@ -33377,6 +33387,16 @@
 	                'h2',
 	                null,
 	                this.props.photo.date_and_time
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'like-comment-bar' },
+	                ' ',
+	                React.createElement(
+	                  'div',
+	                  { className: 'like-button' },
+	                  'Like'
+	                )
 	              )
 	            ),
 	            React.createElement(
@@ -33707,6 +33727,16 @@
 	                'div',
 	                { className: 'timeline-index-item-content' },
 	                post.content
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'like-comment-bar' },
+	                ' ',
+	                React.createElement(
+	                  'div',
+	                  { className: 'like-button' },
+	                  'Like'
+	                )
 	              ),
 	              React.createElement(
 	                'ul',
@@ -34504,6 +34534,16 @@
 	        this.props.item.content
 	      ),
 	      React.createElement(
+	        'div',
+	        { className: 'like-comment-bar' },
+	        ' ',
+	        React.createElement(
+	          'div',
+	          { className: 'like-button' },
+	          'Like'
+	        )
+	      ),
+	      React.createElement(
 	        'ul',
 	        { className: 'timeline-index-item-comments-list' },
 	        this.props.item.comments.map(function (comment, i) {
@@ -34563,6 +34603,16 @@
 	        'div',
 	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container' },
 	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
+	        React.createElement(
+	          'div',
+	          { className: 'like-comment-bar' },
+	          ' ',
+	          React.createElement(
+	            'div',
+	            { className: 'like-button' },
+	            'Like'
+	          )
+	        ),
 	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
 	      ),
 	      React.createElement(

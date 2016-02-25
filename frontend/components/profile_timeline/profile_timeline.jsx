@@ -59,6 +59,7 @@ var ProfileTimeline = React.createClass({
                     <span>{post.date_and_time}</span>
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
+                  <div className="like-comment-bar"> <div className="like-button">Like</div></div>
                   <ul className="timeline-index-item-comments-list">
                     {post.comments.map( function (comment, i) {
                       return (
