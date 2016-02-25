@@ -33194,7 +33194,7 @@
 	        { className: 'photo-upload-form', onSubmit: this.handleSubmit },
 	        React.createElement(
 	          'label',
-	          { 'for': 'photo' },
+	          { htmlfor: 'photo' },
 	          'Add Photo!'
 	        ),
 	        React.createElement('input', { type: 'file', id: 'photo', onChange: this.changeFile }),

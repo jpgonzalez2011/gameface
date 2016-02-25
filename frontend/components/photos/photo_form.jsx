@@ -16,7 +16,7 @@ var PhotoForm = React.createClass({
       return (
         <div className="photo-upload-container">
           <form className="photo-upload-form" onSubmit={this.handleSubmit}>
-            <label for="photo">Add Photo!</label>
+            <label htmlfor="photo">Add Photo!</label>
             <input type="file" id="photo" onChange={this.changeFile}/>
             <button> Submit </button>
           </form>
@@ -33,7 +33,7 @@ var PhotoForm = React.createClass({
     }.bind(this);
 
     if (file) {
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     } else {
       this.setState({imageFile: null, imageUrl: ""});
     }
