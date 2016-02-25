@@ -49,7 +49,7 @@ var Timeline = React.createClass({
                       <TimelinePostItem key={i} header={header} item={item} mainTimeLine={this.state.mainTimeLine} i={i} />
                     );
                   } else if (item.type === "Photo") {
-                    var uploader_url = "#/users/" + item.uploader_url;
+                    var uploader_url = "#/users/" + item.uploader_id;
                     header = <div><a href={uploader_url}>{item.uploader_name}</a></div>;
                     return (
                       <TimelinePhotoItem key={i} i={i} item={item} mainTimeLine={this.state.mainTimeLine} header={header} />
