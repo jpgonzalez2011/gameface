@@ -68,7 +68,7 @@ FriendStore.__onDispatch = function (payload) {
       break;
     case PostConstants.RECEIVE_UPDATED_POST:
       post = payload.post;
-      FriendApiUtil.updateFriendshipRating(post.poster, post.target);
+      FriendApiUtil.updateFriendshipRating(post.poster_id, post.target_id);
       break;
     case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
       comment = payload.comment;
