@@ -31608,20 +31608,18 @@
 	  },
 
 	  updateFriendshipRating: function (firstUser, secondUser) {
-	    if (firstUser.id !== secondUser.id) {
-	      var friends;
-	      friends = [firstUser, secondUser];
-	      $.ajax({
-	        type: "PATCH",
-	        url: "api/friendships/ratings",
-	        dataType: "json",
-	        data: { firstFriend: firstUser, secondFriend: secondUser },
-	        success: function (data) {
-	          var friends = data.friends;
-	          FriendActions.receiveFriends(friends);
-	        }
-	      });
-	    }
+	    var friends;
+	    friends = [firstUser, secondUser];
+	    $.ajax({
+	      type: "PATCH",
+	      url: "api/friendships/ratings",
+	      dataType: "json",
+	      data: { firstFriend: firstUser, secondFriend: secondUser },
+	      success: function (data) {
+	        var friends = data.friends;
+	        FriendActions.receiveFriends(friends);
+	      }
+	    });
 	  },
 
 	  fetchFriendship: function (currentUser, otherUser) {
@@ -32831,11 +32829,11 @@
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_COMMENT:
 	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
 	      break;
-	    case PhotoConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
+	    case PhotoConstants.RECEIVE_UPDATED_COMMENT:
 	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
 	      break;
 	    case PostConstants.RECEIVE_UPDATED_POST:
 	      post = payload.post;
@@ -32843,7 +32841,7 @@
 	      break;
 	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
 	      comment = payload.comment;
-	      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+	      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
 	      break;
 	  }
 	};

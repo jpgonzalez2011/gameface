@@ -60,11 +60,11 @@ FriendStore.__onDispatch = function (payload) {
       break;
     case PostConstants.RECEIVE_UPDATED_COMMENT:
       comment = payload.comment;
-      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
       break;
-    case PhotoConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
+    case PhotoConstants.RECEIVE_UPDATED_COMMENT:
       comment = payload.comment;
-      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
       break;
     case PostConstants.RECEIVE_UPDATED_POST:
       post = payload.post;
@@ -72,7 +72,7 @@ FriendStore.__onDispatch = function (payload) {
       break;
     case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
       comment = payload.comment;
-      FriendApiUtil.updateFriendshipRating(comment.commenter, comment.comment_target);
+      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
       break;
   }
 };

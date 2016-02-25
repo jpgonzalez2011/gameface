@@ -15,7 +15,6 @@ var FriendApiUtil = {
   },
 
   updateFriendshipRating: function (firstUser, secondUser) {
-    if (firstUser.id !== secondUser.id) {
       var friends;
       friends = [firstUser, secondUser];
       $.ajax ({
@@ -28,7 +27,6 @@ var FriendApiUtil = {
           FriendActions.receiveFriends(friends);
         }
       });
-    }
   },
 
   fetchFriendship: function (currentUser, otherUser) {
