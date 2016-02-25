@@ -23,16 +23,18 @@ var PhotoShow = React.createClass({
                 <h1><a href={url}>{this.props.photo.uploader_name}</a></h1>
                 <h2>{this.props.photo.date_and_time}</h2>
               </header>
-              <ul className="photo-show-container-information-pane-comments">
-                {this.props.photo.comments.map ( function (comment, i) {
-                  return (
-                    <PhotoCommentDisplay key={i} comment={comment}/>
-                    );
-                  }
-                )}
-              </ul>
-              <div className="photo-show-container-information-pane-comment-form">
-                <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.photo.id} />
+              <div className="photo-comment-container">
+                <ul className="photo-show-container-information-pane-comments">
+                  {this.props.photo.comments.map ( function (comment, i) {
+                    return (
+                      <PhotoCommentDisplay key={i} comment={comment}/>
+                      );
+                    }
+                  )}
+                </ul>
+                <div className="photo-show-container-information-pane-comment-form">
+                  <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.photo.id} />
+                </div>
               </div>
             </figure>
           </feature>

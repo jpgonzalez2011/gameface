@@ -33327,16 +33327,20 @@
 	              )
 	            ),
 	            React.createElement(
-	              'ul',
-	              { className: 'photo-show-container-information-pane-comments' },
-	              this.props.photo.comments.map(function (comment, i) {
-	                return React.createElement(PhotoCommentDisplay, { key: i, comment: comment });
-	              })
-	            ),
-	            React.createElement(
 	              'div',
-	              { className: 'photo-show-container-information-pane-comment-form' },
-	              React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.photo.id })
+	              { className: 'photo-comment-container' },
+	              React.createElement(
+	                'ul',
+	                { className: 'photo-show-container-information-pane-comments' },
+	                this.props.photo.comments.map(function (comment, i) {
+	                  return React.createElement(PhotoCommentDisplay, { key: i, comment: comment });
+	                })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'photo-show-container-information-pane-comment-form' },
+	                React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.photo.id })
+	              )
 	            )
 	          )
 	        )
