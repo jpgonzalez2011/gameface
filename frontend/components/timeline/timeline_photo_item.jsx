@@ -1,6 +1,7 @@
 var React = require('react'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
     CommentDisplay = require('../comments/comment_display'),
+    LikeButton = require('../likes/like_button'),
     PhotoShow = require('../photos/photo_show');
 
 var TimelinePhotoItem = React.createClass({
@@ -21,7 +22,7 @@ var TimelinePhotoItem = React.createClass({
         </h1>
         <div onClick={this.toggleShow} className="timeline-photo-preview-container">
           <img className="timeline-photo-preview" src={this.props.item.medium_url} />
-          <div className="like-comment-bar"> <div className="like-button">Like</div></div>
+          <LikeButton />
           <PhotoShow mainTimeLine={true} photo={this.props.item} show={this.state.show} />
         </div>
         <ul className="timeline-index-item-comments-list">

@@ -58,9 +58,9 @@
 	    About = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(270),
-	    FriendsIndex = __webpack_require__(279),
-	    Timeline = __webpack_require__(280),
-	    SessionForm = __webpack_require__(286);
+	    FriendsIndex = __webpack_require__(280),
+	    Timeline = __webpack_require__(281),
+	    SessionForm = __webpack_require__(287);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -33281,6 +33281,7 @@
 
 	var React = __webpack_require__(1),
 	    PhotoCommentDisplay = __webpack_require__(267),
+	    LikeButton = __webpack_require__(277),
 	    PhotoCommentForm = __webpack_require__(268);
 
 	var PhotoShow = React.createClass({
@@ -33325,16 +33326,7 @@
 	                null,
 	                this.props.photo.date_and_time
 	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'like-comment-bar' },
-	                ' ',
-	                React.createElement(
-	                  'div',
-	                  { className: 'like-button' },
-	                  'Like'
-	                )
-	              )
+	              React.createElement(LikeButton, null)
 	            ),
 	            React.createElement(
 	              'div',
@@ -33388,16 +33380,7 @@
 	                null,
 	                this.props.photo.date_and_time
 	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'like-comment-bar' },
-	                ' ',
-	                React.createElement(
-	                  'div',
-	                  { className: 'like-button' },
-	                  'Like'
-	                )
-	              )
+	              React.createElement(LikeButton, null)
 	            ),
 	            React.createElement(
 	              'ul',
@@ -33631,7 +33614,8 @@
 	    PostStore = __webpack_require__(272),
 	    PostCommentForm = __webpack_require__(275),
 	    CommentDisplay = __webpack_require__(276),
-	    FriendGrid = __webpack_require__(277);
+	    LikeButton = __webpack_require__(277),
+	    FriendGrid = __webpack_require__(278);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33728,16 +33712,7 @@
 	                { className: 'timeline-index-item-content' },
 	                post.content
 	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'like-comment-bar' },
-	                ' ',
-	                React.createElement(
-	                  'div',
-	                  { className: 'like-button' },
-	                  'Like'
-	                )
-	              ),
+	              React.createElement(LikeButton, null),
 	              React.createElement(
 	                'ul',
 	                { className: 'timeline-index-item-comments-list' },
@@ -34122,9 +34097,57 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(209),
+	    LikesApiUtil = __webpack_require__(288);
+
+	var LikeButton = React.createClass({
+	  displayName: 'LikeButton',
+
+	  like: function (e) {
+	    e.preventDefault();
+	    LikesApiUtil.addLike(this.props.likeableId, this.props.likeableType, CurrentUserStore.currentUser().id);
+	  },
+
+	  unlike: function (e) {
+	    e.preventDefault();
+	    LikesApiUtil.removeLike(this.props.likeableId, this.props.likeableType, CurrentUserStore.currentUser().id);
+	  },
+
+	  render: function () {
+	    if (this.props.likedByCurrentUser) {
+	      return React.createElement(
+	        'div',
+	        { className: 'like-comment-bar' },
+	        React.createElement(
+	          'div',
+	          { onClick: this.unlike, className: 'like-button-blue' },
+	          this.props.likes
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'like-comment-bar' },
+	        React.createElement(
+	          'div',
+	          { onClick: this.like, className: 'like-button-gray' },
+	          this.props.likes
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = LikeButton;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(255),
 	    FriendApiUtil = __webpack_require__(241),
-	    FriendGridItem = __webpack_require__(278);
+	    FriendGridItem = __webpack_require__(279);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34203,7 +34226,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34238,7 +34261,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34325,19 +34348,19 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(281),
+	    TimelineStore = __webpack_require__(282),
 	    PostForm = __webpack_require__(271),
 	    PostCommentForm = __webpack_require__(275),
 	    PhotoCommentForm = __webpack_require__(268),
 	    CommentDisplay = __webpack_require__(276),
-	    TimelinePostItem = __webpack_require__(283),
-	    TimelinePhotoItem = __webpack_require__(284),
-	    SearchResults = __webpack_require__(285);
+	    TimelinePostItem = __webpack_require__(284),
+	    TimelinePhotoItem = __webpack_require__(285),
+	    SearchResults = __webpack_require__(286);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34431,13 +34454,13 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    TimelineConstants = __webpack_require__(258),
-	    TimelineApiUtil = __webpack_require__(282),
+	    TimelineApiUtil = __webpack_require__(283),
 	    PostConstants = __webpack_require__(256),
 	    PhotoConstants = __webpack_require__(257);
 
@@ -34478,7 +34501,7 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var TimelineActions = __webpack_require__(263);
@@ -34500,11 +34523,12 @@
 	module.exports = TimelineApiUtil;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    PostCommentForm = __webpack_require__(275),
+	    LikeButton = __webpack_require__(277),
 	    CommentDisplay = __webpack_require__(276);
 
 	var TimelinePostItem = React.createClass({
@@ -34533,16 +34557,7 @@
 	        { className: 'timeline-index-item-content' },
 	        this.props.item.content
 	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'like-comment-bar' },
-	        ' ',
-	        React.createElement(
-	          'div',
-	          { className: 'like-button' },
-	          'Like'
-	        )
-	      ),
+	      React.createElement(LikeButton, null),
 	      React.createElement(
 	        'ul',
 	        { className: 'timeline-index-item-comments-list' },
@@ -34562,12 +34577,13 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    PhotoCommentForm = __webpack_require__(268),
 	    CommentDisplay = __webpack_require__(276),
+	    LikeButton = __webpack_require__(277),
 	    PhotoShow = __webpack_require__(266);
 
 	var TimelinePhotoItem = React.createClass({
@@ -34603,16 +34619,7 @@
 	        'div',
 	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container' },
 	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
-	        React.createElement(
-	          'div',
-	          { className: 'like-comment-bar' },
-	          ' ',
-	          React.createElement(
-	            'div',
-	            { className: 'like-button' },
-	            'Like'
-	          )
-	        ),
+	        React.createElement(LikeButton, null),
 	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
 	      ),
 	      React.createElement(
@@ -34634,7 +34641,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34658,7 +34665,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34707,6 +34714,12 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports) {
+
+	
 
 /***/ }
 /******/ ]);

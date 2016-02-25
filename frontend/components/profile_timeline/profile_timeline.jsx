@@ -3,6 +3,7 @@ var React = require('react'),
     PostStore = require('../../stores/post_store'),
     PostCommentForm = require('../comments/post_comment_form'),
     CommentDisplay = require('../comments/comment_display'),
+    LikeButton = require('../likes/like_button'),
     FriendGrid = require('./timeline_friends_grid');
 
 var ProfileTimeline = React.createClass({
@@ -59,7 +60,7 @@ var ProfileTimeline = React.createClass({
                     <span>{post.date_and_time}</span>
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
-                  <div className="like-comment-bar"> <div className="like-button">Like</div></div>
+                  <LikeButton />
                   <ul className="timeline-index-item-comments-list">
                     {post.comments.map( function (comment, i) {
                       return (

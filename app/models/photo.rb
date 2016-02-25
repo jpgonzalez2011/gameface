@@ -11,6 +11,7 @@ class Photo < ActiveRecord::Base
   )
 
   has_many :comments, as: :commentable
+  has_many :likes, as: :likeable
 
   def full_size_url
     self.image.url

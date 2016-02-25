@@ -97,7 +97,7 @@
   position: relative;
 }
 
-.like-button {
+.like-button-blue {
   display: inline-block;
   height: 17px;
   margin: 3px 0px;
@@ -107,11 +107,21 @@
   color: rgb(88, 144, 255);
 }
 
+.like-button-gray {
+  display: inline-block;
+  height: 17px;
+  margin: 3px 0px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #bbb;
+}
+
 .like-button:hover {
   cursor: pointer;
 }
 
-.like-button::before {
+.like-button-blue::before, .like-button-gray::before {
   display: inline-block;
   width: 16px;
   height: 16px;

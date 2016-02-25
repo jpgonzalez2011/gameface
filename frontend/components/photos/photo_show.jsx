@@ -1,5 +1,6 @@
 var React = require('react'),
     PhotoCommentDisplay = require('../comments/photo_comment_display'),
+    LikeButton = require('../likes/like_button'),
     PhotoCommentForm = require('../comments/photo_comment_form');
 
 var PhotoShow = React.createClass({
@@ -22,7 +23,7 @@ var PhotoShow = React.createClass({
               <header className="photo-show-container-information-pane-header">
                 <h1><a href={url}>{this.props.photo.uploader_name}</a></h1>
                 <h2>{this.props.photo.date_and_time}</h2>
-                <div className="like-comment-bar"> <div className="like-button">Like</div></div>
+                <LikeButton />
               </header>
               <div className="photo-comment-container">
                 <ul className="photo-show-container-information-pane-comments">
@@ -55,7 +56,7 @@ var PhotoShow = React.createClass({
               <header className="photo-noshow-container-information-pane-header">
                 <h1>{this.props.photo.uploader_name}</h1>
                 <h2>{this.props.photo.date_and_time}</h2>
-                <div className="like-comment-bar"> <div className="like-button">Like</div></div>
+                <LikeButton />
               </header>
               <ul className="photo-noshow-container-information-pane-comments">
                 {this.props.photo.comments.map ( function (comment, i) {
