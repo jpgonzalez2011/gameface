@@ -34553,6 +34553,13 @@
 	  },
 
 	  render: function () {
+	    var imageBackground = {
+	      backgroundImage: 'url(' + this.props.item.medium_url + ')',
+	      backgroundSize: 'contain',
+	      backgroundRepeat: 'no-repeat',
+	      backgroundPosition: 'center center'
+	    };
+	    debugger;
 	    return React.createElement(
 	      'li',
 	      { key: this.props.i, className: 'timeline-index-item' },
@@ -34572,8 +34579,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container' },
-	        React.createElement('img', { className: 'timeline-photo-preview', src: this.props.item.medium_url }),
+	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container', style: imageBackground },
 	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
 	      ),
 	      React.createElement(

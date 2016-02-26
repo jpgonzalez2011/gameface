@@ -13,14 +13,20 @@ var TimelinePhotoItem = React.createClass({
   },
 
   render: function () {
+    var imageBackground = {
+      backgroundImage: 'url(' + this.props.item.medium_url + ')',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center'
+     };
+     debugger
     return (
       <li key={this.props.i} className="timeline-index-item">
         <h1 className="timeline-index-item-header">
           <div>{this.props.header}</div>
           <span>{this.props.item.date_and_time}</span>
         </h1>
-        <div onClick={this.toggleShow} className="timeline-photo-preview-container">
-          <img className="timeline-photo-preview" src={this.props.item.medium_url} />
+        <div onClick={this.toggleShow} className="timeline-photo-preview-container" style={imageBackground}>
           <PhotoShow mainTimeLine={true} photo={this.props.item} show={this.state.show} />
         </div>
         <ul className="timeline-index-item-comments-list">
