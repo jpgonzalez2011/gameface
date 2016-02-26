@@ -22,6 +22,7 @@ var Timeline = React.createClass({
     this.storeCBToken = TimelineStore.addListener( function () {
       this.setState(this.getStateFromStore);
     }.bind(this));
+    this.getStateFromStore();
   },
 
   componentWillUnmount: function () {
