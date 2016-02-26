@@ -78,7 +78,6 @@
 	  },
 
 	  userReceived: function () {
-	    // this.getCurrentUserFromStore();
 	    var url = "/users/" + CurrentUserStore.currentUser().id;
 	    this.history.pushState({}, url, CurrentUserStore.currentUser.id);
 	  },
