@@ -24,7 +24,7 @@ var FriendApiUtil = {
         data: {firstFriend: firstUser, secondFriend: secondUser},
         success: function (data) {
           var friends = data.friends;
-          FriendActions.receiveFriends(friends);
+          FriendActions.ratingsUpdated();
         }
       });
   },

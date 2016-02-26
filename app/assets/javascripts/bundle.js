@@ -58,9 +58,9 @@
 	    About = __webpack_require__(269),
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(270),
-	    FriendsIndex = __webpack_require__(280),
-	    Timeline = __webpack_require__(281),
-	    SessionForm = __webpack_require__(287);
+	    FriendsIndex = __webpack_require__(279),
+	    Timeline = __webpack_require__(280),
+	    SessionForm = __webpack_require__(286);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -31617,7 +31617,7 @@
 	      data: { firstFriend: firstUser, secondFriend: secondUser },
 	      success: function (data) {
 	        var friends = data.friends;
-	        FriendActions.receiveFriends(friends);
+	        FriendActions.ratingsUpdated();
 	      }
 	    });
 	  },
@@ -31693,6 +31693,12 @@
 	    });
 	  },
 
+	  ratingsUpdated: function () {
+	    Dispatcher.dispatch({
+	      actionType: FriendConstants.RATINGS_UPDATED
+	    });
+	  },
+
 	  receiveFriendship: function (friendship) {
 	    Dispatcher.dispatch({
 	      actionType: FriendConstants.RECEIVED_FRIENDSHIP,
@@ -31734,7 +31740,8 @@
 	  RECEIVED_FRIENDSHIP: "RECEIVED_FRIENDSHIP",
 	  ADDED_FRIEND: "ADDED_FRIEND",
 	  CONFIRMED_FRIEND: "CONFIRMED_FRIEND",
-	  CANCEL_FRIEND: "CANCEL_FRIEND"
+	  CANCEL_FRIEND: "CANCEL_FRIEND",
+	  RATINGS_UPDATED: "RATINGS_UPDATED"
 	};
 
 /***/ },
@@ -32843,6 +32850,9 @@
 	      comment = payload.comment;
 	      FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
 	      break;
+	    case FriendConstants.RATINGS_UPDATED:
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -33611,7 +33621,7 @@
 	    PostStore = __webpack_require__(272),
 	    PostCommentForm = __webpack_require__(275),
 	    CommentDisplay = __webpack_require__(276),
-	    FriendGrid = __webpack_require__(278);
+	    FriendGrid = __webpack_require__(277);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33752,10 +33762,6 @@
 	      showFooter: false
 	    };
 	  },
-
-	  // componentWillMount: function () {
-	  //   this.setState( {posterName: CurrentUserStore.currentUser().fname });
-	  // },
 
 	  render: function () {
 	    if (this.state.showFooter) {
@@ -34088,14 +34094,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 277 */,
-/* 278 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(255),
 	    FriendApiUtil = __webpack_require__(241),
-	    FriendGridItem = __webpack_require__(279);
+	    FriendGridItem = __webpack_require__(278);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34174,7 +34179,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34209,7 +34214,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34296,19 +34301,19 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 281 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(282),
+	    TimelineStore = __webpack_require__(281),
 	    PostForm = __webpack_require__(271),
 	    PostCommentForm = __webpack_require__(275),
 	    PhotoCommentForm = __webpack_require__(268),
 	    CommentDisplay = __webpack_require__(276),
-	    TimelinePostItem = __webpack_require__(284),
-	    TimelinePhotoItem = __webpack_require__(285),
-	    SearchResults = __webpack_require__(286);
+	    TimelinePostItem = __webpack_require__(283),
+	    TimelinePhotoItem = __webpack_require__(284),
+	    SearchResults = __webpack_require__(285);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34402,13 +34407,13 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    TimelineConstants = __webpack_require__(258),
-	    TimelineApiUtil = __webpack_require__(283),
+	    TimelineApiUtil = __webpack_require__(282),
 	    PostConstants = __webpack_require__(256),
 	    PhotoConstants = __webpack_require__(257);
 
@@ -34449,7 +34454,7 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var TimelineActions = __webpack_require__(263);
@@ -34471,7 +34476,7 @@
 	module.exports = TimelineApiUtil;
 
 /***/ },
-/* 284 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34523,7 +34528,7 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 285 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34585,7 +34590,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34609,7 +34614,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 287 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);

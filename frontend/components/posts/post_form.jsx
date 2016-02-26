@@ -10,10 +10,6 @@ var PostForm = React.createClass({
     });
   },
 
-  // componentWillMount: function () {
-  //   this.setState( {posterName: CurrentUserStore.currentUser().fname });
-  // },
-
   render: function () {
     if (this.state.showFooter) {
       return (

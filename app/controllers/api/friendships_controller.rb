@@ -20,7 +20,7 @@ class Api::FriendshipsController < ApplicationController
       @friendship.save!
     end
 
-      render :index
+      render json: {}
   end
 
   def check_friends

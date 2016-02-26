@@ -10,6 +10,12 @@ var FriendActions = {
     });
   },
 
+  ratingsUpdated: function () {
+    Dispatcher.dispatch({
+      actionType: FriendConstants.RATINGS_UPDATED
+    });
+  },
+
   receiveFriendship: function (friendship) {
     Dispatcher.dispatch({
       actionType: FriendConstants.RECEIVED_FRIENDSHIP,

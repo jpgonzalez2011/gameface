@@ -74,6 +74,9 @@ FriendStore.__onDispatch = function (payload) {
       comment = payload.comment;
       FriendApiUtil.updateFriendshipRating(comment.commenter.id, comment.comment_target.id);
       break;
+    case FriendConstants.RATINGS_UPDATED:
+      this.__emitChange();
+      break;
   }
 };
 
