@@ -45,6 +45,7 @@ CurrentUserStore.__onDispatch = function (payload) {
       }
       _currentUser = payload.currentUser[0];
       this.__emitChange();
+      TimelineApiUtil.fetchAllItems();
       break;
     case CurrentUserConstants.LOGIN_FAILURE:
       _loginFailure = true;

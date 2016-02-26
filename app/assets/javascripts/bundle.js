@@ -24504,6 +24504,7 @@
 	      }
 	      _currentUser = payload.currentUser[0];
 	      this.__emitChange();
+	      TimelineApiUtil.fetchAllItems();
 	      break;
 	    case CurrentUserConstants.LOGIN_FAILURE:
 	      _loginFailure = true;
@@ -31309,9 +31310,6 @@
 	    });
 	  },
 
-	  // error: function () {
-	  //   CurrentUserActions.logInFailure();
-	  // }
 	  checkForExistingUser: function () {
 	    $.ajax({
 	      type: "GET",
@@ -34555,7 +34553,6 @@
 	      backgroundRepeat: 'no-repeat',
 	      backgroundPosition: 'center center'
 	    };
-	    debugger;
 	    return React.createElement(
 	      'li',
 	      { key: this.props.i, className: 'timeline-index-item' },

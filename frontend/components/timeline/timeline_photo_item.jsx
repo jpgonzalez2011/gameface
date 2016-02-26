@@ -19,7 +19,6 @@ var TimelinePhotoItem = React.createClass({
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center center'
      };
-     debugger
     return (
       <li key={this.props.i} className="timeline-index-item">
         <h1 className="timeline-index-item-header">

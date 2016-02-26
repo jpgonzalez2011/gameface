@@ -11,9 +11,6 @@ var CurrentUserApiUtil = {
       success: function (data) {
         CurrentUserActions.newUserReceived(data);
       },
-      // error: function () {
-      //   CurrentUserActions.logInFailure();
-      // }
     });
   },
 
