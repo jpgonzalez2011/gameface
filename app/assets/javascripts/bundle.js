@@ -33270,14 +33270,15 @@
 	  },
 
 	  render: function () {
+	    var imageBackground = {
+	      backgroundImage: 'url(' + this.props.photo.medium_url + ')',
+	      backgroundRepeat: 'no-repeat',
+	      backgroundPosition: 'center center'
+	    };
 	    return React.createElement(
 	      'div',
 	      { onClick: this.toggleShow },
-	      React.createElement(
-	        'li',
-	        { key: this.props.key },
-	        React.createElement('img', { className: 'photo-preview', src: this.props.photo.medium_url })
-	      ),
+	      React.createElement('li', { key: this.props.key, style: imageBackground }),
 	      React.createElement(PhotoShow, { mainTimeLine: false, photo: this.props.photo, show: this.state.show })
 	    );
 	  }
