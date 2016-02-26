@@ -1,6 +1,7 @@
 var Dispatcher = require('../dispatcher/dispatcher'),
     Store = require('flux/utils').Store,
     CurrentUserConstants = require('../constants/current_user_constants'),
+    TimelineApiUtil = require('../util/timeline_api_util'),
     CurrentUserApiUtil = require('../util/current_user_api_util');
 
 var _currentUser = {};

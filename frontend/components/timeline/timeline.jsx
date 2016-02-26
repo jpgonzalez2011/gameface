@@ -12,7 +12,7 @@ var React = require('react'),
 
 var Timeline = React.createClass({
   getInitialState: function () {
-    return { items: [], mainTimeLine: true };
+    return { items: TimelineStore.allItems(), mainTimeLine: true };
   },
 
   componentDidMount: function () {

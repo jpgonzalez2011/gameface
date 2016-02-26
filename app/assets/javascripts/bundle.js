@@ -24460,6 +24460,7 @@
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    CurrentUserConstants = __webpack_require__(231),
+	    TimelineApiUtil = __webpack_require__(282),
 	    CurrentUserApiUtil = __webpack_require__(232);
 
 	var _currentUser = {};
@@ -34322,7 +34323,7 @@
 	  displayName: 'Timeline',
 
 	  getInitialState: function () {
-	    return { items: [], mainTimeLine: true };
+	    return { items: TimelineStore.allItems(), mainTimeLine: true };
 	  },
 
 	  componentDidMount: function () {
