@@ -1,7 +1,7 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user = User.includes(requested_friendships: {requested_friend: :profile_picture, received_friend: :cover_photo}, received_friendships: {received_friend: :profile_picture, received_friend: :cover_photo}).where(id: params[:user_id]).to_a.first
+    @user = User.includes(requested_friendships: {requested_friend: :profile_picture, requested_friend: :cover_photo}, received_friendships: {received_friend: :profile_picture, received_friend: :cover_photo}).where(id: params[:user_id]).to_a.first
     @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating] }
   end
 
