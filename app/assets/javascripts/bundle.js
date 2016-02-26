@@ -55,12 +55,12 @@
 	    LandingPage = __webpack_require__(245),
 	    Profile = __webpack_require__(249),
 	    PhotosIndex = __webpack_require__(259),
-	    About = __webpack_require__(269),
+	    About = __webpack_require__(267),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(270),
-	    FriendsIndex = __webpack_require__(279),
-	    Timeline = __webpack_require__(280),
-	    SessionForm = __webpack_require__(286);
+	    ProfileTimeline = __webpack_require__(268),
+	    FriendsIndex = __webpack_require__(277),
+	    Timeline = __webpack_require__(278),
+	    SessionForm = __webpack_require__(285);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -33290,8 +33290,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentDisplay = __webpack_require__(267),
-	    PhotoCommentForm = __webpack_require__(268);
+	    PhotoCommentDisplay = __webpack_require__(286),
+	    PhotoCommentForm = __webpack_require__(281);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -33300,7 +33300,14 @@
 	  doNothing: function (e) {
 	    e.stopPropagation();
 	  },
+
 	  render: function () {
+	    var imageBackground = {
+	      backgroundImage: 'url(' + this.props.photo.full_url + ')',
+	      backgroundSize: 'contain',
+	      backgroundRepeat: 'no-repeat',
+	      backgroundPosition: 'center center'
+	    };
 	    var url = "#/users/" + this.props.photo.uploader_id;
 	    if (this.props.show) {
 	      return React.createElement(
@@ -33310,11 +33317,7 @@
 	          'feature',
 	          { onClick: this.doNothing, className: 'photo-show-container-display group' },
 	          React.createElement('figure', { className: 'photo-show-container-display-close' }),
-	          React.createElement(
-	            'figure',
-	            { className: 'photo-show-container-display-image-holder' },
-	            React.createElement('img', { className: 'photo-show-image', src: this.props.photo.full_url })
-	          ),
+	          React.createElement('figure', { className: 'photo-show-container-display-image-holder', style: imageBackground }),
 	          React.createElement(
 	            'figure',
 	            { className: 'photo-show-container-information-pane' },
@@ -33414,110 +33417,6 @@
 /* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
-
-	var PhotoCommentDisplay = React.createClass({
-	  displayName: "PhotoCommentDisplay",
-
-	  render: function () {
-	    var url = "#/users/" + this.props.comment.commenter_id;
-	    return React.createElement(
-	      "li",
-	      { key: this.props.key, className: "photo-comment-item group" },
-	      React.createElement(
-	        "h1",
-	        { className: "photo-comment-header" },
-	        React.createElement(
-	          "a",
-	          { href: url },
-	          React.createElement("img", { className: "photo-comment-thumbnail", src: this.props.comment.thumbnail })
-	        ),
-	        React.createElement(
-	          "span",
-	          null,
-	          React.createElement(
-	            "div",
-	            null,
-	            React.createElement(
-	              "a",
-	              { href: url },
-	              this.props.comment.commenter_name
-	            )
-	          ),
-	          this.props.comment.content
-	        )
-	      ),
-	      React.createElement(
-	        "span",
-	        { className: "photo-comment-timestamp" },
-	        this.props.comment.date_and_time
-	      )
-	    );
-	  }
-	});
-
-	module.exports = PhotoCommentDisplay;
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(260),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var PhotoCommentForm = React.createClass({
-	  displayName: 'PhotoCommentForm',
-
-	  getInitialState: function () {
-	    return {
-	      content: "",
-	      showFooter: false
-	    };
-	  },
-
-	  handleKeydown: function (e) {
-	    if (e.keyCode === 13) {
-	      e.preventDefault();
-	      var comment = { comment: {
-	          commenter_id: CurrentUserStore.currentUser().id,
-	          commentable_id: this.props.commentable_id,
-	          commentable_type: "Photo",
-	          content: this.state.content,
-	          mainTimeLine: this.props.mainTimeLine
-	        } };
-	      $(".comment-form-input").val("");
-	      PhotoStore.addNewComment(comment);
-	      this.setState({ content: "" });
-	    } else {
-	      this.handleChange(e);
-	    }
-	  },
-
-	  handleChange: function (e) {
-	    this.setState({ content: e.target.value });
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'comment-form-container group' },
-	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
-	      React.createElement(
-	        'form',
-	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = PhotoCommentForm;
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var React = __webpack_require__(1),
 	    ProfileStore = __webpack_require__(250);
 
@@ -33613,15 +33512,15 @@
 	module.exports = About;
 
 /***/ },
-/* 270 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(271),
-	    PostStore = __webpack_require__(272),
-	    PostCommentForm = __webpack_require__(275),
-	    CommentDisplay = __webpack_require__(276),
-	    FriendGrid = __webpack_require__(277);
+	    PostForm = __webpack_require__(269),
+	    PostStore = __webpack_require__(270),
+	    PostCommentForm = __webpack_require__(273),
+	    CommentDisplay = __webpack_require__(274),
+	    FriendGrid = __webpack_require__(275);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33746,11 +33645,11 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 271 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(272),
+	    PostStore = __webpack_require__(270),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostForm = React.createClass({
@@ -33850,13 +33749,13 @@
 	module.exports = PostForm;
 
 /***/ },
-/* 272 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    PostConstants = __webpack_require__(256),
-	    PostApiUtil = __webpack_require__(273);
+	    PostApiUtil = __webpack_require__(271);
 
 	var posts = [];
 
@@ -33907,10 +33806,10 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 273 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(274),
+	var PostActions = __webpack_require__(272),
 	    TimelineActions = __webpack_require__(263);
 
 	var PostApiUtil = {
@@ -33958,7 +33857,7 @@
 	module.exports = PostApiUtil;
 
 /***/ },
-/* 274 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -33990,11 +33889,11 @@
 	module.exports = PostActions;
 
 /***/ },
-/* 275 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(272),
+	    PostStore = __webpack_require__(270),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostCommentForm = React.createClass({
@@ -34046,7 +33945,7 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 276 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34094,13 +33993,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 277 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(255),
 	    FriendApiUtil = __webpack_require__(241),
-	    FriendGridItem = __webpack_require__(278);
+	    FriendGridItem = __webpack_require__(276);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34179,7 +34078,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 278 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34214,7 +34113,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 279 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34301,19 +34200,19 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 280 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(281),
-	    PostForm = __webpack_require__(271),
-	    PostCommentForm = __webpack_require__(275),
-	    PhotoCommentForm = __webpack_require__(268),
-	    CommentDisplay = __webpack_require__(276),
-	    TimelinePostItem = __webpack_require__(283),
-	    TimelinePhotoItem = __webpack_require__(284),
-	    SearchResults = __webpack_require__(285);
+	    TimelineStore = __webpack_require__(279),
+	    PostForm = __webpack_require__(269),
+	    PostCommentForm = __webpack_require__(273),
+	    PhotoCommentForm = __webpack_require__(281),
+	    CommentDisplay = __webpack_require__(274),
+	    TimelinePostItem = __webpack_require__(282),
+	    TimelinePhotoItem = __webpack_require__(283),
+	    SearchResults = __webpack_require__(284);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34408,13 +34307,13 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 281 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    TimelineConstants = __webpack_require__(258),
-	    TimelineApiUtil = __webpack_require__(282),
+	    TimelineApiUtil = __webpack_require__(280),
 	    PostConstants = __webpack_require__(256),
 	    PhotoConstants = __webpack_require__(257);
 
@@ -34455,7 +34354,7 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 282 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var TimelineActions = __webpack_require__(263);
@@ -34477,12 +34376,68 @@
 	module.exports = TimelineApiUtil;
 
 /***/ },
-/* 283 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(275),
-	    CommentDisplay = __webpack_require__(276);
+	    PhotoStore = __webpack_require__(260),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PhotoCommentForm = React.createClass({
+	  displayName: 'PhotoCommentForm',
+
+	  getInitialState: function () {
+	    return {
+	      content: "",
+	      showFooter: false
+	    };
+	  },
+
+	  handleKeydown: function (e) {
+	    if (e.keyCode === 13) {
+	      e.preventDefault();
+	      var comment = { comment: {
+	          commenter_id: CurrentUserStore.currentUser().id,
+	          commentable_id: this.props.commentable_id,
+	          commentable_type: "Photo",
+	          content: this.state.content,
+	          mainTimeLine: this.props.mainTimeLine
+	        } };
+	      $(".comment-form-input").val("");
+	      PhotoStore.addNewComment(comment);
+	      this.setState({ content: "" });
+	    } else {
+	      this.handleChange(e);
+	    }
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ content: e.target.value });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment-form-container group' },
+	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	      React.createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentForm;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostCommentForm = __webpack_require__(273),
+	    CommentDisplay = __webpack_require__(274);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -34529,12 +34484,12 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 284 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentForm = __webpack_require__(268),
-	    CommentDisplay = __webpack_require__(276),
+	    PhotoCommentForm = __webpack_require__(281),
+	    CommentDisplay = __webpack_require__(274),
 	    PhotoShow = __webpack_require__(266);
 
 	var TimelinePhotoItem = React.createClass({
@@ -34591,7 +34546,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 285 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34615,7 +34570,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34664,6 +34619,54 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var PhotoCommentDisplay = React.createClass({
+	  displayName: "PhotoCommentDisplay",
+
+	  render: function () {
+	    var url = "#/users/" + this.props.comment.commenter_id;
+	    return React.createElement(
+	      "li",
+	      { key: this.props.key, className: "photo-comment-item group" },
+	      React.createElement(
+	        "h1",
+	        { className: "photo-comment-header" },
+	        React.createElement(
+	          "a",
+	          { href: url },
+	          React.createElement("img", { className: "photo-comment-thumbnail", src: this.props.comment.thumbnail })
+	        ),
+	        React.createElement(
+	          "span",
+	          null,
+	          React.createElement(
+	            "div",
+	            null,
+	            React.createElement(
+	              "a",
+	              { href: url },
+	              this.props.comment.commenter_name
+	            )
+	          ),
+	          this.props.comment.content
+	        )
+	      ),
+	      React.createElement(
+	        "span",
+	        { className: "photo-comment-timestamp" },
+	        this.props.comment.date_and_time
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentDisplay;
 
 /***/ }
 /******/ ]);

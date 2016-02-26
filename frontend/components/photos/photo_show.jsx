@@ -7,7 +7,16 @@ var PhotoShow = React.createClass({
   doNothing: function (e) {
     e.stopPropagation();
   },
+
+
+
   render: function () {
+    var imageBackground = {
+      backgroundImage: 'url(' + this.props.photo.full_url + ')',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center'
+     };
     var url = "#/users/" + this.props.photo.uploader_id;
     if (this.props.show) {
       return (
@@ -15,8 +24,8 @@ var PhotoShow = React.createClass({
           <feature onClick={this.doNothing} className="photo-show-container-display group">
             <figure className="photo-show-container-display-close">
             </figure>
-            <figure className="photo-show-container-display-image-holder">
-              <img className="photo-show-image" src={this.props.photo.full_url}/>
+            <figure className="photo-show-container-display-image-holder" style={imageBackground} >
+              {/*<img className="photo-show-image" src={this.props.photo.full_url}/> */}
             </figure>
             <figure className="photo-show-container-information-pane">
               <header className="photo-show-container-information-pane-header">
