@@ -10,9 +10,6 @@ var items = [];
 var TimelineStore = new Store(Dispatcher);
 
 TimelineStore.allItems = function () {
-  if (items.length === 0) {
-    TimelineApiUtil.fetchAllItems();
-  }
   return items;
 };
 

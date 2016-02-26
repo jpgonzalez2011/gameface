@@ -34311,6 +34311,7 @@
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
 	    TimelineStore = __webpack_require__(281),
+	    TimelineApiUtil = __webpack_require__(282),
 	    PostForm = __webpack_require__(271),
 	    PostCommentForm = __webpack_require__(275),
 	    PhotoCommentForm = __webpack_require__(268),
@@ -34323,22 +34324,20 @@
 	  displayName: 'Timeline',
 
 	  getInitialState: function () {
-	    return this.getStateFromStore();
-	  },
-
-	  getStateFromStore: function () {
-	    return { items: TimelineStore.allItems(), mainTimeLine: true };
+	    return { items: [], mainTimeLine: true };
 	  },
 
 	  componentDidMount: function () {
-	    this.storeCBToken = TimelineStore.addListener(function () {
-	      this.setState(this.getStateFromStore);
-	    }.bind(this));
-	    this.getStateFromStore();
+	    this.storeCBToken = TimelineStore.addListener(this.__onChange);
+	    TimelineApiUtil.fetchAllItems();
 	  },
 
 	  componentWillUnmount: function () {
 	    this.storeCBToken.remove();
+	  },
+
+	  __onChange: function () {
+	    this.setState({ items: TimelineStore.allItems() });
 	  },
 
 	  render: function () {
@@ -34427,9 +34426,6 @@
 	var TimelineStore = new Store(Dispatcher);
 
 	TimelineStore.allItems = function () {
-	  if (items.length === 0) {
-	    TimelineApiUtil.fetchAllItems();
-	  }
 	  return items;
 	};
 

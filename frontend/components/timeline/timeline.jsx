@@ -1,6 +1,7 @@
 var React = require('react'),
     CurrentUserStore = require('../../stores/current_user_store'),
     TimelineStore = require('../../stores/timeline_store'),
+    TimelineApiUtil = require('../../util/timeline_api_util'),
     PostForm = require('../posts/post_form'),
     PostCommentForm = require('../comments/post_comment_form'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
@@ -11,22 +12,20 @@ var React = require('react'),
 
 var Timeline = React.createClass({
   getInitialState: function () {
-    return ( this.getStateFromStore() );
-  },
-
-  getStateFromStore: function () {
-    return ( {items: TimelineStore.allItems(), mainTimeLine: true });
+    return { items: [], mainTimeLine: true };
   },
 
   componentDidMount: function () {
-    this.storeCBToken = TimelineStore.addListener( function () {
-      this.setState(this.getStateFromStore);
-    }.bind(this));
-    this.getStateFromStore();
+    this.storeCBToken = TimelineStore.addListener(this.__onChange);
+    TimelineApiUtil.fetchAllItems();
   },
 
   componentWillUnmount: function () {
     this.storeCBToken.remove();
+  },
+
+  __onChange: function () {
+    this.setState({ items: TimelineStore.allItems() })
   },
 
   render: function () {
