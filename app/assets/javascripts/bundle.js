@@ -33653,8 +33653,10 @@
 	  },
 
 	  componentWillReceiveProps: function (newProps) {
-	    PostStore.emptyPosts(newProps.params.userId);
-	    this.setState(this.getStateFromStore(newProps));
+	    if (newProps.params.userId !== this.props.params.userId) {
+	      PostStore.emptyPosts(newProps.params.userId);
+	      this.setState(this.getStateFromStore(newProps));
+	    }
 	  },
 
 	  render: function () {
