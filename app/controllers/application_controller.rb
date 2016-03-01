@@ -6,16 +6,24 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :sign_in, :sign_out
 
   def current_user
-    @current_user ||= User.find_by(session_token: session[:session_token])
+    @session ||= Session.find_by(session_token: session[:session_token])
+    if @session
+      @session.user
+    else
+      nil
+    end
   end
 
   def sign_in!(user)
-    session[:session_token] = user.reset_session_token!
+    session[:session_token] = SecureRandom::urlsafe_base64(16)
+    Session.create!(session_token: session[:session_token], user_id: user.id)
+    user
   end
 
   def sign_out!
-    current_user.reset_session_token!
-    session_token = nil
+    @session = Session.find_by(session_token: session[:session_token])
+    @session.destroy!
+    session[:session_token] = nil
   end
 
   def ensure_sign_in
