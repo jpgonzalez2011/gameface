@@ -25,7 +25,6 @@ var PhotoShow = React.createClass({
             <figure className="photo-show-container-display-close">
             </figure>
             <figure className="photo-show-container-display-image-holder" style={imageBackground} >
-              {/*<img className="photo-show-image" src={this.props.photo.full_url}/> */}
             </figure>
             <figure className="photo-show-container-information-pane">
               <header className="photo-show-container-information-pane-header">
