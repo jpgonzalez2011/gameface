@@ -61,15 +61,17 @@ var ProfileTimeline = React.createClass({
                     <span>{post.date_and_time}</span>
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
-                  <ul className="timeline-index-item-comments-list">
-                    {post.comments.map( function (comment, i) {
-                      return (
-                        <CommentDisplay key={i} comment={comment} />
-                      );
-                    })}
-                  </ul>
-                  <div className="timeline-index-item-comment-form">
-                    <PostCommentForm mainTimeLine={undefined} commentable_id={post.id} />
+                  <div className="timeline-index-item-comments-container">
+                    <ul className="timeline-index-item-comments-list">
+                      {post.comments.map( function (comment, i) {
+                        return (
+                          <CommentDisplay key={i} comment={comment} />
+                        );
+                      })}
+                    </ul>
+                    <div className="timeline-index-item-comment-form">
+                      <PostCommentForm mainTimeLine={undefined} commentable_id={post.id} />
+                    </div>
                   </div>
                 </li>
               );

@@ -33745,16 +33745,20 @@
 	                post.content
 	              ),
 	              React.createElement(
-	                'ul',
-	                { className: 'timeline-index-item-comments-list' },
-	                post.comments.map(function (comment, i) {
-	                  return React.createElement(CommentDisplay, { key: i, comment: comment });
-	                })
-	              ),
-	              React.createElement(
 	                'div',
-	                { className: 'timeline-index-item-comment-form' },
-	                React.createElement(PostCommentForm, { mainTimeLine: undefined, commentable_id: post.id })
+	                { className: 'timeline-index-item-comments-container' },
+	                React.createElement(
+	                  'ul',
+	                  { className: 'timeline-index-item-comments-list' },
+	                  post.comments.map(function (comment, i) {
+	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                  })
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'timeline-index-item-comment-form' },
+	                  React.createElement(PostCommentForm, { mainTimeLine: undefined, commentable_id: post.id })
+	                )
 	              )
 	            );
 	          })

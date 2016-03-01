@@ -55,9 +55,12 @@
   display: block;
   margin: 0px;
   padding: 10px 12px 10px 10px;
-  border-bottom: 1px solid #ccc;
   font-weight: 400;
   font-size: 14px;
+}
+
+.timeline-index-item-comments-container {
+  border-top: 1px solid #ccc;
 }
 
 .post-form-container {
@@ -140,18 +143,18 @@
   vertical-align: baseline;
 }
 
-.timeline-index-item > ul {
+.timeline-index-item > div > ul {
   padding: 0px;
   background-color: rgb(246, 247, 248);
   text-align: left;
 }
 
-.timeline-index-item > ul > li {
+.timeline-index-item > div > ul > li {
   display: block;
   width: 508px;
 }
 
-.timeline-index-item > ul > li > h1 {
+.timeline-index-item > div > ul > li > h1 {
   display: block;
   width: 500px;
   height: auto;
@@ -168,7 +171,7 @@
 }
 
 
-.timeline-index-item > ul > li > h1 > div {
+.timeline-index-item > div > ul > li > h1 > div {
   float: left;
   margin: 0px;
   padding: 0px;
@@ -179,7 +182,7 @@
   color: #3a5795;
 }
 
-.timeline-index-item > ul > li > h1 > p {
+.timeline-index-item > div > ul > li > h1 > p {
   float: left;
   width: 355px;
   margin-top: 0px;
@@ -189,7 +192,7 @@
   margin-bottom: 0px;
 }
 
-.timeline-index-item > ul > li > span {
+.timeline-index-item > div > ul > li > span {
   float: left;
   margin: 0px;
   margin-top: 0px;
