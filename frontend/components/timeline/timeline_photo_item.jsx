@@ -28,15 +28,17 @@ var TimelinePhotoItem = React.createClass({
         <div onClick={this.toggleShow} className="timeline-photo-preview-container" style={imageBackground}>
           <PhotoShow mainTimeLine={true} photo={this.props.item} show={this.state.show} />
         </div>
-        <ul className="timeline-index-item-comments-list">
-          {this.props.item.comments.map( function (comment, i) {
-            return (
-              <CommentDisplay key={i} comment={comment} />
-            );
-          })}
-        </ul>
-        <div className="timeline-index-item-comment-form">
-          <PhotoCommentForm key={this.props.i} mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
+        <div className="timeline-index-item-comments-container">
+          <ul className="timeline-index-item-comments-list">
+            {this.props.item.comments.map( function (comment, i) {
+              return (
+                <CommentDisplay key={i} comment={comment} />
+              );
+            })}
+          </ul>
+          <div className="timeline-index-item-comment-form">
+            <PhotoCommentForm key={this.props.i} mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.item.id} />
+          </div>
         </div>
       </li>
     );
