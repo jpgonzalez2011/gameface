@@ -9,8 +9,4 @@ class Session < ActiveRecord::Base
     class_name: "User"
   )
 
-  def set_token
-    SecureRandom::urlsafe_base64(16)
-  end
-
 end
