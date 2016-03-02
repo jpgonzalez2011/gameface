@@ -26,6 +26,7 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 - [x] Photos are displayed through a modal window.
 - [x] Users can become friends with other users.
 - [x] Users can view posts made by their friends via a main feed.
+- [x] App allows users to have multiple simultaneous logins.
 - [x] Dynamic search of users by name and username that updates as a query is entered.
 - [x] Users have Top Friends that are updated in real time with every user interaction.
 
