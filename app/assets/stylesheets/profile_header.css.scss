@@ -1,7 +1,7 @@
 .profile-header-box {
   margin: 0 auto;
   width: 850px;
-  border-bottom: 0px 1px 1px 1px solid #ccc;
+  border: 1px solid #ccc;
   position: relative;
   background-color: white;
 }
@@ -100,6 +100,7 @@
   line-height: 42.7px;
   text-decoration: none;
   color: #3a5795;
+  border-radius: 0px;
 }
 
 .profile-nav-option:hover {

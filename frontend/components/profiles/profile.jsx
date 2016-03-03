@@ -38,7 +38,6 @@ var Profile = React.createClass({
   },
 
   render: function () {
-    debugger
     return (
       <div className="main-div">
         <header className="profile-header-box group">
