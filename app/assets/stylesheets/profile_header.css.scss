@@ -91,13 +91,19 @@
   float: right;
 }
 
-.profile-nav > li {
+.profile-nav-option {
   float: left;
   border-left: 1px solid #ccc;
   font-family: helvetica, arial, sans-serif;
   link-style: none;
   font-weight: bold;
   line-height: 42.7px;
+  text-decoration: none;
+  color: #3a5795;
+}
+
+.profile-nav-option:hover {
+  background-color: rgb(237, 240, 245);
 }
 
 .profile-nav > li:last-of-type {
@@ -106,10 +112,14 @@
 
 .profile-nav > li > a {
   padding: 12px 17px;
-  text-decoration: none;
-  color: #3a5795;
 }
 
-.profile-nav > li > a:hover {
-  background-color: rgb(237, 240, 245);
+.profile-nav-selected {
+  color: black;
+  text-decoration: underline;
+  cursor: default;
+}
+
+.profile-nav-selected:hover {
+  background-color: white;
 }

@@ -2,6 +2,7 @@ var React = require('react'),
     ProfileStore = require('../../stores/profile_store'),
     FriendshipButton = require('./friendship_button'),
     FriendStore = require('../../stores/friend_store'),
+    ProfileNav = require('./profile_nav'),
     History = require('react-router').History;
 
 var Profile = React.createClass({
@@ -37,11 +38,7 @@ var Profile = React.createClass({
   },
 
   render: function () {
-    var photos = "#/users/" + this.props.params.userId + "/photos",
-        about = "#/users/" + this.props.params.userId + "/about",
-        timeline = "#/users/" + this.props.params.userId + "/timeline",
-        friends = "#/users/" + this.props.params.userId + "/friends";
-
+    debugger
     return (
       <div className="main-div">
         <header className="profile-header-box group">
@@ -50,12 +47,7 @@ var Profile = React.createClass({
             <FriendshipButton userId={this.props.params.userId}/>
             <h1 className="profile-username-display"> {this.state.profile.full_name} </h1>
           </div>
-          <ul className="profile-nav group">
-            <li> <a href={about}> About </a> </li>
-            <li> <a href={timeline}> Timeline </a> </li>
-            <li> <a href={photos}> Photos </a> </li>
-            <li> <a href={friends}> Friends </a> </li>
-          </ul>
+          <ProfileNav userId={this.props.params.userId}/>
           <div className="profile-picture-box">
             <img src={this.state.profile.profile_medium_url} />
           </div>

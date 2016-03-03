@@ -32515,6 +32515,7 @@
 	    ProfileStore = __webpack_require__(253),
 	    FriendshipButton = __webpack_require__(257),
 	    FriendStore = __webpack_require__(258),
+	    ProfileNav = __webpack_require__(289),
 	    History = __webpack_require__(159).History;
 
 	var Profile = React.createClass({
@@ -32550,11 +32551,7 @@
 	  },
 
 	  render: function () {
-	    var photos = "#/users/" + this.props.params.userId + "/photos",
-	        about = "#/users/" + this.props.params.userId + "/about",
-	        timeline = "#/users/" + this.props.params.userId + "/timeline",
-	        friends = "#/users/" + this.props.params.userId + "/friends";
-
+	    debugger;
 	    return React.createElement(
 	      'div',
 	      { className: 'main-div' },
@@ -32574,54 +32571,7 @@
 	            ' '
 	          )
 	        ),
-	        React.createElement(
-	          'ul',
-	          { className: 'profile-nav group' },
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: about },
-	              ' About '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: timeline },
-	              ' Timeline '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: photos },
-	              ' Photos '
-	            ),
-	            ' '
-	          ),
-	          React.createElement(
-	            'li',
-	            null,
-	            ' ',
-	            React.createElement(
-	              'a',
-	              { href: friends },
-	              ' Friends '
-	            ),
-	            ' '
-	          )
-	        ),
+	        React.createElement(ProfileNav, { userId: this.props.params.userId }),
 	        React.createElement(
 	          'div',
 	          { className: 'profile-picture-box' },
@@ -34681,6 +34631,120 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 287 */,
+/* 288 */,
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var ProfileNav = React.createClass({
+	  displayName: "ProfileNav",
+
+	  getInitialState: function () {
+	    return {
+	      about: null,
+	      timeline: "profile-nav-selected",
+	      photos: null,
+	      friends: null
+	    };
+	  },
+
+	  selectAbout: function () {
+	    this.setState({
+	      about: "profile-nav-selected",
+	      timeline: null,
+	      photos: null,
+	      friends: null
+	    });
+	  },
+
+	  selectTimeline: function () {
+	    this.setState({
+	      about: null,
+	      timeline: "profile-nav-selected",
+	      photos: null,
+	      friends: null
+	    });
+	  },
+
+	  selectPhotos: function () {
+	    this.setState({
+	      about: null,
+	      timeline: null,
+	      photos: "profile-nav-selected",
+	      friends: null
+	    });
+	  },
+
+	  selectFriends: function () {
+	    this.setState({
+	      about: null,
+	      timeline: null,
+	      photos: null,
+	      friends: "profile-nav-selected"
+	    });
+	  },
+
+	  render: function () {
+	    var photos = "#/users/" + this.props.userId + "/photos",
+	        about = "#/users/" + this.props.userId + "/about",
+	        timeline = "#/users/" + this.props.userId + "/timeline",
+	        friends = "#/users/" + this.props.userId + "/friends";
+	    return React.createElement(
+	      "ul",
+	      { className: "profile-nav group" },
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.about, onClick: this.selectAbout, href: about },
+	          " About "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.timeline, onClick: this.selectTimeline, href: timeline },
+	          " Timeline "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.photos, onClick: this.selectPhotos, href: photos },
+	          " Photos "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.friends, onClick: this.selectFriends, href: friends },
+	          " Friends "
+	        ),
+	        " "
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ProfileNav;
 
 /***/ }
 /******/ ]);
