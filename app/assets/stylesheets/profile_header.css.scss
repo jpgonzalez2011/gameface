@@ -118,6 +118,10 @@
 .profile-nav-selected {
   color: #373e4d;
   cursor: default;
+  background-image: image-url("fb_icons/selected_pointer.png");
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: bottom;
 }
 
 .profile-nav-selected:hover {
