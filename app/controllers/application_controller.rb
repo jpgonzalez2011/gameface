@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :sign_in, :sign_out
 
   def current_user
-    @session ||= Session.find_by(session_token: session[:session_token])
+    @session ||= Session.includes({ user: :profile_picture }).find_by(session_token: session[:session_token])
     if @session
       @session.user
     else

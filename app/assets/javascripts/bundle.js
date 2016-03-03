@@ -54,13 +54,13 @@
 	var LoggedInNavHeader = __webpack_require__(208),
 	    LandingPage = __webpack_require__(248),
 	    Profile = __webpack_require__(252),
-	    PhotosIndex = __webpack_require__(261),
-	    About = __webpack_require__(270),
+	    PhotosIndex = __webpack_require__(262),
+	    About = __webpack_require__(271),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(271),
-	    FriendsIndex = __webpack_require__(280),
-	    Timeline = __webpack_require__(281),
-	    SessionForm = __webpack_require__(286);
+	    ProfileTimeline = __webpack_require__(272),
+	    FriendsIndex = __webpack_require__(281),
+	    Timeline = __webpack_require__(282),
+	    SessionForm = __webpack_require__(287);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -32515,7 +32515,7 @@
 	    ProfileStore = __webpack_require__(253),
 	    FriendshipButton = __webpack_require__(257),
 	    FriendStore = __webpack_require__(258),
-	    ProfileNav = __webpack_require__(289),
+	    ProfileNav = __webpack_require__(261),
 	    History = __webpack_require__(159).History;
 
 	var Profile = React.createClass({
@@ -32887,11 +32887,123 @@
 /* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(1);
+
+	var ProfileNav = React.createClass({
+	  displayName: "ProfileNav",
+
+	  getInitialState: function () {
+	    return {
+	      about: null,
+	      timeline: "profile-nav-selected",
+	      photos: null,
+	      friends: null
+	    };
+	  },
+
+	  selectAbout: function () {
+	    this.setState({
+	      about: "profile-nav-selected",
+	      timeline: null,
+	      photos: null,
+	      friends: null
+	    });
+	  },
+
+	  selectTimeline: function () {
+	    this.setState({
+	      about: null,
+	      timeline: "profile-nav-selected",
+	      photos: null,
+	      friends: null
+	    });
+	  },
+
+	  selectPhotos: function () {
+	    this.setState({
+	      about: null,
+	      timeline: null,
+	      photos: "profile-nav-selected",
+	      friends: null
+	    });
+	  },
+
+	  selectFriends: function () {
+	    this.setState({
+	      about: null,
+	      timeline: null,
+	      photos: null,
+	      friends: "profile-nav-selected"
+	    });
+	  },
+
+	  render: function () {
+	    var photos = "#/users/" + this.props.userId + "/photos",
+	        about = "#/users/" + this.props.userId + "/about",
+	        timeline = "#/users/" + this.props.userId + "/timeline",
+	        friends = "#/users/" + this.props.userId + "/friends";
+	    return React.createElement(
+	      "ul",
+	      { className: "profile-nav group" },
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.about, onClick: this.selectAbout, href: about },
+	          " About "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.timeline, onClick: this.selectTimeline, href: timeline },
+	          " Timeline "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.photos, onClick: this.selectPhotos, href: photos },
+	          " Photos "
+	        ),
+	        " "
+	      ),
+	      React.createElement(
+	        "li",
+	        { className: "profile-nav-option" },
+	        " ",
+	        React.createElement(
+	          "a",
+	          { className: this.state.friends, onClick: this.selectFriends, href: friends },
+	          " Friends "
+	        ),
+	        " "
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ProfileNav;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    PhotoStore = __webpack_require__(262),
-	    PhotoForm = __webpack_require__(265),
-	    PhotoPreview = __webpack_require__(266);
+	    PhotoStore = __webpack_require__(263),
+	    PhotoForm = __webpack_require__(266),
+	    PhotoPreview = __webpack_require__(267);
 
 	var _photoForm;
 
@@ -32993,13 +33105,13 @@
 	module.exports = PhotosIndex;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    PhotoConstants = __webpack_require__(260),
-	    PhotoApiUtil = __webpack_require__(263);
+	    PhotoApiUtil = __webpack_require__(264);
 
 	var photos = [];
 
@@ -33057,10 +33169,10 @@
 	module.exports = PhotoStore;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PhotoActions = __webpack_require__(264),
+	var PhotoActions = __webpack_require__(265),
 	    TimelineActions = __webpack_require__(233);
 
 	var PhotoApiUtil = {
@@ -33111,7 +33223,7 @@
 	module.exports = PhotoApiUtil;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -33143,11 +33255,11 @@
 	module.exports = PhotoActions;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(262),
+	    PhotoStore = __webpack_require__(263),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoForm = React.createClass({
@@ -33221,11 +33333,11 @@
 	module.exports = PhotoForm;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoShow = __webpack_require__(267);
+	    PhotoShow = __webpack_require__(268);
 
 	var PhotoPreview = React.createClass({
 	  displayName: 'PhotoPreview',
@@ -33256,12 +33368,12 @@
 	module.exports = PhotoPreview;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentDisplay = __webpack_require__(268),
-	    PhotoCommentForm = __webpack_require__(269);
+	    PhotoCommentDisplay = __webpack_require__(269),
+	    PhotoCommentForm = __webpack_require__(270);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -33384,7 +33496,7 @@
 	module.exports = PhotoShow;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33432,11 +33544,11 @@
 	module.exports = PhotoCommentDisplay;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(262),
+	    PhotoStore = __webpack_require__(263),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PhotoCommentForm = React.createClass({
@@ -33488,7 +33600,7 @@
 	module.exports = PhotoCommentForm;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -33586,15 +33698,15 @@
 	module.exports = About;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostForm = __webpack_require__(272),
-	    PostStore = __webpack_require__(273),
-	    PostCommentForm = __webpack_require__(276),
-	    CommentDisplay = __webpack_require__(277),
-	    FriendGrid = __webpack_require__(278);
+	    PostForm = __webpack_require__(273),
+	    PostStore = __webpack_require__(274),
+	    PostCommentForm = __webpack_require__(277),
+	    CommentDisplay = __webpack_require__(278),
+	    FriendGrid = __webpack_require__(279);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33725,11 +33837,11 @@
 	module.exports = ProfileTimeline;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(273),
+	    PostStore = __webpack_require__(274),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostForm = React.createClass({
@@ -33829,13 +33941,13 @@
 	module.exports = PostForm;
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    PostConstants = __webpack_require__(259),
-	    PostApiUtil = __webpack_require__(274);
+	    PostApiUtil = __webpack_require__(275);
 
 	var posts = [];
 
@@ -33886,10 +33998,10 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(275),
+	var PostActions = __webpack_require__(276),
 	    TimelineActions = __webpack_require__(233);
 
 	var PostApiUtil = {
@@ -33937,7 +34049,7 @@
 	module.exports = PostApiUtil;
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -33969,11 +34081,11 @@
 	module.exports = PostActions;
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(273),
+	    PostStore = __webpack_require__(274),
 	    CurrentUserStore = __webpack_require__(209);
 
 	var PostCommentForm = React.createClass({
@@ -34025,7 +34137,7 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34073,13 +34185,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(258),
 	    FriendApiUtil = __webpack_require__(244),
-	    FriendGridItem = __webpack_require__(279);
+	    FriendGridItem = __webpack_require__(280);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34158,7 +34270,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34193,7 +34305,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34280,20 +34392,20 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(282),
+	    TimelineStore = __webpack_require__(283),
 	    TimelineApiUtil = __webpack_require__(232),
-	    PostForm = __webpack_require__(272),
-	    PostCommentForm = __webpack_require__(276),
-	    PhotoCommentForm = __webpack_require__(269),
-	    CommentDisplay = __webpack_require__(277),
-	    TimelinePostItem = __webpack_require__(283),
-	    TimelinePhotoItem = __webpack_require__(284),
-	    SearchResults = __webpack_require__(285);
+	    PostForm = __webpack_require__(273),
+	    PostCommentForm = __webpack_require__(277),
+	    PhotoCommentForm = __webpack_require__(270),
+	    CommentDisplay = __webpack_require__(278),
+	    TimelinePostItem = __webpack_require__(284),
+	    TimelinePhotoItem = __webpack_require__(285),
+	    SearchResults = __webpack_require__(286);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34386,7 +34498,7 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -34430,12 +34542,12 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(276),
-	    CommentDisplay = __webpack_require__(277);
+	    PostCommentForm = __webpack_require__(277),
+	    CommentDisplay = __webpack_require__(278);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -34486,13 +34598,13 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PhotoCommentForm = __webpack_require__(269),
-	    CommentDisplay = __webpack_require__(277),
-	    PhotoShow = __webpack_require__(267);
+	    PhotoCommentForm = __webpack_require__(270),
+	    CommentDisplay = __webpack_require__(278),
+	    PhotoShow = __webpack_require__(268);
 
 	var TimelinePhotoItem = React.createClass({
 	  displayName: 'TimelinePhotoItem',
@@ -34557,7 +34669,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34581,7 +34693,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34630,120 +34742,6 @@
 	});
 
 	module.exports = SessionForm;
-
-/***/ },
-/* 287 */,
-/* 288 */,
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var ProfileNav = React.createClass({
-	  displayName: "ProfileNav",
-
-	  getInitialState: function () {
-	    return {
-	      about: null,
-	      timeline: "profile-nav-selected",
-	      photos: null,
-	      friends: null
-	    };
-	  },
-
-	  selectAbout: function () {
-	    this.setState({
-	      about: "profile-nav-selected",
-	      timeline: null,
-	      photos: null,
-	      friends: null
-	    });
-	  },
-
-	  selectTimeline: function () {
-	    this.setState({
-	      about: null,
-	      timeline: "profile-nav-selected",
-	      photos: null,
-	      friends: null
-	    });
-	  },
-
-	  selectPhotos: function () {
-	    this.setState({
-	      about: null,
-	      timeline: null,
-	      photos: "profile-nav-selected",
-	      friends: null
-	    });
-	  },
-
-	  selectFriends: function () {
-	    this.setState({
-	      about: null,
-	      timeline: null,
-	      photos: null,
-	      friends: "profile-nav-selected"
-	    });
-	  },
-
-	  render: function () {
-	    var photos = "#/users/" + this.props.userId + "/photos",
-	        about = "#/users/" + this.props.userId + "/about",
-	        timeline = "#/users/" + this.props.userId + "/timeline",
-	        friends = "#/users/" + this.props.userId + "/friends";
-	    return React.createElement(
-	      "ul",
-	      { className: "profile-nav group" },
-	      React.createElement(
-	        "li",
-	        { className: "profile-nav-option" },
-	        " ",
-	        React.createElement(
-	          "a",
-	          { className: this.state.about, onClick: this.selectAbout, href: about },
-	          " About "
-	        ),
-	        " "
-	      ),
-	      React.createElement(
-	        "li",
-	        { className: "profile-nav-option" },
-	        " ",
-	        React.createElement(
-	          "a",
-	          { className: this.state.timeline, onClick: this.selectTimeline, href: timeline },
-	          " Timeline "
-	        ),
-	        " "
-	      ),
-	      React.createElement(
-	        "li",
-	        { className: "profile-nav-option" },
-	        " ",
-	        React.createElement(
-	          "a",
-	          { className: this.state.photos, onClick: this.selectPhotos, href: photos },
-	          " Photos "
-	        ),
-	        " "
-	      ),
-	      React.createElement(
-	        "li",
-	        { className: "profile-nav-option" },
-	        " ",
-	        React.createElement(
-	          "a",
-	          { className: this.state.friends, onClick: this.selectFriends, href: friends },
-	          " Friends "
-	        ),
-	        " "
-	      )
-	    );
-	  }
-	});
-
-	module.exports = ProfileNav;
 
 /***/ }
 /******/ ]);
