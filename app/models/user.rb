@@ -109,11 +109,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    name = self.fname
     if self.lname
-      name = name + " " + self.lname
+      self.fname + " " + self.lname
+    else
+      self.fname
     end
-    name
   end
 
   def friends
