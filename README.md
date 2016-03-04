@@ -1,6 +1,6 @@
 # GameFaces
 
-[Live Link!]: http//www.gamefaces.xyz
+[Live]: http//www.gamefaces.xyz
 
 ### Welcome to GameFaces
 
@@ -8,8 +8,8 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 
 **Screenshots**
 
-![screenshot1](/app/assets/screenshots/screenshot1.png)
-![screenshot2](/app/assets/screenshots/screenshot2.png)
+[![screenshot1](/app/assets/screenshots/screenshot1.png)]: http://www.gamefaces.xyz/
+[![screenshot2](/app/assets/screenshots/screenshot2.png)]: http://www.gamefaces.xyz/
 
 ###Features
 
@@ -36,18 +36,18 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 - JavaScript
 - HTML/CSS
 
-### Frameworks
+### Frameworks / Libraries
 
 - Rails
 - React.js with Flux
+- jQuery
 
-### Libraries and APIs
+### Gems / Services
 
 - BCrypt
 - OmniAuth
 - Paperclip
 - PgSearch
-- jQuery
 - Amazon Web Services (Simple Storage Service)
 - Heroku
 
