@@ -24,18 +24,22 @@ class Api::FriendshipsController < ApplicationController
   end
 
   def check_friends
-    @friendship = Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :first and received_friend = :second", {first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
-    @friendship = @friendship + Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
-    if !@friendship.empty?
-      render json: { friendship:
-        {
-          requested_friend_id: @friendship[0].requested_friend.id,
-          received_friend_id: @friendship[0].received_friend.id,
-          friendshipStatus: @friendship[0].confirmed
-        }
-      }
-    else
+    if params[:firstFriend] == params[:secondFriend]
       render json: {friendship: "none"}
+    else
+      @friendship = Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :first and received_friend = :second", {first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+      @friendship = @friendship + Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+      if !@friendship.empty?
+        render json: { friendship:
+          {
+            requested_friend_id: @friendship[0].requested_friend.id,
+            received_friend_id: @friendship[0].received_friend.id,
+            friendshipStatus: @friendship[0].confirmed
+          }
+        }
+      else
+        render json: {friendship: "none"}
+      end
     end
   end
 
