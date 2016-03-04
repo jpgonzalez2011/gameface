@@ -1,13 +1,10 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user = User.includes(requested_friendships: {requested_friend: :profile_picture}, received_friendships: {received_friend: :profile_picture}).where(id: params[:user_id]).to_a.first
-    requested_friendships = @user.requested_friendships.to_a.select { |friendship| friendship.confirmed == true}
-    received_friendships = @user.received_friendships.to_a.select { |friendship| friendship.confirmed == true}
-    all_friendships = requested_friendships + received_friendships
-    sorted_friendships = all_friendships.sort { |x,y| y[:rating] <=> x[:rating] }
-    @friends = sorted_friendships.map do |friendship|
-      if friendship.received_friend.id == @user.id
+    @user_id = params[:user_id]
+    @sorted_friendships = Friendship.includes(requested_friend: :profile_picture, received_friend: :profile_picture).where("received_friend= ? OR requested_friend= ?", @user_id, @user_id).order(rating: :desc)
+    @friends = @sorted_friendships.to_a.map do |friendship|
+      if friendship.received_friend.id == @user_id
         friendship.requested_friend
       else
         friendship.received_friend
