@@ -1,15 +1,16 @@
 # GameFaces
 
-[Live]: http//www.gamefaces.xyz
 
 ### Welcome to GameFaces
 
 GameFaces is a technical recreation of Facebook built as a single page app with Ruby on Rails and React.js. GameFaces' single-page app design has zero full page refreshes, allowing for a fast and smooth user experience.
 
+[Live]:(http//www.gamefaces.xyz)
+
 **Screenshots**
 
-[![screenshot1](/app/assets/screenshots/screenshot1.png)]: http://www.gamefaces.xyz/
-[![screenshot2](/app/assets/screenshots/screenshot2.png)]: http://www.gamefaces.xyz/
+![screenshot1](/app/assets/screenshots/screenshot1.png):(http://www.gamefaces.xyz/)
+![screenshot2](/app/assets/screenshots/screenshot2.png):(http://www.gamefaces.xyz/)
 
 ###Features
 
