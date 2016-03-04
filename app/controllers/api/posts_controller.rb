@@ -1,7 +1,8 @@
 class Api::PostsController < ApplicationController
 
   def index
-    @posts = Post.includes({ poster: :profile_picture }, :target, comments: { commenter: :profile_picture }).where(target_id: params[:user_id]).order(created_at: :desc)
+    @user = User.find(params[:user_id])
+    @posts = Post.includes({ poster: :profile_picture }, comments: { commenter: :profile_picture }).where(target_id: params[:user_id]).order(created_at: :desc)
   end
 
   def create
