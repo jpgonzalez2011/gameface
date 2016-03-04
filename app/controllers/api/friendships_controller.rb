@@ -1,7 +1,7 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user_id = params[:user_id]
+    @user_id = params[:user_id].to_i
     @sorted_friendships = Friendship.includes(requested_friend: :profile_picture, received_friend: :profile_picture).where("received_friend= ? OR requested_friend= ?", @user_id, @user_id).order(rating: :desc)
     @friends = @sorted_friendships.to_a.map do |friendship|
       if friendship.received_friend.id == @user_id
