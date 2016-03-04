@@ -1,8 +1,8 @@
 class Api::FriendshipsController < ApplicationController
 
   def index
-    @user = User.includes(requested_friendships: {requested_friend: :profile_picture, requested_friend: :cover_photo}, received_friendships: {received_friend: :profile_picture, received_friend: :cover_photo}).where(id: params[:user_id]).to_a.first
-    @friends = @user.friends.sort { |x,y| x[:rating] <=> y[:rating] }
+    @user = User.includes(requested_friendships: {requested_friend: :profile_picture}, received_friendships: {received_friend: :profile_picture}).where(id: params[:user_id]).to_a.first
+    @friends = @user.friends
   end
 
   def update_rating
@@ -24,8 +24,8 @@ class Api::FriendshipsController < ApplicationController
   end
 
   def check_friends
-    @friendship = Friendship.where("requested_friend = :first and received_friend = :second", {first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
-    @friendship = @friendship + Friendship.where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+    @friendship = Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :first and received_friend = :second", {first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
+    @friendship = @friendship + Friendship.includes(:received_friend, :requested_friend).where("requested_friend = :second and received_friend = :first", { first: User.find(params[:firstFriend]), second: User.find(params[:secondFriend])}).to_a
     if !@friendship.empty?
       render json: { friendship:
         {

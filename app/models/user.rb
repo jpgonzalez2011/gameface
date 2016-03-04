@@ -117,8 +117,8 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    requested_friendships = self.requested_friendships.includes(requested_friend: :profile_picture).where(confirmed: true).to_a
-    received_friendships = self.received_friendships.includes(received_friend: :profile_picture).where(confirmed: true).to_a
+    requested_friendships = self.requested_friendships.select { |friendship| friendship.confirmed == true}
+    received_friendships = self.received_friendships.select { |friendship| friendship.confirmed == true}
     all_friendships = requested_friendships + received_friendships
     sorted_friendships = all_friendships.sort { |x,y| y[:rating] <=> x[:rating] }
     all_friends = sorted_friendships.map do |friendship|
