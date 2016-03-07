@@ -18,19 +18,11 @@ class Post < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   def poster_name
-    name = self.poster.fname
-    if self.poster.lname
-      name = name + " " + self.poster.lname
-    end
-    name
+    self.poster.full_name
   end
 
   def target_name
-    name = self.target.fname
-    if self.target.lname
-      name = name + " " + self.target.lname
-    end
-    name
+    self.target.full_name
   end
 
   def date_and_time
