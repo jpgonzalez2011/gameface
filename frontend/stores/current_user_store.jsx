@@ -39,6 +39,7 @@ CurrentUserStore.__onDispatch = function (payload) {
     case CurrentUserConstants.NEW_USER_RECEIVED:
       _currentUser = payload.currentUser[0];
       this.__emitChange();
+      TimelineApiUtil.fetchAllItems();
       break;
     case CurrentUserConstants.EXISTING_USER_RECEIVED:
       if (payload.currentUser[0].id === "no-user-found") {
