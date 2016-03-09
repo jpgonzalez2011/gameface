@@ -33509,10 +33509,12 @@
 /* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(209),
+	    PhotoApiUtil = __webpack_require__(264);
 
 	var PhotoCommentDisplay = React.createClass({
-	  displayName: "PhotoCommentDisplay",
+	  displayName: 'PhotoCommentDisplay',
 
 	  getInitialState: function () {
 	    return { showDeleteButton: false };
@@ -33531,10 +33533,11 @@
 	  deleteComment: function () {
 	    commentId = this.props.comment.id;
 	    mainTimeLine = this.props.mainTimeLine;
-	    PostApiUtil.deleteComment(commentId, mainTimeLine);
+	    PhotoApiUtil.deleteComment(commentId, mainTimeLine);
 	  },
 
 	  render: function () {
+	    debugger;
 	    var url = "#/users/" + this.props.comment.commenter_id;
 
 	    var commentDeleteButtonClass = null;
@@ -33543,24 +33546,24 @@
 	    }
 
 	    return React.createElement(
-	      "li",
-	      { key: this.props.key, className: "photo-comment-item group" },
+	      'li',
+	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'photo-comment-item group' },
 	      React.createElement(
-	        "h1",
-	        { className: "photo-comment-header" },
+	        'h1',
+	        { className: 'photo-comment-header' },
 	        React.createElement(
-	          "a",
+	          'a',
 	          { href: url },
-	          React.createElement("img", { className: "photo-comment-thumbnail", src: this.props.comment.thumbnail })
+	          React.createElement('img', { className: 'photo-comment-thumbnail', src: this.props.comment.thumbnail })
 	        ),
 	        React.createElement(
-	          "span",
+	          'span',
 	          null,
 	          React.createElement(
-	            "div",
+	            'div',
 	            null,
 	            React.createElement(
-	              "a",
+	              'a',
 	              { href: url },
 	              this.props.comment.commenter_name
 	            )
@@ -33569,13 +33572,13 @@
 	        )
 	      ),
 	      React.createElement(
-	        "s",
+	        'strong',
 	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
-	        " "
+	        ' '
 	      ),
 	      React.createElement(
-	        "span",
-	        { className: "photo-comment-timestamp" },
+	        'span',
+	        { className: 'photo-comment-timestamp' },
 	        this.props.comment.date_and_time
 	      )
 	    );

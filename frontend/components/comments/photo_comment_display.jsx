@@ -1,4 +1,6 @@
-var React = require('react');
+var React = require('react'),
+    CurrentUserStore = require('../../stores/current_user_store'),
+    PhotoApiUtil = require('../../util/photo_api_util');
 
 var PhotoCommentDisplay = React.createClass({
   getInitialState: function () {
@@ -18,10 +20,11 @@ var PhotoCommentDisplay = React.createClass({
   deleteComment: function () {
     commentId = this.props.comment.id
     mainTimeLine = this.props.mainTimeLine;
-    PostApiUtil.deleteComment(commentId, mainTimeLine);
+    PhotoApiUtil.deleteComment(commentId, mainTimeLine);
   },
 
   render: function () {
+    debugger
     var url = "#/users/" + this.props.comment.commenter_id;
 
     var commentDeleteButtonClass = null
@@ -30,7 +33,7 @@ var PhotoCommentDisplay = React.createClass({
     }
 
     return (
-      <li key={this.props.key} className="photo-comment-item group">
+      <li onMouseEnter={this.showDeleteButton} onMouseLeave={this.hideDeleteButton} key={this.props.key} className="photo-comment-item group">
         <h1 className="photo-comment-header">
           <a href={url}>
           <img className="photo-comment-thumbnail" src={this.props.comment.thumbnail}></img>
@@ -40,7 +43,7 @@ var PhotoCommentDisplay = React.createClass({
             {this.props.comment.content}
           </span>
         </h1>
-        <s onClick={this.deleteComment} className={commentDeleteButtonClass}> </s>
+        <strong onClick={this.deleteComment} className={commentDeleteButtonClass}> </strong>
         <span className="photo-comment-timestamp">
           {this.props.comment.date_and_time}
         </span>
