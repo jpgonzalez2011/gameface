@@ -31355,7 +31355,7 @@
 	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
 	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
-	  DELETE_TIMELINE_POST_COMMENT: "DELETE_TIMELINE_POST_COMMENT"
+	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT"
 	};
 
 /***/ },
@@ -34574,7 +34574,7 @@
 	      items.unshift(item);
 	      this.__emitChange();
 	      break;
-	    case TimelineConstants.DELETE_TIMELINE_POST_COMMENT:
+	    case TimelineConstants.DELETE_POST_COMMENT:
 	      var comment = payload.comment;
 	      itemIdx = items.findIndex(function (el) {
 	        return el.id === comment.commentable_id;
