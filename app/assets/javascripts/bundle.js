@@ -34176,6 +34176,11 @@
 	      ),
 	      React.createElement(
 	        "span",
+	        { className: "comment-delete-button" },
+	        " "
+	      ),
+	      React.createElement(
+	        "span",
 	        { className: "comment-timestamp" },
 	        this.props.comment.date_and_time
 	      )

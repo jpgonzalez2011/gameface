@@ -14,8 +14,8 @@ var PhotoCommentDisplay = React.createClass({
             {this.props.comment.content}
           </span>
         </h1>
-        <span className="photo-comment-timestamp">{
-            this.props.comment.date_and_time}
+        <span className="photo-comment-timestamp">
+          {this.props.comment.date_and_time}
         </span>
       </li>
     );

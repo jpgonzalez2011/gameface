@@ -14,6 +14,7 @@ var CommentDisplay = React.createClass({
             {this.props.comment.content}
           </span>
         </h1>
+        <span className="comment-delete-button"> </span>
         <span className="comment-timestamp">
         {this.props.comment.date_and_time}
         </span>

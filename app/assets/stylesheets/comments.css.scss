@@ -1,6 +1,6 @@
 .comment-item {
   display: block;
-  width: 508px;
+  width: 458px;
   border-bottom: 1px solid #ccc;
   border-radius: 3px;
 }
@@ -23,7 +23,7 @@
 
 .comment-header {
   display: block;
-  width: 500px;
+  width: 450px;
   height: auto;
   float: left;
   text-align: left;
@@ -72,6 +72,18 @@
   font-size: 10px;
   font-weight: 400;
   color: #ccc;
+}
+
+.comment-delete-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  content: image-url("fb_icons/comment_delete_button.png");
+  background-position: bottom;
+}
+
+.comment-delete-button:hover {
+  cursor: pointer;
 }
 
 .comment-form-container {
