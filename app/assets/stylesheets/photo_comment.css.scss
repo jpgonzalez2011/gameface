@@ -80,3 +80,15 @@
   font-weight: 400;
   color: #ccc;
 }
+
+.comment-delete-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  content: image-url("fb_icons/comment_delete_button.png");
+  background-position: bottom;
+}
+
+.comment-delete-button:hover {
+  cursor: pointer;
+}

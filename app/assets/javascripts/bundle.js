@@ -33514,8 +33514,34 @@
 	var PhotoCommentDisplay = React.createClass({
 	  displayName: "PhotoCommentDisplay",
 
+	  getInitialState: function () {
+	    return { showDeleteButton: false };
+	  },
+
+	  showDeleteButton: function () {
+	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
+	      this.setState({ showDeleteButton: true });
+	    }
+	  },
+
+	  hideDeleteButton: function () {
+	    this.setState({ showDeleteButton: false });
+	  },
+
+	  deleteComment: function () {
+	    commentId = this.props.comment.id;
+	    mainTimeLine = this.props.mainTimeLine;
+	    PostApiUtil.deleteComment(commentId, mainTimeLine);
+	  },
+
 	  render: function () {
 	    var url = "#/users/" + this.props.comment.commenter_id;
+
+	    var commentDeleteButtonClass = null;
+	    if (this.state.showDeleteButton) {
+	      commentDeleteButtonClass = "comment-delete-button";
+	    }
+
 	    return React.createElement(
 	      "li",
 	      { key: this.props.key, className: "photo-comment-item group" },
@@ -33541,6 +33567,11 @@
 	          ),
 	          this.props.comment.content
 	        )
+	      ),
+	      React.createElement(
+	        "s",
+	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
+	        " "
 	      ),
 	      React.createElement(
 	        "span",
