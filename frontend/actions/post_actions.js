@@ -21,6 +21,13 @@ var PostActions = {
       actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
       comment: comment
     });
+  },
+
+  deleteComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: PostConstants.DELETE_POST_COMMENT,
+      comment: comment
+    });
   }
 };
 

@@ -44,6 +44,13 @@ PostStore.__onDispatch = function (payload) {
       posts[postIdx].comments.push(comment);
       this.__emitChange();
       break;
+    case PostConstants.DELETE_POST_COMMENT:
+      var comment = payload.comment;
+      postIdx = posts.findIndex( function(el) { return (el.id === comment.commentable_id); });
+      commentIdx = posts[postIdx].comments.findIndex( function(el) { return (el.id === comment.id); });
+      posts[postIdx].comments.splice(commentIdx, 1);
+      this.__emitChange();
+      break;
   }
 };
 

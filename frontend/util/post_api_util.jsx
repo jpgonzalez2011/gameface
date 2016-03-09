@@ -43,17 +43,17 @@ var PostApiUtil = {
     });
   },
 
-  deleteComment: function (postId, commentId, mainTimeLine) {
+  deleteComment: function (commentId, mainTimeLine) {
     url = "api/comments/" + commentId;
     $.ajax({
       type: "DELETE",
       url: url,
       dataType: "json",
-      success: function (data) {
+      success: function (comment) {
         if (mainTimeLine) {
-          TimelineActions.deleteComment(postId, commentId);
+          TimelineActions.deleteComment(comment);
         } else {
-          PostActions.deleteComment(postId, commentId);
+          PostActions.deleteComment(comment);
         }
       }
     });

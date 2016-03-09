@@ -20,7 +20,7 @@ var CommentDisplay = React.createClass({
   deleteComment: function () {
     commentId = this.props.comment.id
     mainTimeLine = this.props.mainTimeLine;
-    PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
+    PostApiUtil.deleteComment(commentId, mainTimeLine);
   },
 
   render: function () {

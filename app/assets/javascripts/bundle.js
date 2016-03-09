@@ -32871,7 +32871,8 @@
 	module.exports = {
 	  RECEIVED_POSTS: "RECEIVED_POSTS",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
-	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_POST_COMMENT"
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_POST_COMMENT",
+	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT"
 	};
 
 /***/ },
@@ -33993,6 +33994,17 @@
 	      posts[postIdx].comments.push(comment);
 	      this.__emitChange();
 	      break;
+	    case PostConstants.DELETE_POST_COMMENT:
+	      var comment = payload.comment;
+	      postIdx = posts.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      commentIdx = posts[postIdx].comments.findIndex(function (el) {
+	        return el.id === comment.id;
+	      });
+	      posts[postIdx].comments.splice(commentIdx, 1);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -34046,17 +34058,17 @@
 	    });
 	  },
 
-	  deleteComment: function (postId, commentId, mainTimeLine) {
+	  deleteComment: function (commentId, mainTimeLine) {
 	    url = "api/comments/" + commentId;
 	    $.ajax({
 	      type: "DELETE",
 	      url: url,
 	      dataType: "json",
-	      success: function (data) {
+	      success: function (comment) {
 	        if (mainTimeLine) {
-	          TimelineActions.deleteComment(postId, commentId);
+	          TimelineActions.deleteComment(comment);
 	        } else {
-	          PostActions.deleteComment(postId, commentId);
+	          PostActions.deleteComment(comment);
 	        }
 	      }
 	    });
@@ -34149,7 +34161,7 @@
 	  deleteComment: function () {
 	    commentId = this.props.comment.id;
 	    mainTimeLine = this.props.mainTimeLine;
-	    PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
+	    PostApiUtil.deleteComment(commentId, mainTimeLine);
 	  },
 
 	  render: function () {
@@ -34786,6 +34798,13 @@
 	  receiveUpdatedComment: function (comment) {
 	    Dispatcher.dispatch({
 	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
+	    });
+	  },
+
+	  deleteComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.DELETE_POST_COMMENT,
 	      comment: comment
 	    });
 	  }
