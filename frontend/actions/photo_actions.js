@@ -21,6 +21,13 @@ var PhotoActions = {
       actionType: PhotoConstants.RECEIVE_UPDATED_COMMENT,
       comment: comment
     });
+  },
+
+  deleteComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: PhotoConstants.DELETE_PHOTO_COMMENT,
+      comment: comment
+    });
   }
 };
 

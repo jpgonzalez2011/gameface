@@ -31356,7 +31356,8 @@
 	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT",
 	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
-	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT"
+	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT",
+	  DELETE_PHOTO_COMMENT: "DELETE_PHOTO_COMMENT"
 	};
 
 /***/ },
@@ -33174,6 +33175,19 @@
 	      photos[photoIdx].comments.push(comment);
 	      this.__emitChange();
 	      break;
+	    case PhotoConstants.DELETE_PHOTO_COMMENT:
+	      if (photos.length !== 0) {
+	        var comment = payload.comment;
+	        photoIdx = photos.findIndex(function (el) {
+	          return el.id === comment.commentable_id;
+	        });
+	        commentIdx = photos[photoIdx].comments.findIndex(function (el) {
+	          return el.id === comment.id;
+	        });
+	        photos[photoIdx].comments.splice(commentIdx, 1);
+	        this.__emitChange();
+	        break;
+	      }
 	  }
 	};
 
@@ -33228,6 +33242,22 @@
 	        }
 	      }
 	    });
+	  },
+
+	  deleteComment: function (commentId, mainTimeLine) {
+	    url = "api/comments/" + commentId;
+	    $.ajax({
+	      type: "DELETE",
+	      url: url,
+	      dataType: "json",
+	      success: function (comment) {
+	        if (mainTimeLine) {
+	          TimelineActions.deleteComment(comment);
+	        } else {
+	          PhotoActions.deleteComment(comment);
+	        }
+	      }
+	    });
 	  }
 	};
 
@@ -33258,6 +33288,13 @@
 	  receiveUpdatedComment: function (comment) {
 	    Dispatcher.dispatch({
 	      actionType: PhotoConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
+	    });
+	  },
+
+	  deleteComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PhotoConstants.DELETE_PHOTO_COMMENT,
 	      comment: comment
 	    });
 	  }
@@ -33402,6 +33439,7 @@
 	      backgroundPosition: 'center center'
 	    };
 	    var url = "#/users/" + this.props.photo.uploader_id;
+	    var mainTimeLine = this.props.mainTimeLine;
 	    if (this.props.show) {
 	      return React.createElement(
 	        'div',
@@ -33439,13 +33477,13 @@
 	                'ul',
 	                { className: 'photo-show-container-information-pane-comments' },
 	                this.props.photo.comments.map(function (comment, i) {
-	                  return React.createElement(PhotoCommentDisplay, { key: i, comment: comment });
+	                  return React.createElement(PhotoCommentDisplay, { mainTimeLine: mainTimeLine, key: i, comment: comment });
 	                })
 	              ),
 	              React.createElement(
 	                'div',
 	                { className: 'photo-show-container-information-pane-comment-form' },
-	                React.createElement(PhotoCommentForm, { mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.photo.id })
+	                React.createElement(PhotoCommentForm, { mainTimeLine: mainTimeLine, commentable_id: this.props.photo.id })
 	              )
 	            )
 	          )
@@ -34619,6 +34657,17 @@
 	      this.__emitChange();
 	      break;
 	    case TimelineConstants.DELETE_POST_COMMENT:
+	      var comment = payload.comment;
+	      itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
+	        return el.id === comment.id;
+	      });
+	      items[itemIdx].comments.splice(commentIdx, 1);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.DELETE_PHOTO_COMMENT:
 	      var comment = payload.comment;
 	      itemIdx = items.findIndex(function (el) {
 	        return el.id === comment.commentable_id;

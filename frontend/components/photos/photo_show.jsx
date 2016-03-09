@@ -18,6 +18,7 @@ var PhotoShow = React.createClass({
       backgroundPosition: 'center center'
      };
     var url = "#/users/" + this.props.photo.uploader_id;
+    var mainTimeLine = this.props.mainTimeLine;
     if (this.props.show) {
       return (
         <div className="photo-show-container">
@@ -35,13 +36,13 @@ var PhotoShow = React.createClass({
                 <ul className="photo-show-container-information-pane-comments">
                   {this.props.photo.comments.map ( function (comment, i) {
                     return (
-                      <PhotoCommentDisplay key={i} comment={comment}/>
+                      <PhotoCommentDisplay mainTimeLine={mainTimeLine} key={i} comment={comment}/>
                       );
                     }
                   )}
                 </ul>
                 <div className="photo-show-container-information-pane-comment-form">
-                  <PhotoCommentForm mainTimeLine={this.props.mainTimeLine} commentable_id={this.props.photo.id} />
+                  <PhotoCommentForm mainTimeLine={mainTimeLine} commentable_id={this.props.photo.id} />
                 </div>
               </div>
             </figure>

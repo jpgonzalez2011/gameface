@@ -51,6 +51,15 @@ PhotoStore.__onDispatch = function (payload) {
       photos[photoIdx].comments.push(comment);
       this.__emitChange();
       break;
+    case PhotoConstants.DELETE_PHOTO_COMMENT:
+      if (photos.length !== 0) {
+        var comment = payload.comment;
+        photoIdx = photos.findIndex( function(el) { return (el.id === comment.commentable_id); });
+        commentIdx = photos[photoIdx].comments.findIndex( function(el) { return (el.id === comment.id); });
+        photos[photoIdx].comments.splice(commentIdx, 1);
+        this.__emitChange();
+        break;
+      }
   }
 };
 

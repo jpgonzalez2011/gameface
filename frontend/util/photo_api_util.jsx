@@ -43,6 +43,22 @@ var PhotoApiUtil = {
         }
       }
     });
+  },
+
+  deleteComment: function (commentId, mainTimeLine) {
+    url = "api/comments/" + commentId;
+    $.ajax({
+      type: "DELETE",
+      url: url,
+      dataType: "json",
+      success: function (comment) {
+        if (mainTimeLine) {
+          TimelineActions.deleteComment(comment);
+        } else {
+          PhotoActions.deleteComment(comment);
+        }
+      }
+    });
   }
 };
 
