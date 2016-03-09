@@ -58,9 +58,9 @@
 	    About = __webpack_require__(271),
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(272),
-	    FriendsIndex = __webpack_require__(281),
-	    Timeline = __webpack_require__(282),
-	    SessionForm = __webpack_require__(287);
+	    FriendsIndex = __webpack_require__(280),
+	    Timeline = __webpack_require__(281),
+	    SessionForm = __webpack_require__(286);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -33705,9 +33705,9 @@
 	var React = __webpack_require__(1),
 	    PostForm = __webpack_require__(273),
 	    PostStore = __webpack_require__(274),
-	    PostCommentForm = __webpack_require__(277),
-	    CommentDisplay = __webpack_require__(278),
-	    FriendGrid = __webpack_require__(279);
+	    PostCommentForm = __webpack_require__(276),
+	    CommentDisplay = __webpack_require__(277),
+	    FriendGrid = __webpack_require__(278);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33948,7 +33948,7 @@
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    PostConstants = __webpack_require__(259),
-	    PostApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/post_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	    PostApiUtil = __webpack_require__(275);
 
 	var posts = [];
 
@@ -33999,9 +33999,74 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 275 */,
-/* 276 */,
-/* 277 */
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PostActions = __webpack_require__(287),
+	    TimelineActions = __webpack_require__(233);
+
+	var PostApiUtil = {
+	  fetchTargetedPosts: function (targetId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + targetId + "/posts",
+	      dataType: "json",
+	      success: function (data) {
+	        var posts = data.posts;
+	        PostActions.receivePosts(posts);
+	      }
+	    });
+	  },
+
+	  acceptNewPost: function (post, resetCallback) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/posts/",
+	      dataType: "json",
+	      data: post,
+	      success: function (data) {
+	        PostActions.receiveUpdatedPost(data);
+	      }
+	    });
+	  },
+
+	  addNewComment: function (comment) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/comments/",
+	      dataType: "json",
+	      data: comment,
+	      success: function (data) {
+	        if (comment.comment.mainTimeLine) {
+	          TimelineActions.receiveNewComment(data);
+	        } else {
+	          PostActions.receiveUpdatedComment(data);
+	        }
+	      }
+	    });
+	  },
+
+	  deleteComment: function (postId, commentId, mainTimeLine) {
+	    url = "api/comments" + commentId;
+	    $.ajax({
+	      type: "DELETE",
+	      url: url,
+	      dataType: "json",
+	      success: function (data) {
+	        if (mainTimeLine) {
+	          TimelineActions.deleteComment(postId, commentId);
+	        } else {
+	          PostActions.deleteComment(postId, commentId);
+	        }
+	      }
+	    });
+	  }
+	};
+
+	module.exports = PostApiUtil;
+
+/***/ },
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34057,11 +34122,11 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 278 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    CommentApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../util/post_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	    CommentApiUtil = __webpack_require__(275);
 
 	var CommentDisplay = React.createClass({
 	  displayName: 'CommentDisplay',
@@ -34136,13 +34201,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(258),
 	    FriendApiUtil = __webpack_require__(244),
-	    FriendGridItem = __webpack_require__(280);
+	    FriendGridItem = __webpack_require__(279);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34221,7 +34286,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34256,7 +34321,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 281 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34343,20 +34408,20 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(283),
+	    TimelineStore = __webpack_require__(282),
 	    TimelineApiUtil = __webpack_require__(232),
 	    PostForm = __webpack_require__(273),
-	    PostCommentForm = __webpack_require__(277),
+	    PostCommentForm = __webpack_require__(276),
 	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(278),
-	    TimelinePostItem = __webpack_require__(284),
-	    TimelinePhotoItem = __webpack_require__(285),
-	    SearchResults = __webpack_require__(286);
+	    CommentDisplay = __webpack_require__(277),
+	    TimelinePostItem = __webpack_require__(283),
+	    TimelinePhotoItem = __webpack_require__(284),
+	    SearchResults = __webpack_require__(285);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34449,7 +34514,7 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -34493,12 +34558,12 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 284 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(277),
-	    CommentDisplay = __webpack_require__(278);
+	    PostCommentForm = __webpack_require__(276),
+	    CommentDisplay = __webpack_require__(277);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -34549,12 +34614,12 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 285 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(278),
+	    CommentDisplay = __webpack_require__(277),
 	    PhotoShow = __webpack_require__(268);
 
 	var TimelinePhotoItem = React.createClass({
@@ -34620,7 +34685,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34644,7 +34709,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 287 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34693,6 +34758,38 @@
 	});
 
 	module.exports = SessionForm;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    PostConstants = __webpack_require__(259);
+
+	var PostActions = {
+	  receivePosts: function (posts) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVED_POSTS,
+	      posts: posts
+	    });
+	  },
+
+	  receiveUpdatedPost: function (post) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_POST,
+	      post: post
+	    });
+	  },
+
+	  receiveUpdatedComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
+	    });
+	  }
+	};
+
+	module.exports = PostActions;
 
 /***/ }
 /******/ ]);

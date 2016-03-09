@@ -47,9 +47,8 @@ var PostApiUtil = {
     url = "api/comments" + commentId;
     $.ajax({
       type: "DELETE",
-      url: url
+      url: url,
       dataType: "json",
-      data: {comment_id: commentId}
       success: function (data) {
         if (mainTimeLine) {
           TimelineActions.deleteComment(postId, commentId);
