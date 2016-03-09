@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    CommentApiUtil = require('../../util/post_api_util');
 
 var CommentDisplay = React.createClass({
   getInitialState: function () {
@@ -15,12 +16,14 @@ var CommentDisplay = React.createClass({
 
   deleteComment: function () {
     commentId = this.props.comment.id
-    CommentApiUtil.deleteComment(commentId);
+    postId = this.props.postId
+    mainTimeLine = this.props.mainTimeLine;
+    PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
   },
 
   render: function () {
     var url = "#/users/" + this.props.comment.commenter_id;
-    
+
     var commentDeleteButtonClass = null
     if (this.state.showDeleteButton) {
       commentDeleteButtonClass = "comment-delete-button";

@@ -33813,7 +33813,7 @@
 	                  'ul',
 	                  { className: 'timeline-index-item-comments-list' },
 	                  post.comments.map(function (comment, i) {
-	                    return React.createElement(CommentDisplay, { key: i, comment: comment });
+	                    return React.createElement(CommentDisplay, { postId: post.id, mainTimeLine: undefined, key: i, comment: comment });
 	                  })
 	                ),
 	                React.createElement(
@@ -33948,7 +33948,7 @@
 	var Dispatcher = __webpack_require__(210),
 	    Store = __webpack_require__(214).Store,
 	    PostConstants = __webpack_require__(259),
-	    PostApiUtil = __webpack_require__(275);
+	    PostApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../util/post_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var posts = [];
 
@@ -33999,89 +33999,8 @@
 	module.exports = PostStore;
 
 /***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var PostActions = __webpack_require__(276),
-	    TimelineActions = __webpack_require__(233);
-
-	var PostApiUtil = {
-	  fetchTargetedPosts: function (targetId) {
-	    $.ajax({
-	      type: "GET",
-	      url: "api/users/" + targetId + "/posts",
-	      dataType: "json",
-	      success: function (data) {
-	        var posts = data.posts;
-	        PostActions.receivePosts(posts);
-	      }
-	    });
-	  },
-
-	  acceptNewPost: function (post, resetCallback) {
-	    $.ajax({
-	      type: "POST",
-	      url: "api/posts/",
-	      dataType: "json",
-	      data: post,
-	      success: function (data) {
-	        PostActions.receiveUpdatedPost(data);
-	      }
-	    });
-	  },
-
-	  addNewComment: function (comment) {
-	    $.ajax({
-	      type: "POST",
-	      url: "api/comments/",
-	      dataType: "json",
-	      data: comment,
-	      success: function (data) {
-	        if (comment.comment.mainTimeLine) {
-	          TimelineActions.receiveNewComment(data);
-	        } else {
-	          PostActions.receiveUpdatedComment(data);
-	        }
-	      }
-	    });
-	  }
-	};
-
-	module.exports = PostApiUtil;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(259);
-
-	var PostActions = {
-	  receivePosts: function (posts) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVED_POSTS,
-	      posts: posts
-	    });
-	  },
-
-	  receiveUpdatedPost: function (post) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_POST,
-	      post: post
-	    });
-	  },
-
-	  receiveUpdatedComment: function (comment) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
-	      comment: comment
-	    });
-	  }
-	};
-
-	module.exports = PostActions;
-
-/***/ },
+/* 275 */,
+/* 276 */,
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34141,10 +34060,11 @@
 /* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(1);
+	var React = __webpack_require__(1),
+	    CommentApiUtil = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../util/post_api_util\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var CommentDisplay = React.createClass({
-	  displayName: "CommentDisplay",
+	  displayName: 'CommentDisplay',
 
 	  getInitialState: function () {
 	    return { showDeleteButton: false };
@@ -34160,7 +34080,9 @@
 
 	  deleteComment: function () {
 	    commentId = this.props.comment.id;
-	    CommentApiUtil.deleteComment(commentId);
+	    postId = this.props.postId;
+	    mainTimeLine = this.props.mainTimeLine;
+	    PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
 	  },
 
 	  render: function () {
@@ -34172,24 +34094,24 @@
 	    }
 
 	    return React.createElement(
-	      "li",
-	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: "comment-item group" },
+	      'li',
+	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'comment-item group' },
 	      React.createElement(
-	        "h1",
-	        { className: "comment-header" },
+	        'h1',
+	        { className: 'comment-header' },
 	        React.createElement(
-	          "a",
+	          'a',
 	          { href: url },
-	          React.createElement("img", { className: "comment-thumbnail", src: this.props.comment.thumbnail })
+	          React.createElement('img', { className: 'comment-thumbnail', src: this.props.comment.thumbnail })
 	        ),
 	        React.createElement(
-	          "span",
+	          'span',
 	          null,
 	          React.createElement(
-	            "div",
+	            'div',
 	            null,
 	            React.createElement(
-	              "a",
+	              'a',
 	              { href: url },
 	              this.props.comment.commenter_name
 	            )
@@ -34198,13 +34120,13 @@
 	        )
 	      ),
 	      React.createElement(
-	        "span",
+	        'span',
 	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
-	        " "
+	        ' '
 	      ),
 	      React.createElement(
-	        "span",
-	        { className: "comment-timestamp" },
+	        'span',
+	        { className: 'comment-timestamp' },
 	        this.props.comment.date_and_time
 	      )
 	    );

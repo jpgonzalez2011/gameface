@@ -41,6 +41,22 @@ var PostApiUtil = {
         }
       }
     });
+  },
+
+  deleteComment: function (postId, commentId, mainTimeLine) {
+    $.ajax({
+      type: "DELETE",
+      url: "api/comments/"
+      dataType: "json",
+      data: {comment_id: commentId}
+      success: function (data) {
+        if (mainTimeLine) {
+          TimelineActions.deleteComment(postId, commentId);
+        } else {
+          PostActions.deleteComment(postId, commentId);
+        }
+      }
+    });
   }
 };
 

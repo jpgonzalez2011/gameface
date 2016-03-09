@@ -65,7 +65,7 @@ var ProfileTimeline = React.createClass({
                     <ul className="timeline-index-item-comments-list">
                       {post.comments.map( function (comment, i) {
                         return (
-                          <CommentDisplay key={i} comment={comment} />
+                          <CommentDisplay postId={post.id} mainTimeLine={undefined} key={i} comment={comment} />
                         );
                       })}
                     </ul>
