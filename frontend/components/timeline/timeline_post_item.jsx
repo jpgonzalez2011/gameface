@@ -15,7 +15,7 @@ var TimelinePostItem = React.createClass({
           <ul className="timeline-index-item-comments-list">
             {this.props.item.comments.map( function (comment, i) {
               return (
-                <CommentDisplay key={i} comment={comment} />
+                <CommentDisplay mainTimeLine={true} key={i} comment={comment} />
               );
             })}
           </ul>

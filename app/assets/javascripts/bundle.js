@@ -31334,6 +31334,13 @@
 	      actionType: TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE,
 	      comment: comment
 	    });
+	  },
+
+	  deleteComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: TimelineConstants.DELETE_TIMELINE_POST_COMMENT,
+	      comment: comment
+	    });
 	  }
 
 	};
@@ -31347,7 +31354,8 @@
 	module.exports = {
 	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
 	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
-	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST"
+	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
+	  DELETE_TIMELINE_POST_COMMENT: "DELETE_TIMELINE_POST_COMMENT"
 	};
 
 /***/ },
@@ -34566,6 +34574,17 @@
 	      items.unshift(item);
 	      this.__emitChange();
 	      break;
+	    case TimelineConstants.DELETE_TIMELINE_POST_COMMENT:
+	      var comment = payload.comment;
+	      itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
+	        return el.id === comment.id;
+	      });
+	      items[itemIdx].comments.splice(commentIdx, 1);
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -34612,7 +34631,7 @@
 	          'ul',
 	          { className: 'timeline-index-item-comments-list' },
 	          this.props.item.comments.map(function (comment, i) {
-	            return React.createElement(CommentDisplay, { key: i, comment: comment });
+	            return React.createElement(CommentDisplay, { mainTimeLine: true, key: i, comment: comment });
 	          })
 	        ),
 	        React.createElement(

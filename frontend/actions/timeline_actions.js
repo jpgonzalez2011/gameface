@@ -14,6 +14,13 @@ var TimelineActions = {
       actionType: TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE,
       comment: comment
     });
+  },
+
+  deleteComment: function (comment) {
+    Dispatcher.dispatch({
+      actionType: TimelineConstants.DELETE_TIMELINE_POST_COMMENT,
+      comment: comment
+    });
   }
 
 };

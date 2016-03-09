@@ -31,6 +31,13 @@ TimelineStore.__onDispatch = function (payload) {
       items.unshift(item);
       this.__emitChange();
       break;
+    case TimelineConstants.DELETE_TIMELINE_POST_COMMENT:
+      var comment = payload.comment;
+      itemIdx = items.findIndex( function(el) { return (el.id === comment.commentable_id); });
+      commentIdx = items[itemIdx].comments.findIndex( function(el) { return (el.id === comment.id); });
+      items[itemIdx].comments.splice(commentIdx, 1);
+      this.__emitChange();
+      break;
   }
 };
 
