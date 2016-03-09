@@ -44,7 +44,7 @@ var PostApiUtil = {
   },
 
   deleteComment: function (postId, commentId, mainTimeLine) {
-    url = "api/comments" + commentId;
+    url = "api/comments/" + commentId;
     $.ajax({
       type: "DELETE",
       url: url,

@@ -1,5 +1,6 @@
 var React = require('react'),
-    CommentApiUtil = require('../../util/post_api_util');
+    PostApiUtil = require('../../util/post_api_util'),
+    CurrentUserStore = require('../../stores/current_user_store');
 
 var CommentDisplay = React.createClass({
   getInitialState: function () {
@@ -7,7 +8,9 @@ var CommentDisplay = React.createClass({
   },
 
   showDeleteButton: function () {
-    this.setState({showDeleteButton: true})
+    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
+      this.setState({showDeleteButton: true})
+    }
   },
 
   hideDeleteButton: function () {
@@ -16,7 +19,6 @@ var CommentDisplay = React.createClass({
 
   deleteComment: function () {
     commentId = this.props.comment.id
-    postId = this.props.postId
     mainTimeLine = this.props.mainTimeLine;
     PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
   },

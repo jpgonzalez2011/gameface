@@ -34047,7 +34047,7 @@
 	  },
 
 	  deleteComment: function (postId, commentId, mainTimeLine) {
-	    url = "api/comments" + commentId;
+	    url = "api/comments/" + commentId;
 	    $.ajax({
 	      type: "DELETE",
 	      url: url,
@@ -34126,7 +34126,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    CommentApiUtil = __webpack_require__(275);
+	    PostApiUtil = __webpack_require__(275),
+	    CurrentUserStore = __webpack_require__(209);
 
 	var CommentDisplay = React.createClass({
 	  displayName: 'CommentDisplay',
@@ -34136,7 +34137,9 @@
 	  },
 
 	  showDeleteButton: function () {
-	    this.setState({ showDeleteButton: true });
+	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
+	      this.setState({ showDeleteButton: true });
+	    }
 	  },
 
 	  hideDeleteButton: function () {
@@ -34145,7 +34148,6 @@
 
 	  deleteComment: function () {
 	    commentId = this.props.comment.id;
-	    postId = this.props.postId;
 	    mainTimeLine = this.props.mainTimeLine;
 	    PostApiUtil.deleteComment(postId, commentId, mainTimeLine);
 	  },

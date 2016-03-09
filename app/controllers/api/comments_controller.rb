@@ -10,12 +10,11 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
-    debugger
     @comment = Comment.find(params[:id])
     if @comment.commenter_id == current_user.id && @comment.destroy
-      render: json: {}
+      render json: {}
     else
-      render: json: {}, status: 420
+      render json: {}, status: 420
     end
   end
 
