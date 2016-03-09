@@ -31354,6 +31354,7 @@
 	module.exports = {
 	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
 	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT",
+	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
 	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT"
 	};
@@ -33537,7 +33538,6 @@
 	  },
 
 	  render: function () {
-	    debugger;
 	    var url = "#/users/" + this.props.comment.commenter_id;
 
 	    var commentDeleteButtonClass = null;
@@ -34597,6 +34597,14 @@
 	      this.__emitChange();
 	      break;
 	    case TimelineConstants.RECEIVE_UPDATED_COMMENT:
+	      var comment = payload.comment;
+	      var itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
+	      });
+	      items[itemIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
 	      var comment = payload.comment;
 	      var itemIdx = items.findIndex(function (el) {
 	        return el.id === comment.commentable_id && el.type === comment.commentable_type;

@@ -24,7 +24,6 @@ var PhotoCommentDisplay = React.createClass({
   },
 
   render: function () {
-    debugger
     var url = "#/users/" + this.props.comment.commenter_id;
 
     var commentDeleteButtonClass = null
