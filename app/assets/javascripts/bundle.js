@@ -34165,10 +34165,12 @@
 
 	  render: function () {
 	    var url = "#/users/" + this.props.comment.commenter_id;
+
 	    var commentDeleteButtonClass = null;
 	    if (this.state.showDeleteButton) {
 	      commentDeleteButtonClass = "comment-delete-button";
 	    }
+
 	    return React.createElement(
 	      "li",
 	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: "comment-item group" },

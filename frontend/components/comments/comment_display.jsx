@@ -20,10 +20,12 @@ var CommentDisplay = React.createClass({
 
   render: function () {
     var url = "#/users/" + this.props.comment.commenter_id;
+    
     var commentDeleteButtonClass = null
     if (this.state.showDeleteButton) {
       commentDeleteButtonClass = "comment-delete-button";
     }
+
     return (
       <li onMouseEnter={this.showDeleteButton} onMouseLeave={this.hideDeleteButton} key={this.props.key} className="comment-item group">
         <h1 className="comment-header">
@@ -37,7 +39,7 @@ var CommentDisplay = React.createClass({
         </h1>
         <span onClick={this.deleteComment} className={commentDeleteButtonClass}> </span>
         <span className="comment-timestamp">
-        {this.props.comment.date_and_time}
+          {this.props.comment.date_and_time}
         </span>
       </li>
     );
