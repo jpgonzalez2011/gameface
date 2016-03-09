@@ -32154,7 +32154,7 @@
 	        React.createElement('input', { onChange: this.updateLname, className: 'last-name-input', placeholder: 'Last name' })
 	      ),
 	      React.createElement('input', { onChange: this.updateUsername, className: 'username-input', placeholder: 'Username' }),
-	      React.createElement('input', { onChange: this.updatePassword, className: 'password-input', placeholder: 'Password' }),
+	      React.createElement('input', { onChange: this.updatePassword, className: 'password-input', type: 'password', placeholder: 'Password' }),
 	      React.createElement(
 	        'header',
 	        { className: 'birthday-header' },

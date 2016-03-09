@@ -80,7 +80,7 @@ var SignUpForm = React.createClass({
           <input onChange={this.updateLname} className="last-name-input" placeholder="Last name"/>
         </div>
         <input onChange={this.updateUsername} className="username-input" placeholder="Username"/>
-        <input onChange={this.updatePassword} className="password-input" placeholder="Password"/>
+        <input onChange={this.updatePassword} className="password-input" type="password" placeholder="Password"/>
         <header className="birthday-header">
           Birthday
         </header>
