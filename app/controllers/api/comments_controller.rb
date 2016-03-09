@@ -9,6 +9,15 @@ class Api::CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.commenter_id == current_user.id && @comment.destroy
+      render: json: {}
+    else
+      render: json: {}, status: 420
+    end
+  end
+
   private
 
   def comment_params
