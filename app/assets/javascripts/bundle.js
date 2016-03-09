@@ -31338,7 +31338,7 @@
 
 	  deleteComment: function (comment) {
 	    Dispatcher.dispatch({
-	      actionType: TimelineConstants.DELETE_TIMELINE_POST_COMMENT,
+	      actionType: TimelineConstants.DELETE_POST_COMMENT,
 	      comment: comment
 	    });
 	  }
@@ -31353,7 +31353,7 @@
 
 	module.exports = {
 	  RECEIVED_ITEMS: "RECEIVED_ITEMS",
-	  NEW_COMMENT_MADE_ON_TIMELINE: "NEW_COMMENT_MADE_ON_TIMELINE",
+	  RECEIVE_UPDATED_COMMENT: "RECEIVE_UPDATED_COMMENT",
 	  RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
 	  DELETE_POST_COMMENT: "DELETE_POST_COMMENT"
 	};
@@ -34003,16 +34003,18 @@
 	      this.__emitChange();
 	      break;
 	    case PostConstants.DELETE_POST_COMMENT:
-	      var comment = payload.comment;
-	      postIdx = posts.findIndex(function (el) {
-	        return el.id === comment.commentable_id;
-	      });
-	      commentIdx = posts[postIdx].comments.findIndex(function (el) {
-	        return el.id === comment.id;
-	      });
-	      posts[postIdx].comments.splice(commentIdx, 1);
-	      this.__emitChange();
-	      break;
+	      if (posts.length !== 0) {
+	        var comment = payload.comment;
+	        postIdx = posts.findIndex(function (el) {
+	          return el.id === comment.commentable_id;
+	        });
+	        commentIdx = posts[postIdx].comments.findIndex(function (el) {
+	          return el.id === comment.id;
+	        });
+	        posts[postIdx].comments.splice(commentIdx, 1);
+	        this.__emitChange();
+	        break;
+	      }
 	  }
 	};
 
@@ -34560,7 +34562,7 @@
 	      items = payload.items;
 	      this.__emitChange();
 	      break;
-	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+	    case TimelineConstants.RECEIVE_UPDATED_COMMENT:
 	      var comment = payload.comment;
 	      var itemIdx = items.findIndex(function (el) {
 	        return el.id === comment.commentable_id && el.type === comment.commentable_type;

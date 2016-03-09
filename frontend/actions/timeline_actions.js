@@ -18,7 +18,7 @@ var TimelineActions = {
 
   deleteComment: function (comment) {
     Dispatcher.dispatch({
-      actionType: TimelineConstants.DELETE_TIMELINE_POST_COMMENT,
+      actionType: TimelineConstants.DELETE_POST_COMMENT,
       comment: comment
     });
   }

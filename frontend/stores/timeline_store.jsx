@@ -19,7 +19,7 @@ TimelineStore.__onDispatch = function (payload) {
       items = payload.items;
       this.__emitChange();
       break;
-    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+    case TimelineConstants.RECEIVE_UPDATED_COMMENT:
       var comment = payload.comment;
       var itemIdx = items.findIndex( function(el) { return (el.id === comment.commentable_id && el.type === comment.commentable_type); });
       items[itemIdx].comments.push(comment);
