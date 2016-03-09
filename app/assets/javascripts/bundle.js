@@ -34146,11 +34146,32 @@
 	var CommentDisplay = React.createClass({
 	  displayName: "CommentDisplay",
 
+	  getInitialState: function () {
+	    return { showDeleteButton: false };
+	  },
+
+	  showDeleteButton: function () {
+	    this.setState({ showDeleteButton: true });
+	  },
+
+	  hideDeleteButton: function () {
+	    this.setState({ showDeleteButton: false });
+	  },
+
+	  deleteComment: function () {
+	    commentId = this.props.comment.id;
+	    CommentApiUtil.deleteComment(commentId);
+	  },
+
 	  render: function () {
 	    var url = "#/users/" + this.props.comment.commenter_id;
+	    var commentDeleteButtonClass = null;
+	    if (this.state.showDeleteButton) {
+	      commentDeleteButtonClass = "comment-delete-button";
+	    }
 	    return React.createElement(
 	      "li",
-	      { key: this.props.key, className: "comment-item group" },
+	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: "comment-item group" },
 	      React.createElement(
 	        "h1",
 	        { className: "comment-header" },
@@ -34176,7 +34197,7 @@
 	      ),
 	      React.createElement(
 	        "span",
-	        { className: "comment-delete-button" },
+	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
 	        " "
 	      ),
 	      React.createElement(
