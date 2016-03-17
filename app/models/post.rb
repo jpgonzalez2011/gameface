@@ -25,9 +25,8 @@ class Post < ActiveRecord::Base
     self.target.full_name
   end
 
-  def date_and_time_method
+  def date_and_time
     t = self.created_at.in_time_zone('Eastern Time (US & Canada)')
     t.strftime("%B") + " " + t.strftime("%d") + " " + t.strftime("%Y") + " " + t.strftime('%r')
   end
-
 end
