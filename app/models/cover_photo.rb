@@ -6,7 +6,7 @@ class CoverPhoto < ActiveRecord::Base
                     },
                     convert_options: {
                       cover: "-quality 75 -strip"
-                    }
+                    },
                     default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
