@@ -1,5 +1,14 @@
 class Photo < ActiveRecord::Base
-  has_attached_file :image, styles: { medium: "200x200>", thumb: "30x30>" }
+  has_attached_file :image,
+                    styles: {
+                      medium: "200x200>",
+                      thumb: "30x30>"
+                    },
+                    convert_options: {
+                      medium: "-quality 75 -strip",
+                      thumb: "-quality 75 -strip",
+                    }
+                    
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
   validates :uploader_id, presence: true
 
