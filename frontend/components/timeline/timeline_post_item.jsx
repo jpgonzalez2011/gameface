@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     PostCommentForm = require('../comments/post_comment_form'),
     CommentDisplay = require('../comments/comment_display');
 

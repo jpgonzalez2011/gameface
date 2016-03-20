@@ -55,12 +55,12 @@
 	    LandingPage = __webpack_require__(248),
 	    Profile = __webpack_require__(252),
 	    PhotosIndex = __webpack_require__(262),
-	    About = __webpack_require__(271),
+	    About = __webpack_require__(272),
 	    CurrentUserStore = __webpack_require__(209),
-	    ProfileTimeline = __webpack_require__(272),
-	    FriendsIndex = __webpack_require__(281),
-	    Timeline = __webpack_require__(282),
-	    SessionForm = __webpack_require__(287);
+	    ProfileTimeline = __webpack_require__(273),
+	    FriendsIndex = __webpack_require__(282),
+	    Timeline = __webpack_require__(283),
+	    SessionForm = __webpack_require__(288);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -33422,9 +33422,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    TimeAgo = __webpack_require__(288),
-	    PhotoCommentDisplay = __webpack_require__(269),
-	    PhotoCommentForm = __webpack_require__(270);
+	    TimeAgo = __webpack_require__(269),
+	    PhotoCommentDisplay = __webpack_require__(270),
+	    PhotoCommentForm = __webpack_require__(271);
 
 	var PhotoShow = React.createClass({
 	  displayName: 'PhotoShow',
@@ -33551,1386 +33551,6 @@
 
 /***/ },
 /* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    TimeAgo = __webpack_require__(288),
-	    CurrentUserStore = __webpack_require__(209),
-	    PhotoApiUtil = __webpack_require__(264);
-
-	var PhotoCommentDisplay = React.createClass({
-	  displayName: 'PhotoCommentDisplay',
-
-	  getInitialState: function () {
-	    return { showDeleteButton: false };
-	  },
-
-	  showDeleteButton: function () {
-	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
-	      this.setState({ showDeleteButton: true });
-	    }
-	  },
-
-	  hideDeleteButton: function () {
-	    this.setState({ showDeleteButton: false });
-	  },
-
-	  deleteComment: function () {
-	    commentId = this.props.comment.id;
-	    mainTimeLine = this.props.mainTimeLine;
-	    PhotoApiUtil.deleteComment(commentId, mainTimeLine);
-	  },
-
-	  render: function () {
-	    var url = "#/users/" + this.props.comment.commenter_id;
-
-	    var commentDeleteButtonClass = null;
-	    if (this.state.showDeleteButton) {
-	      commentDeleteButtonClass = "comment-delete-button";
-	    }
-
-	    return React.createElement(
-	      'li',
-	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'photo-comment-item group' },
-	      React.createElement(
-	        'h1',
-	        { className: 'photo-comment-header' },
-	        React.createElement(
-	          'a',
-	          { href: url },
-	          React.createElement('img', { className: 'photo-comment-thumbnail', src: this.props.comment.thumbnail })
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	              'a',
-	              { href: url },
-	              this.props.comment.commenter_name
-	            )
-	          ),
-	          this.props.comment.content
-	        )
-	      ),
-	      React.createElement(
-	        'strong',
-	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
-	        ' '
-	      ),
-	      React.createElement(
-	        'span',
-	        { className: 'photo-comment-timestamp' },
-	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = PhotoCommentDisplay;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PhotoStore = __webpack_require__(263),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var PhotoCommentForm = React.createClass({
-	  displayName: 'PhotoCommentForm',
-
-	  getInitialState: function () {
-	    return {
-	      content: "",
-	      showFooter: false
-	    };
-	  },
-
-	  handleKeydown: function (e) {
-	    if (e.keyCode === 13) {
-	      e.preventDefault();
-	      var comment = { comment: {
-	          commenter_id: CurrentUserStore.currentUser().id,
-	          commentable_id: this.props.commentable_id,
-	          commentable_type: "Photo",
-	          content: this.state.content,
-	          mainTimeLine: this.props.mainTimeLine
-	        } };
-	      $(".comment-form-input").val("");
-	      PhotoStore.addNewComment(comment);
-	      this.setState({ content: "" });
-	    } else {
-	      this.handleChange(e);
-	    }
-	  },
-
-	  handleChange: function (e) {
-	    this.setState({ content: e.target.value });
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'comment-form-container group' },
-	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
-	      React.createElement(
-	        'form',
-	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = PhotoCommentForm;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ProfileStore = __webpack_require__(253);
-
-	var About = React.createClass({
-	  displayName: 'About',
-
-	  getInitialState: function () {
-	    return this.getStateFromStore(this.props);
-	  },
-
-	  getStateFromStore: function (props) {
-	    return { aboutInfo: ProfileStore.find(props.params.userId) };
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = ProfileStore.addListener(function () {
-	      this.setState(this.getStateFromStore(this.props));
-	    }.bind(this));
-	  },
-
-	  componentWillMount: function () {
-	    this.getStateFromStore(this.props);
-	  },
-
-	  componentWillUnMount: function () {
-	    this.storeCBToken.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    this.setState(this.getStateFromStore(newProps));
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'about-container group' },
-	      React.createElement(
-	        'h1',
-	        { className: 'about-header' },
-	        ' ABOUT '
-	      ),
-	      React.createElement(
-	        'feature',
-	        { className: 'about-nav' },
-	        React.createElement(
-	          'ul',
-	          null,
-	          React.createElement(
-	            'li',
-	            null,
-	            React.createElement(
-	              'span',
-	              { className: 'category-name' },
-	              'General Info'
-	            )
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'about-list group' },
-	        React.createElement(
-	          'li',
-	          null,
-	          'Full Name: ',
-	          this.state.aboutInfo.fname,
-	          ' ',
-	          this.state.aboutInfo.lname
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          'Date of Birth: ',
-	          this.state.aboutInfo.date_of_birth
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          'Occuption: ',
-	          this.state.aboutInfo.occupation
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          'Description: ',
-	          this.state.aboutInfo.description
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = About;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    TimeAgo = __webpack_require__(288),
-	    PostForm = __webpack_require__(273),
-	    PostStore = __webpack_require__(274),
-	    PostCommentForm = __webpack_require__(277),
-	    CommentDisplay = __webpack_require__(278),
-	    FriendGrid = __webpack_require__(279);
-
-	var ProfileTimeline = React.createClass({
-	  displayName: 'ProfileTimeline',
-
-	  getInitialState: function () {
-	    return this.getStateFromStore(this.props);
-	  },
-
-	  getStateFromStore: function (props) {
-	    return { posts: PostStore.findByTarget(props.params.userId) };
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = PostStore.addListener(function () {
-	      this.setState(this.getStateFromStore(this.props));
-	    }.bind(this));
-	  },
-
-	  componentWillUnmount: function () {
-	    this.storeCBToken.remove();
-	    PostStore.emptyPosts(this.props.params.userId);
-	  },
-
-	  componentWillMount: function () {
-	    this.getStateFromStore(this.props);
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    if (newProps.params.userId !== this.props.params.userId) {
-	      PostStore.emptyPosts(newProps.params.userId);
-	      this.setState(this.getStateFromStore(newProps));
-	    }
-	  },
-
-	  render: function () {
-	    var poster_url;
-	    var target_url;
-	    return React.createElement(
-	      'div',
-	      { className: 'timeline-container group' },
-	      React.createElement(
-	        'div',
-	        { className: 'timeline-right-side' },
-	        React.createElement(PostForm, { userId: this.props.params.userId }),
-	        React.createElement(
-	          'ul',
-	          { className: 'timeline-index-list' },
-	          this.state.posts.map(function (post, i) {
-	            var header;
-	            poster_url = "#/users/" + post.poster_id;
-	            target_url = "#/users/" + post.target_id;
-	            if (post.poster_name === post.target_name) {
-	              header = React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: poster_url },
-	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
-	                  post.poster_name
-	                )
-	              );
-	            } else {
-	              header = React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: poster_url },
-	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
-	                  post.poster_name
-	                ),
-	                ' to ',
-	                React.createElement(
-	                  'a',
-	                  { href: target_url },
-	                  post.target_name
-	                )
-	              );
-	            }
-	            return React.createElement(
-	              'li',
-	              { key: i, className: 'timeline-index-item' },
-	              React.createElement(
-	                'h1',
-	                { className: 'timeline-index-item-header' },
-	                header,
-	                React.createElement(TimeAgo, { date: post.date_and_time })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'timeline-index-item-content' },
-	                post.content
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'timeline-index-item-comments-container' },
-	                React.createElement(
-	                  'ul',
-	                  { className: 'timeline-index-item-comments-list' },
-	                  post.comments.map(function (comment, i) {
-	                    return React.createElement(CommentDisplay, { postId: post.id, mainTimeLine: undefined, key: i, comment: comment });
-	                  })
-	                ),
-	                React.createElement(
-	                  'div',
-	                  { className: 'timeline-index-item-comment-form' },
-	                  React.createElement(PostCommentForm, { mainTimeLine: undefined, commentable_id: post.id })
-	                )
-	              )
-	            );
-	          })
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'timeline-left-side' },
-	        React.createElement(FriendGrid, { userId: this.props.params.userId })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = ProfileTimeline;
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(274),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var PostForm = React.createClass({
-	  displayName: 'PostForm',
-
-	  getInitialState: function () {
-	    return {
-	      text: "",
-	      showFooter: false
-	    };
-	  },
-
-	  render: function () {
-	    if (this.state.showFooter) {
-	      return React.createElement(
-	        'div',
-	        { className: 'post-form-container' },
-	        React.createElement(
-	          'form',
-	          { className: 'post-form', onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'post-form-header', htmlFor: 'text' },
-	            'Make a Post, ',
-	            CurrentUserStore.currentUser().fname
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'post-form-input-container group' },
-	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
-	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onChange: this.changeText })
-	          ),
-	          React.createElement(
-	            'feature',
-	            { className: 'post-form-footer group' },
-	            React.createElement(
-	              'button',
-	              { className: 'post-form-button' },
-	              ' Post '
-	            )
-	          )
-	        )
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'post-form-container' },
-	        React.createElement(
-	          'form',
-	          { className: 'post-form', onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'label',
-	            { className: 'post-form-header', htmlFor: 'text' },
-	            'Make a Post, ',
-	            CurrentUserStore.currentUser().fname
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'post-form-input-container group' },
-	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
-	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onClick: this.showFooter, onChange: this.changeText })
-	          )
-	        )
-	      );
-	    }
-	  },
-
-	  changeText: function (e) {
-	    this.setState({ text: e.target.value });
-	  },
-
-	  showFooter: function (e) {
-	    this.setState({ showFooter: true });
-	  },
-
-	  handleSubmit: function (e) {
-	    e.preventDefault();
-	    var post = { post: {
-	        content: this.state.text,
-	        poster_id: CurrentUserStore.currentUser().id,
-	        target_id: this.props.userId
-	      }
-	    };
-
-	    PostStore.acceptNewPost(post);
-
-	    this.resetForm();
-	  },
-
-	  resetForm: function (e) {
-
-	    $(".post-form-input").val("");
-	    this.setState({ text: "", showFooter: false });
-	  }
-	});
-
-	module.exports = PostForm;
-
-/***/ },
-/* 274 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    Store = __webpack_require__(214).Store,
-	    PostConstants = __webpack_require__(259),
-	    PostApiUtil = __webpack_require__(275);
-
-	var posts = [];
-
-	var PostStore = new Store(Dispatcher);
-
-	PostStore.findByTarget = function (targetId) {
-	  if (posts.length === 0) {
-	    PostApiUtil.fetchTargetedPosts(targetId);
-	  }
-	  return posts;
-	};
-
-	PostStore.acceptNewPost = function (post) {
-	  PostApiUtil.acceptNewPost(post);
-	};
-
-	PostStore.addNewComment = function (comment) {
-	  PostApiUtil.addNewComment(comment);
-	};
-
-	PostStore.emptyPosts = function (targetId) {
-	  posts = [];
-	};
-
-	PostStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case PostConstants.RECEIVED_POSTS:
-	      if (posts.length !== payload.posts.length || payload.posts.length !== 0) {
-	        posts = payload.posts;
-	        this.__emitChange();
-	      }
-	      break;
-	    case PostConstants.RECEIVE_UPDATED_POST:
-	      posts.unshift(payload.post);
-	      this.__emitChange();
-	      break;
-	    case PostConstants.RECEIVE_UPDATED_COMMENT:
-	      var comment = payload.comment;
-	      postIdx = posts.findIndex(function (el) {
-	        return el.id === comment.commentable_id;
-	      });
-	      posts[postIdx].comments.push(comment);
-	      this.__emitChange();
-	      break;
-	    case PostConstants.DELETE_POST_COMMENT:
-	      if (posts.length !== 0) {
-	        var comment = payload.comment;
-	        postIdx = posts.findIndex(function (el) {
-	          return el.id === comment.commentable_id;
-	        });
-	        commentIdx = posts[postIdx].comments.findIndex(function (el) {
-	          return el.id === comment.id;
-	        });
-	        posts[postIdx].comments.splice(commentIdx, 1);
-	        this.__emitChange();
-	        break;
-	      }
-	  }
-	};
-
-	module.exports = PostStore;
-
-/***/ },
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var PostActions = __webpack_require__(276),
-	    TimelineActions = __webpack_require__(233);
-
-	var PostApiUtil = {
-	  fetchTargetedPosts: function (targetId) {
-	    $.ajax({
-	      type: "GET",
-	      url: "api/users/" + targetId + "/posts",
-	      dataType: "json",
-	      success: function (data) {
-	        var posts = data.posts;
-	        PostActions.receivePosts(posts);
-	      }
-	    });
-	  },
-
-	  acceptNewPost: function (post, resetCallback) {
-	    $.ajax({
-	      type: "POST",
-	      url: "api/posts/",
-	      dataType: "json",
-	      data: post,
-	      success: function (data) {
-	        PostActions.receiveUpdatedPost(data);
-	      }
-	    });
-	  },
-
-	  addNewComment: function (comment) {
-	    $.ajax({
-	      type: "POST",
-	      url: "api/comments/",
-	      dataType: "json",
-	      data: comment,
-	      success: function (data) {
-	        if (comment.comment.mainTimeLine) {
-	          TimelineActions.receiveNewComment(data);
-	        } else {
-	          PostActions.receiveUpdatedComment(data);
-	        }
-	      }
-	    });
-	  },
-
-	  deleteComment: function (commentId, mainTimeLine) {
-	    url = "api/comments/" + commentId;
-	    $.ajax({
-	      type: "DELETE",
-	      url: url,
-	      dataType: "json",
-	      success: function (comment) {
-	        if (mainTimeLine) {
-	          TimelineActions.deleteComment(comment);
-	        } else {
-	          PostActions.deleteComment(comment);
-	        }
-	      }
-	    });
-	  }
-	};
-
-	module.exports = PostApiUtil;
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(259);
-
-	var PostActions = {
-	  receivePosts: function (posts) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVED_POSTS,
-	      posts: posts
-	    });
-	  },
-
-	  receiveUpdatedPost: function (post) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_POST,
-	      post: post
-	    });
-	  },
-
-	  receiveUpdatedComment: function (comment) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
-	      comment: comment
-	    });
-	  },
-
-	  deleteComment: function (comment) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.DELETE_POST_COMMENT,
-	      comment: comment
-	    });
-	  }
-	};
-
-	module.exports = PostActions;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PostStore = __webpack_require__(274),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var PostCommentForm = React.createClass({
-	  displayName: 'PostCommentForm',
-
-	  getInitialState: function () {
-	    return {
-	      content: "",
-	      showFooter: false
-	    };
-	  },
-
-	  handleKeydown: function (e) {
-	    if (e.keyCode === 13) {
-	      e.preventDefault();
-	      var comment = { comment: {
-	          commenter_id: CurrentUserStore.currentUser().id,
-	          commentable_id: this.props.commentable_id,
-	          commentable_type: "Post",
-	          content: this.state.content,
-	          mainTimeLine: this.props.mainTimeLine
-	        } };
-	      PostStore.addNewComment(comment);
-	      this.setState({ content: "" });
-	      $(".comment-form-input").val("");
-	    } else {
-	      this.handleChange(e);
-	    }
-	  },
-
-	  handleChange: function (e) {
-	    this.setState({ content: e.target.value });
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'comment-form-container group' },
-	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
-	      React.createElement(
-	        'form',
-	        { className: 'comment-form' },
-	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = PostCommentForm;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    TimeAgo = __webpack_require__(288),
-	    PostApiUtil = __webpack_require__(275),
-	    CurrentUserStore = __webpack_require__(209);
-
-	var CommentDisplay = React.createClass({
-	  displayName: 'CommentDisplay',
-
-	  getInitialState: function () {
-	    return { showDeleteButton: false };
-	  },
-
-	  showDeleteButton: function () {
-	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
-	      this.setState({ showDeleteButton: true });
-	    }
-	  },
-
-	  hideDeleteButton: function () {
-	    this.setState({ showDeleteButton: false });
-	  },
-
-	  deleteComment: function () {
-	    commentId = this.props.comment.id;
-	    mainTimeLine = this.props.mainTimeLine;
-	    PostApiUtil.deleteComment(commentId, mainTimeLine);
-	  },
-
-	  render: function () {
-	    var url = "#/users/" + this.props.comment.commenter_id;
-
-	    var commentDeleteButtonClass = null;
-	    if (this.state.showDeleteButton) {
-	      commentDeleteButtonClass = "comment-delete-button";
-	    }
-
-	    return React.createElement(
-	      'li',
-	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'comment-item group' },
-	      React.createElement(
-	        'h1',
-	        { className: 'comment-header' },
-	        React.createElement(
-	          'a',
-	          { href: url },
-	          React.createElement('img', { className: 'comment-thumbnail', src: this.props.comment.thumbnail })
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	              'a',
-	              { href: url },
-	              this.props.comment.commenter_name
-	            )
-	          ),
-	          this.props.comment.content
-	        )
-	      ),
-	      React.createElement(
-	        'span',
-	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
-	        ' '
-	      ),
-	      React.createElement(
-	        'span',
-	        { className: 'comment-timestamp' },
-	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
-	      )
-	    );
-	  }
-	});
-
-	module.exports = CommentDisplay;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(258),
-	    FriendApiUtil = __webpack_require__(244),
-	    FriendGridItem = __webpack_require__(280);
-
-	var FriendGrid = React.createClass({
-	  displayName: 'FriendGrid',
-
-
-	  getInitialState: function () {
-	    return { gridFriends: [] };
-	  },
-
-	  __onChange: function (props) {
-	    this.setState({ gridFriends: FriendStore.friends().slice(0, 9) });
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = FriendStore.addListener(function () {
-	      this.setState(this.__onChange);
-	    }.bind(this));
-	    FriendApiUtil.fetchFriends(this.props.userId);
-	  },
-
-	  componentWillUnmount: function () {
-	    this.storeCBToken.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    FriendApiUtil.fetchFriends(newProps.userId);
-	  },
-
-	  render: function () {
-	    if (this.state.gridFriends[0] === "no friends yet") {
-	      return React.createElement(
-	        'div',
-	        { className: 'friends-grid-container group' },
-	        React.createElement(
-	          'h1',
-	          { className: 'friends-grid-header' },
-	          'Friends ',
-	          React.createElement(
-	            'span',
-	            { className: 'friends-grid-header-count' },
-	            '- ',
-	            FriendStore.friends().length
-	          )
-	        ),
-	        'No friends yet!'
-	      );
-	    } else if (this.state.gridFriends === "loading") {
-	      return React.createElement('div', null);
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'friends-grid-container group' },
-	        React.createElement(
-	          'h1',
-	          { className: 'friends-grid-header' },
-	          'Friends ',
-	          React.createElement(
-	            'span',
-	            { className: 'friends-grid-header-count' },
-	            '- ',
-	            FriendStore.friends().length
-	          )
-	        ),
-	        React.createElement(
-	          'ul',
-	          { className: 'friends-grid group' },
-	          this.state.gridFriends.map(function (friend, i) {
-	            return React.createElement(FriendGridItem, { friend: friend, key: i });
-	          })
-	        )
-	      );
-	    }
-	  }
-	});
-
-	module.exports = FriendGrid;
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var FriendGridItem = React.createClass({
-	  displayName: "FriendGridItem",
-
-
-	  render: function () {
-	    var url = "#/users/" + this.props.friend.id;
-	    return React.createElement(
-	      "a",
-	      { href: url },
-	      React.createElement(
-	        "li",
-	        { className: "friend-grid-item group" },
-	        React.createElement(
-	          "figure",
-	          { className: "friend-picture-container" },
-	          React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
-	        ),
-	        React.createElement(
-	          "h2",
-	          { className: "friend-grid-name" },
-	          this.props.friend.full_name
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = FriendGridItem;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    FriendStore = __webpack_require__(258),
-	    FriendIndexItem = __webpack_require__(239),
-	    FriendApiUtil = __webpack_require__(244);
-
-	var FriendsIndex = React.createClass({
-	  displayName: 'FriendsIndex',
-
-	  getInitialState: function () {
-	    return { friends: [] };
-	  },
-
-	  __onChange: function (props) {
-	    this.setState({ friends: FriendStore.friends() });
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = FriendStore.addListener(function () {
-	      this.setState(this.__onChange);
-	    }.bind(this));
-	    FriendApiUtil.fetchFriends(this.props.params.userId);
-	  },
-
-	  componentWillUnmount: function () {
-	    this.storeCBToken.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    FriendApiUtil.fetchFriends(newProps.params.userId);
-	  },
-
-	  render: function () {
-	    if (this.state.friends[0] === "no friends yet") {
-	      return React.createElement(
-	        'div',
-	        { className: 'friends-container group' },
-	        React.createElement(
-	          'h1',
-	          { className: 'friends-header' },
-	          'FRIENDS'
-	        ),
-	        'No friends yet!'
-	      );
-	    } else if (this.state.friends === "loading") {
-	      return React.createElement('div', null);
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'friends-container group' },
-	        React.createElement(
-	          'h1',
-	          { className: 'friends-header' },
-	          'Friends ',
-	          React.createElement(
-	            'span',
-	            { className: 'friends-grid-header-count' },
-	            '- ',
-	            this.state.friends.length
-	          )
-	        ),
-	        React.createElement(
-	          'ul',
-	          { className: 'friends-list group' },
-	          this.state.friends.map(function (friend, i) {
-	            var url = "#/users/" + friend.id;
-	            return React.createElement(
-	              'a',
-	              { key: i, href: url },
-	              React.createElement(
-	                'li',
-	                { className: 'friend-item group' },
-	                React.createElement(FriendIndexItem, { friend: friend, key: i })
-	              )
-	            );
-	          })
-	        )
-	      );
-	    }
-	  }
-	});
-
-	module.exports = FriendsIndex;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(283),
-	    TimelineApiUtil = __webpack_require__(232),
-	    PostForm = __webpack_require__(273),
-	    PostCommentForm = __webpack_require__(277),
-	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(278),
-	    TimelinePostItem = __webpack_require__(284),
-	    TimelinePhotoItem = __webpack_require__(285),
-	    SearchResults = __webpack_require__(286);
-
-	var Timeline = React.createClass({
-	  displayName: 'Timeline',
-
-	  getInitialState: function () {
-	    return { items: TimelineStore.allItems(), mainTimeLine: true };
-	  },
-
-	  componentDidMount: function () {
-	    this.storeCBToken = TimelineStore.addListener(this.__onChange);
-	    TimelineApiUtil.fetchAllItems();
-	  },
-
-	  componentWillUnmount: function () {
-	    this.storeCBToken.remove();
-	  },
-
-	  __onChange: function () {
-	    this.setState({ items: TimelineStore.allItems() });
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'main-timeline-container group' },
-	        React.createElement(
-	          'div',
-	          { className: 'main-timeline-center' },
-	          React.createElement(PostForm, { userId: CurrentUserStore.currentUser().id }),
-	          React.createElement(
-	            'ul',
-	            { className: 'main-timeline-index' },
-	            this.state.items.map(function (item, i) {
-	              var header;
-	              if (item.type === "Post") {
-	                var poster_url = "#/users/" + item.poster_id;
-	                if (item.poster_name === item.target_name) {
-	                  header = React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                      'a',
-	                      { href: poster_url },
-	                      item.poster_name
-	                    )
-	                  );
-	                } else {
-	                  var target_url = "#/users/" + item.target_id;
-	                  header = React.createElement(
-	                    'div',
-	                    null,
-	                    React.createElement(
-	                      'a',
-	                      { href: poster_url },
-	                      item.poster_name
-	                    ),
-	                    ' to ',
-	                    React.createElement(
-	                      'a',
-	                      { href: target_url },
-	                      item.target_name
-	                    )
-	                  );
-	                }
-	                return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
-	              } else if (item.type === "Photo") {
-	                var uploader_url = "#/users/" + item.uploader_id;
-	                header = React.createElement(
-	                  'div',
-	                  null,
-	                  React.createElement(
-	                    'a',
-	                    { href: uploader_url },
-	                    item.uploader_name
-	                  )
-	                );
-	                return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
-	              }
-	            }.bind(this))
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = Timeline;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(210),
-	    Store = __webpack_require__(214).Store,
-	    TimelineConstants = __webpack_require__(234),
-	    TimelineApiUtil = __webpack_require__(232),
-	    PostConstants = __webpack_require__(259),
-	    PhotoConstants = __webpack_require__(260);
-
-	var items = [];
-
-	var TimelineStore = new Store(Dispatcher);
-
-	TimelineStore.allItems = function () {
-	  return items;
-	};
-
-	TimelineStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case TimelineConstants.RECEIVED_ITEMS:
-	      items = payload.items;
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.RECEIVE_UPDATED_COMMENT:
-	      var comment = payload.comment;
-	      var itemIdx = items.findIndex(function (el) {
-	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
-	      });
-	      items[itemIdx].comments.push(comment);
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
-	      var comment = payload.comment;
-	      var itemIdx = items.findIndex(function (el) {
-	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
-	      });
-	      items[itemIdx].comments.push(comment);
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
-	      var comment = payload.comment;
-	      var itemIdx = items.findIndex(function (el) {
-	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
-	      });
-	      items[itemIdx].comments.push(comment);
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.RECEIVE_UPDATED_POST:
-	      var item = payload.post;
-	      item.type = "Post";
-	      items.unshift(item);
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.DELETE_POST_COMMENT:
-	      var comment = payload.comment;
-	      itemIdx = items.findIndex(function (el) {
-	        return el.id === comment.commentable_id;
-	      });
-	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
-	        return el.id === comment.id;
-	      });
-	      items[itemIdx].comments.splice(commentIdx, 1);
-	      this.__emitChange();
-	      break;
-	    case TimelineConstants.DELETE_PHOTO_COMMENT:
-	      var comment = payload.comment;
-	      itemIdx = items.findIndex(function (el) {
-	        return el.id === comment.commentable_id;
-	      });
-	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
-	        return el.id === comment.id;
-	      });
-	      items[itemIdx].comments.splice(commentIdx, 1);
-	      this.__emitChange();
-	      break;
-	  }
-	};
-
-	module.exports = TimelineStore;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(277),
-	    CommentDisplay = __webpack_require__(278);
-
-	var TimelinePostItem = React.createClass({
-	  displayName: 'TimelinePostItem',
-
-	  render: function () {
-	    return React.createElement(
-	      'li',
-	      { key: this.props.i, className: 'timeline-index-item' },
-	      React.createElement(
-	        'h1',
-	        { className: 'timeline-index-item-header' },
-	        React.createElement(
-	          'div',
-	          null,
-	          this.props.header
-	        ),
-	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'timeline-index-item-content' },
-	        this.props.item.content
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'timeline-index-item-comments-container' },
-	        React.createElement(
-	          'ul',
-	          { className: 'timeline-index-item-comments-list' },
-	          this.props.item.comments.map(function (comment, i) {
-	            return React.createElement(CommentDisplay, { mainTimeLine: true, key: i, comment: comment });
-	          })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'timeline-index-item-comment-form' },
-	          React.createElement(PostCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = TimelinePostItem;
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    TimeAgo = __webpack_require__(288),
-	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(278),
-	    PhotoShow = __webpack_require__(268);
-
-	var TimelinePhotoItem = React.createClass({
-	  displayName: 'TimelinePhotoItem',
-
-	  getInitialState: function () {
-	    return { show: false };
-	  },
-
-	  toggleShow: function () {
-	    this.setState({ show: !this.state.show });
-	  },
-
-	  render: function () {
-	    var imageBackground = {
-	      backgroundImage: 'url(' + this.props.item.medium_url + ')',
-	      backgroundSize: 'contain',
-	      backgroundRepeat: 'no-repeat',
-	      backgroundPosition: 'center center'
-	    };
-	    return React.createElement(
-	      'li',
-	      { key: this.props.i, className: 'timeline-index-item' },
-	      React.createElement(
-	        'h1',
-	        { className: 'timeline-index-item-header' },
-	        React.createElement(
-	          'div',
-	          null,
-	          this.props.header
-	        ),
-	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
-	      ),
-	      React.createElement(
-	        'div',
-	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container', style: imageBackground },
-	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'timeline-index-item-comments-container' },
-	        React.createElement(
-	          'ul',
-	          { className: 'timeline-index-item-comments-list' },
-	          this.props.item.comments.map(function (comment, i) {
-	            return React.createElement(CommentDisplay, { key: i, comment: comment });
-	          })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'timeline-index-item-comment-form' },
-	          React.createElement(PhotoCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = TimelinePhotoItem;
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-	var SearchResults = React.createClass({
-	  displayName: "SearchResults",
-
-	  render: function () {
-	    return React.createElement(
-	      "div",
-	      { className: "search-results-pane-container" },
-	      React.createElement(
-	        "figure",
-	        { className: "search-results-pane" },
-	        "Search is Active!"
-	      )
-	    );
-	  }
-	});
-
-	module.exports = SearchResults;
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var History = __webpack_require__(159).History;
-	var CurrentUserApiUtil = __webpack_require__(235);
-
-	var SessionForm = React.createClass({
-	  displayName: 'SessionForm',
-
-
-	  render: function () {
-
-	    return React.createElement(
-	      'form',
-	      { onSubmit: this.submit },
-	      React.createElement(
-	        'a',
-	        { href: '/auth/facebook' },
-	        'LOG IN WITH FACEBOOK'
-	      ),
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Logn In!'
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        'Email',
-	        React.createElement('input', { type: 'text', name: 'email' })
-	      ),
-	      React.createElement(
-	        'label',
-	        null,
-	        'Password',
-	        React.createElement('input', { type: 'password', name: 'password' })
-	      ),
-	      React.createElement(
-	        'button',
-	        null,
-	        'Log In!'
-	      )
-	    );
-	  }
-
-	});
-
-	module.exports = SessionForm;
-
-/***/ },
-/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -35061,6 +33681,1387 @@
 	  }
 	)
 
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(269),
+	    CurrentUserStore = __webpack_require__(209),
+	    PhotoApiUtil = __webpack_require__(264);
+
+	var PhotoCommentDisplay = React.createClass({
+	  displayName: 'PhotoCommentDisplay',
+
+	  getInitialState: function () {
+	    return { showDeleteButton: false };
+	  },
+
+	  showDeleteButton: function () {
+	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
+	      this.setState({ showDeleteButton: true });
+	    }
+	  },
+
+	  hideDeleteButton: function () {
+	    this.setState({ showDeleteButton: false });
+	  },
+
+	  deleteComment: function () {
+	    commentId = this.props.comment.id;
+	    mainTimeLine = this.props.mainTimeLine;
+	    PhotoApiUtil.deleteComment(commentId, mainTimeLine);
+	  },
+
+	  render: function () {
+	    var url = "#/users/" + this.props.comment.commenter_id;
+
+	    var commentDeleteButtonClass = null;
+	    if (this.state.showDeleteButton) {
+	      commentDeleteButtonClass = "comment-delete-button";
+	    }
+
+	    return React.createElement(
+	      'li',
+	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'photo-comment-item group' },
+	      React.createElement(
+	        'h1',
+	        { className: 'photo-comment-header' },
+	        React.createElement(
+	          'a',
+	          { href: url },
+	          React.createElement('img', { className: 'photo-comment-thumbnail', src: this.props.comment.thumbnail })
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: url },
+	              this.props.comment.commenter_name
+	            )
+	          ),
+	          this.props.comment.content
+	        )
+	      ),
+	      React.createElement(
+	        'strong',
+	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
+	        ' '
+	      ),
+	      React.createElement(
+	        'span',
+	        { className: 'photo-comment-timestamp' },
+	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentDisplay;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PhotoStore = __webpack_require__(263),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PhotoCommentForm = React.createClass({
+	  displayName: 'PhotoCommentForm',
+
+	  getInitialState: function () {
+	    return {
+	      content: "",
+	      showFooter: false
+	    };
+	  },
+
+	  handleKeydown: function (e) {
+	    if (e.keyCode === 13) {
+	      e.preventDefault();
+	      var comment = { comment: {
+	          commenter_id: CurrentUserStore.currentUser().id,
+	          commentable_id: this.props.commentable_id,
+	          commentable_type: "Photo",
+	          content: this.state.content,
+	          mainTimeLine: this.props.mainTimeLine
+	        } };
+	      $(".comment-form-input").val("");
+	      PhotoStore.addNewComment(comment);
+	      this.setState({ content: "" });
+	    } else {
+	      this.handleChange(e);
+	    }
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ content: e.target.value });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment-form-container group' },
+	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	      React.createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PhotoCommentForm;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ProfileStore = __webpack_require__(253);
+
+	var About = React.createClass({
+	  displayName: 'About',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { aboutInfo: ProfileStore.find(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = ProfileStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
+	  },
+
+	  componentWillUnMount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState(this.getStateFromStore(newProps));
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'about-container group' },
+	      React.createElement(
+	        'h1',
+	        { className: 'about-header' },
+	        ' ABOUT '
+	      ),
+	      React.createElement(
+	        'feature',
+	        { className: 'about-nav' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              'span',
+	              { className: 'category-name' },
+	              'General Info'
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'about-list group' },
+	        React.createElement(
+	          'li',
+	          null,
+	          'Full Name: ',
+	          this.state.aboutInfo.fname,
+	          ' ',
+	          this.state.aboutInfo.lname
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Date of Birth: ',
+	          this.state.aboutInfo.date_of_birth
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Occuption: ',
+	          this.state.aboutInfo.occupation
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Description: ',
+	          this.state.aboutInfo.description
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = About;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(269),
+	    PostForm = __webpack_require__(274),
+	    PostStore = __webpack_require__(275),
+	    PostCommentForm = __webpack_require__(278),
+	    CommentDisplay = __webpack_require__(279),
+	    FriendGrid = __webpack_require__(280);
+
+	var ProfileTimeline = React.createClass({
+	  displayName: 'ProfileTimeline',
+
+	  getInitialState: function () {
+	    return this.getStateFromStore(this.props);
+	  },
+
+	  getStateFromStore: function (props) {
+	    return { posts: PostStore.findByTarget(props.params.userId) };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = PostStore.addListener(function () {
+	      this.setState(this.getStateFromStore(this.props));
+	    }.bind(this));
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	    PostStore.emptyPosts(this.props.params.userId);
+	  },
+
+	  componentWillMount: function () {
+	    this.getStateFromStore(this.props);
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    if (newProps.params.userId !== this.props.params.userId) {
+	      PostStore.emptyPosts(newProps.params.userId);
+	      this.setState(this.getStateFromStore(newProps));
+	    }
+	  },
+
+	  render: function () {
+	    var poster_url;
+	    var target_url;
+	    return React.createElement(
+	      'div',
+	      { className: 'timeline-container group' },
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-right-side' },
+	        React.createElement(PostForm, { userId: this.props.params.userId }),
+	        React.createElement(
+	          'ul',
+	          { className: 'timeline-index-list' },
+	          this.state.posts.map(function (post, i) {
+	            var header;
+	            poster_url = "#/users/" + post.poster_id;
+	            target_url = "#/users/" + post.target_id;
+	            if (post.poster_name === post.target_name) {
+	              header = React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: poster_url },
+	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
+	                  post.poster_name
+	                )
+	              );
+	            } else {
+	              header = React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'a',
+	                  { href: poster_url },
+	                  React.createElement('img', { className: 'poster-picture', src: post.poster_thumb_url }),
+	                  post.poster_name
+	                ),
+	                ' to ',
+	                React.createElement(
+	                  'a',
+	                  { href: target_url },
+	                  post.target_name
+	                )
+	              );
+	            }
+	            return React.createElement(
+	              'li',
+	              { key: i, className: 'timeline-index-item' },
+	              React.createElement(
+	                'h1',
+	                { className: 'timeline-index-item-header' },
+	                header,
+	                React.createElement(TimeAgo, { date: post.date_and_time })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'timeline-index-item-content' },
+	                post.content
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'timeline-index-item-comments-container' },
+	                React.createElement(
+	                  'ul',
+	                  { className: 'timeline-index-item-comments-list' },
+	                  post.comments.map(function (comment, i) {
+	                    return React.createElement(CommentDisplay, { postId: post.id, mainTimeLine: undefined, key: i, comment: comment });
+	                  })
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'timeline-index-item-comment-form' },
+	                  React.createElement(PostCommentForm, { mainTimeLine: undefined, commentable_id: post.id })
+	                )
+	              )
+	            );
+	          })
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-left-side' },
+	        React.createElement(FriendGrid, { userId: this.props.params.userId })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ProfileTimeline;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostStore = __webpack_require__(275),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PostForm = React.createClass({
+	  displayName: 'PostForm',
+
+	  getInitialState: function () {
+	    return {
+	      text: "",
+	      showFooter: false
+	    };
+	  },
+
+	  render: function () {
+	    if (this.state.showFooter) {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'post-form-header', htmlFor: 'text' },
+	            'Make a Post, ',
+	            CurrentUserStore.currentUser().fname
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'post-form-input-container group' },
+	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onChange: this.changeText })
+	          ),
+	          React.createElement(
+	            'feature',
+	            { className: 'post-form-footer group' },
+	            React.createElement(
+	              'button',
+	              { className: 'post-form-button' },
+	              ' Post '
+	            )
+	          )
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'post-form-container' },
+	        React.createElement(
+	          'form',
+	          { className: 'post-form', onSubmit: this.handleSubmit },
+	          React.createElement(
+	            'label',
+	            { className: 'post-form-header', htmlFor: 'text' },
+	            'Make a Post, ',
+	            CurrentUserStore.currentUser().fname
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'post-form-input-container group' },
+	            React.createElement('img', { className: 'post-form-input-picture', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	            React.createElement('input', { className: 'post-form-input', type: 'text', id: 'text', placeholder: 'What\'s on your mind?', onClick: this.showFooter, onChange: this.changeText })
+	          )
+	        )
+	      );
+	    }
+	  },
+
+	  changeText: function (e) {
+	    this.setState({ text: e.target.value });
+	  },
+
+	  showFooter: function (e) {
+	    this.setState({ showFooter: true });
+	  },
+
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    var post = { post: {
+	        content: this.state.text,
+	        poster_id: CurrentUserStore.currentUser().id,
+	        target_id: this.props.userId
+	      }
+	    };
+
+	    PostStore.acceptNewPost(post);
+
+	    this.resetForm();
+	  },
+
+	  resetForm: function (e) {
+
+	    $(".post-form-input").val("");
+	    this.setState({ text: "", showFooter: false });
+	  }
+	});
+
+	module.exports = PostForm;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    PostConstants = __webpack_require__(259),
+	    PostApiUtil = __webpack_require__(276);
+
+	var posts = [];
+
+	var PostStore = new Store(Dispatcher);
+
+	PostStore.findByTarget = function (targetId) {
+	  if (posts.length === 0) {
+	    PostApiUtil.fetchTargetedPosts(targetId);
+	  }
+	  return posts;
+	};
+
+	PostStore.acceptNewPost = function (post) {
+	  PostApiUtil.acceptNewPost(post);
+	};
+
+	PostStore.addNewComment = function (comment) {
+	  PostApiUtil.addNewComment(comment);
+	};
+
+	PostStore.emptyPosts = function (targetId) {
+	  posts = [];
+	};
+
+	PostStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PostConstants.RECEIVED_POSTS:
+	      if (posts.length !== payload.posts.length || payload.posts.length !== 0) {
+	        posts = payload.posts;
+	        this.__emitChange();
+	      }
+	      break;
+	    case PostConstants.RECEIVE_UPDATED_POST:
+	      posts.unshift(payload.post);
+	      this.__emitChange();
+	      break;
+	    case PostConstants.RECEIVE_UPDATED_COMMENT:
+	      var comment = payload.comment;
+	      postIdx = posts.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      posts[postIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
+	    case PostConstants.DELETE_POST_COMMENT:
+	      if (posts.length !== 0) {
+	        var comment = payload.comment;
+	        postIdx = posts.findIndex(function (el) {
+	          return el.id === comment.commentable_id;
+	        });
+	        commentIdx = posts[postIdx].comments.findIndex(function (el) {
+	          return el.id === comment.id;
+	        });
+	        posts[postIdx].comments.splice(commentIdx, 1);
+	        this.__emitChange();
+	        break;
+	      }
+	  }
+	};
+
+	module.exports = PostStore;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var PostActions = __webpack_require__(277),
+	    TimelineActions = __webpack_require__(233);
+
+	var PostApiUtil = {
+	  fetchTargetedPosts: function (targetId) {
+	    $.ajax({
+	      type: "GET",
+	      url: "api/users/" + targetId + "/posts",
+	      dataType: "json",
+	      success: function (data) {
+	        var posts = data.posts;
+	        PostActions.receivePosts(posts);
+	      }
+	    });
+	  },
+
+	  acceptNewPost: function (post, resetCallback) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/posts/",
+	      dataType: "json",
+	      data: post,
+	      success: function (data) {
+	        PostActions.receiveUpdatedPost(data);
+	      }
+	    });
+	  },
+
+	  addNewComment: function (comment) {
+	    $.ajax({
+	      type: "POST",
+	      url: "api/comments/",
+	      dataType: "json",
+	      data: comment,
+	      success: function (data) {
+	        if (comment.comment.mainTimeLine) {
+	          TimelineActions.receiveNewComment(data);
+	        } else {
+	          PostActions.receiveUpdatedComment(data);
+	        }
+	      }
+	    });
+	  },
+
+	  deleteComment: function (commentId, mainTimeLine) {
+	    url = "api/comments/" + commentId;
+	    $.ajax({
+	      type: "DELETE",
+	      url: url,
+	      dataType: "json",
+	      success: function (comment) {
+	        if (mainTimeLine) {
+	          TimelineActions.deleteComment(comment);
+	        } else {
+	          PostActions.deleteComment(comment);
+	        }
+	      }
+	    });
+	  }
+	};
+
+	module.exports = PostApiUtil;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    PostConstants = __webpack_require__(259);
+
+	var PostActions = {
+	  receivePosts: function (posts) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVED_POSTS,
+	      posts: posts
+	    });
+	  },
+
+	  receiveUpdatedPost: function (post) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_POST,
+	      post: post
+	    });
+	  },
+
+	  receiveUpdatedComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
+	    });
+	  },
+
+	  deleteComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.DELETE_POST_COMMENT,
+	      comment: comment
+	    });
+	  }
+	};
+
+	module.exports = PostActions;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    PostStore = __webpack_require__(275),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var PostCommentForm = React.createClass({
+	  displayName: 'PostCommentForm',
+
+	  getInitialState: function () {
+	    return {
+	      content: "",
+	      showFooter: false
+	    };
+	  },
+
+	  handleKeydown: function (e) {
+	    if (e.keyCode === 13) {
+	      e.preventDefault();
+	      var comment = { comment: {
+	          commenter_id: CurrentUserStore.currentUser().id,
+	          commentable_id: this.props.commentable_id,
+	          commentable_type: "Post",
+	          content: this.state.content,
+	          mainTimeLine: this.props.mainTimeLine
+	        } };
+	      PostStore.addNewComment(comment);
+	      this.setState({ content: "" });
+	      $(".comment-form-input").val("");
+	    } else {
+	      this.handleChange(e);
+	    }
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ content: e.target.value });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'comment-form-container group' },
+	      React.createElement('img', { className: 'comment-form-thumbnail', src: CurrentUserStore.currentUser().profile_thumb_url }),
+	      React.createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        React.createElement('textarea', { className: 'comment-form-input', type: 'text', placeholder: 'Write a comment...', onKeyUp: this.handleKeydown })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PostCommentForm;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(269),
+	    PostApiUtil = __webpack_require__(276),
+	    CurrentUserStore = __webpack_require__(209);
+
+	var CommentDisplay = React.createClass({
+	  displayName: 'CommentDisplay',
+
+	  getInitialState: function () {
+	    return { showDeleteButton: false };
+	  },
+
+	  showDeleteButton: function () {
+	    if (this.props.comment.commenter_id == CurrentUserStore.currentUser().id) {
+	      this.setState({ showDeleteButton: true });
+	    }
+	  },
+
+	  hideDeleteButton: function () {
+	    this.setState({ showDeleteButton: false });
+	  },
+
+	  deleteComment: function () {
+	    commentId = this.props.comment.id;
+	    mainTimeLine = this.props.mainTimeLine;
+	    PostApiUtil.deleteComment(commentId, mainTimeLine);
+	  },
+
+	  render: function () {
+	    var url = "#/users/" + this.props.comment.commenter_id;
+
+	    var commentDeleteButtonClass = null;
+	    if (this.state.showDeleteButton) {
+	      commentDeleteButtonClass = "comment-delete-button";
+	    }
+
+	    return React.createElement(
+	      'li',
+	      { onMouseEnter: this.showDeleteButton, onMouseLeave: this.hideDeleteButton, key: this.props.key, className: 'comment-item group' },
+	      React.createElement(
+	        'h1',
+	        { className: 'comment-header' },
+	        React.createElement(
+	          'a',
+	          { href: url },
+	          React.createElement('img', { className: 'comment-thumbnail', src: this.props.comment.thumbnail })
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: url },
+	              this.props.comment.commenter_name
+	            )
+	          ),
+	          this.props.comment.content
+	        )
+	      ),
+	      React.createElement(
+	        'span',
+	        { onClick: this.deleteComment, className: commentDeleteButtonClass },
+	        ' '
+	      ),
+	      React.createElement(
+	        'span',
+	        { className: 'comment-timestamp' },
+	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CommentDisplay;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    FriendStore = __webpack_require__(258),
+	    FriendApiUtil = __webpack_require__(244),
+	    FriendGridItem = __webpack_require__(281);
+
+	var FriendGrid = React.createClass({
+	  displayName: 'FriendGrid',
+
+
+	  getInitialState: function () {
+	    return { gridFriends: [] };
+	  },
+
+	  __onChange: function (props) {
+	    this.setState({ gridFriends: FriendStore.friends().slice(0, 9) });
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = FriendStore.addListener(function () {
+	      this.setState(this.__onChange);
+	    }.bind(this));
+	    FriendApiUtil.fetchFriends(this.props.userId);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    FriendApiUtil.fetchFriends(newProps.userId);
+	  },
+
+	  render: function () {
+	    if (this.state.gridFriends[0] === "no friends yet") {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-grid-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-grid-header' },
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            FriendStore.friends().length
+	          )
+	        ),
+	        'No friends yet!'
+	      );
+	    } else if (this.state.gridFriends === "loading") {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-grid-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-grid-header' },
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            FriendStore.friends().length
+	          )
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'friends-grid group' },
+	          this.state.gridFriends.map(function (friend, i) {
+	            return React.createElement(FriendGridItem, { friend: friend, key: i });
+	          })
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = FriendGrid;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var FriendGridItem = React.createClass({
+	  displayName: "FriendGridItem",
+
+
+	  render: function () {
+	    var url = "#/users/" + this.props.friend.id;
+	    return React.createElement(
+	      "a",
+	      { href: url },
+	      React.createElement(
+	        "li",
+	        { className: "friend-grid-item group" },
+	        React.createElement(
+	          "figure",
+	          { className: "friend-picture-container" },
+	          React.createElement("img", { className: "friend-picture", src: this.props.friend.profile_small_url })
+	        ),
+	        React.createElement(
+	          "h2",
+	          { className: "friend-grid-name" },
+	          this.props.friend.full_name
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = FriendGridItem;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    FriendStore = __webpack_require__(258),
+	    FriendIndexItem = __webpack_require__(239),
+	    FriendApiUtil = __webpack_require__(244);
+
+	var FriendsIndex = React.createClass({
+	  displayName: 'FriendsIndex',
+
+	  getInitialState: function () {
+	    return { friends: [] };
+	  },
+
+	  __onChange: function (props) {
+	    this.setState({ friends: FriendStore.friends() });
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = FriendStore.addListener(function () {
+	      this.setState(this.__onChange);
+	    }.bind(this));
+	    FriendApiUtil.fetchFriends(this.props.params.userId);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    FriendApiUtil.fetchFriends(newProps.params.userId);
+	  },
+
+	  render: function () {
+	    if (this.state.friends[0] === "no friends yet") {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-header' },
+	          'FRIENDS'
+	        ),
+	        'No friends yet!'
+	      );
+	    } else if (this.state.friends === "loading") {
+	      return React.createElement('div', null);
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'friends-container group' },
+	        React.createElement(
+	          'h1',
+	          { className: 'friends-header' },
+	          'Friends ',
+	          React.createElement(
+	            'span',
+	            { className: 'friends-grid-header-count' },
+	            '- ',
+	            this.state.friends.length
+	          )
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'friends-list group' },
+	          this.state.friends.map(function (friend, i) {
+	            var url = "#/users/" + friend.id;
+	            return React.createElement(
+	              'a',
+	              { key: i, href: url },
+	              React.createElement(
+	                'li',
+	                { className: 'friend-item group' },
+	                React.createElement(FriendIndexItem, { friend: friend, key: i })
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = FriendsIndex;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    CurrentUserStore = __webpack_require__(209),
+	    TimelineStore = __webpack_require__(284),
+	    TimelineApiUtil = __webpack_require__(232),
+	    PostForm = __webpack_require__(274),
+	    PostCommentForm = __webpack_require__(278),
+	    PhotoCommentForm = __webpack_require__(271),
+	    CommentDisplay = __webpack_require__(279),
+	    TimelinePostItem = __webpack_require__(285),
+	    TimelinePhotoItem = __webpack_require__(286),
+	    SearchResults = __webpack_require__(287);
+
+	var Timeline = React.createClass({
+	  displayName: 'Timeline',
+
+	  getInitialState: function () {
+	    return { items: TimelineStore.allItems(), mainTimeLine: true };
+	  },
+
+	  componentDidMount: function () {
+	    this.storeCBToken = TimelineStore.addListener(this.__onChange);
+	    TimelineApiUtil.fetchAllItems();
+	  },
+
+	  componentWillUnmount: function () {
+	    this.storeCBToken.remove();
+	  },
+
+	  __onChange: function () {
+	    this.setState({ items: TimelineStore.allItems() });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'main-timeline-container group' },
+	        React.createElement(
+	          'div',
+	          { className: 'main-timeline-center' },
+	          React.createElement(PostForm, { userId: CurrentUserStore.currentUser().id }),
+	          React.createElement(
+	            'ul',
+	            { className: 'main-timeline-index' },
+	            this.state.items.map(function (item, i) {
+	              var header;
+	              if (item.type === "Post") {
+	                var poster_url = "#/users/" + item.poster_id;
+	                if (item.poster_name === item.target_name) {
+	                  header = React.createElement(
+	                    'div',
+	                    null,
+	                    React.createElement(
+	                      'a',
+	                      { href: poster_url },
+	                      item.poster_name
+	                    )
+	                  );
+	                } else {
+	                  var target_url = "#/users/" + item.target_id;
+	                  header = React.createElement(
+	                    'div',
+	                    null,
+	                    React.createElement(
+	                      'a',
+	                      { href: poster_url },
+	                      item.poster_name
+	                    ),
+	                    ' to ',
+	                    React.createElement(
+	                      'a',
+	                      { href: target_url },
+	                      item.target_name
+	                    )
+	                  );
+	                }
+	                return React.createElement(TimelinePostItem, { key: i, header: header, item: item, mainTimeLine: this.state.mainTimeLine, i: i });
+	              } else if (item.type === "Photo") {
+	                var uploader_url = "#/users/" + item.uploader_id;
+	                header = React.createElement(
+	                  'div',
+	                  null,
+	                  React.createElement(
+	                    'a',
+	                    { href: uploader_url },
+	                    item.uploader_name
+	                  )
+	                );
+	                return React.createElement(TimelinePhotoItem, { key: i, i: i, item: item, mainTimeLine: this.state.mainTimeLine, header: header });
+	              }
+	            }.bind(this))
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Timeline;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(210),
+	    Store = __webpack_require__(214).Store,
+	    TimelineConstants = __webpack_require__(234),
+	    TimelineApiUtil = __webpack_require__(232),
+	    PostConstants = __webpack_require__(259),
+	    PhotoConstants = __webpack_require__(260);
+
+	var items = [];
+
+	var TimelineStore = new Store(Dispatcher);
+
+	TimelineStore.allItems = function () {
+	  return items;
+	};
+
+	TimelineStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case TimelineConstants.RECEIVED_ITEMS:
+	      items = payload.items;
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.RECEIVE_UPDATED_COMMENT:
+	      var comment = payload.comment;
+	      var itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
+	      });
+	      items[itemIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.RECEIVE_UPDATED_PHOTO_COMMENT:
+	      var comment = payload.comment;
+	      var itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
+	      });
+	      items[itemIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.NEW_COMMENT_MADE_ON_TIMELINE:
+	      var comment = payload.comment;
+	      var itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id && el.type === comment.commentable_type;
+	      });
+	      items[itemIdx].comments.push(comment);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.RECEIVE_UPDATED_POST:
+	      var item = payload.post;
+	      item.type = "Post";
+	      items.unshift(item);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.DELETE_POST_COMMENT:
+	      var comment = payload.comment;
+	      itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
+	        return el.id === comment.id;
+	      });
+	      items[itemIdx].comments.splice(commentIdx, 1);
+	      this.__emitChange();
+	      break;
+	    case TimelineConstants.DELETE_PHOTO_COMMENT:
+	      var comment = payload.comment;
+	      itemIdx = items.findIndex(function (el) {
+	        return el.id === comment.commentable_id;
+	      });
+	      commentIdx = items[itemIdx].comments.findIndex(function (el) {
+	        return el.id === comment.id;
+	      });
+	      items[itemIdx].comments.splice(commentIdx, 1);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	module.exports = TimelineStore;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(269),
+	    PostCommentForm = __webpack_require__(278),
+	    CommentDisplay = __webpack_require__(279);
+
+	var TimelinePostItem = React.createClass({
+	  displayName: 'TimelinePostItem',
+
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { key: this.props.i, className: 'timeline-index-item' },
+	      React.createElement(
+	        'h1',
+	        { className: 'timeline-index-item-header' },
+	        React.createElement(
+	          'div',
+	          null,
+	          this.props.header
+	        ),
+	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-content' },
+	        this.props.item.content
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-comments-container' },
+	        React.createElement(
+	          'ul',
+	          { className: 'timeline-index-item-comments-list' },
+	          this.props.item.comments.map(function (comment, i) {
+	            return React.createElement(CommentDisplay, { mainTimeLine: true, key: i, comment: comment });
+	          })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'timeline-index-item-comment-form' },
+	          React.createElement(PostCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TimelinePostItem;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(269),
+	    PhotoCommentForm = __webpack_require__(271),
+	    CommentDisplay = __webpack_require__(279),
+	    PhotoShow = __webpack_require__(268);
+
+	var TimelinePhotoItem = React.createClass({
+	  displayName: 'TimelinePhotoItem',
+
+	  getInitialState: function () {
+	    return { show: false };
+	  },
+
+	  toggleShow: function () {
+	    this.setState({ show: !this.state.show });
+	  },
+
+	  render: function () {
+	    var imageBackground = {
+	      backgroundImage: 'url(' + this.props.item.medium_url + ')',
+	      backgroundSize: 'contain',
+	      backgroundRepeat: 'no-repeat',
+	      backgroundPosition: 'center center'
+	    };
+	    return React.createElement(
+	      'li',
+	      { key: this.props.i, className: 'timeline-index-item' },
+	      React.createElement(
+	        'h1',
+	        { className: 'timeline-index-item-header' },
+	        React.createElement(
+	          'div',
+	          null,
+	          this.props.header
+	        ),
+	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
+	      ),
+	      React.createElement(
+	        'div',
+	        { onClick: this.toggleShow, className: 'timeline-photo-preview-container', style: imageBackground },
+	        React.createElement(PhotoShow, { mainTimeLine: true, photo: this.props.item, show: this.state.show })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'timeline-index-item-comments-container' },
+	        React.createElement(
+	          'ul',
+	          { className: 'timeline-index-item-comments-list' },
+	          this.props.item.comments.map(function (comment, i) {
+	            return React.createElement(CommentDisplay, { key: i, comment: comment });
+	          })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'timeline-index-item-comment-form' },
+	          React.createElement(PhotoCommentForm, { key: this.props.i, mainTimeLine: this.props.mainTimeLine, commentable_id: this.props.item.id })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TimelinePhotoItem;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+	var SearchResults = React.createClass({
+	  displayName: "SearchResults",
+
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { className: "search-results-pane-container" },
+	      React.createElement(
+	        "figure",
+	        { className: "search-results-pane" },
+	        "Search is Active!"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = SearchResults;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var History = __webpack_require__(159).History;
+	var CurrentUserApiUtil = __webpack_require__(235);
+
+	var SessionForm = React.createClass({
+	  displayName: 'SessionForm',
+
+
+	  render: function () {
+
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.submit },
+	      React.createElement(
+	        'a',
+	        { href: '/auth/facebook' },
+	        'LOG IN WITH FACEBOOK'
+	      ),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Logn In!'
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Email',
+	        React.createElement('input', { type: 'text', name: 'email' })
+	      ),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Password',
+	        React.createElement('input', { type: 'password', name: 'password' })
+	      ),
+	      React.createElement(
+	        'button',
+	        null,
+	        'Log In!'
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = SessionForm;
 
 /***/ }
 /******/ ]);
