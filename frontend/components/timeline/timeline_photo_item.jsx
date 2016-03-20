@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     PhotoCommentForm = require('../comments/photo_comment_form'),
     CommentDisplay = require('../comments/comment_display'),
     PhotoShow = require('../photos/photo_show');
@@ -23,7 +24,7 @@ var TimelinePhotoItem = React.createClass({
       <li key={this.props.i} className="timeline-index-item">
         <h1 className="timeline-index-item-header">
           <div>{this.props.header}</div>
-          <span>{this.props.item.date_and_time}</span>
+          <TimeAgo date={this.props.item.date_and_time} />
         </h1>
         <div onClick={this.toggleShow} className="timeline-photo-preview-container" style={imageBackground}>
           <PhotoShow mainTimeLine={true} photo={this.props.item} show={this.state.show} />

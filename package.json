@@ -36,6 +36,7 @@
     "react-dom": "^0.14.2",
     "react-onclickoutside": "^4.5.0",
     "react-router": "1.0.2",
+    "react-timeago": "^2.2.1",
     "webpack": "^1.12.13"
   }
 }

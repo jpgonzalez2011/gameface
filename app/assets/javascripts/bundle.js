@@ -58,9 +58,9 @@
 	    About = __webpack_require__(271),
 	    CurrentUserStore = __webpack_require__(209),
 	    ProfileTimeline = __webpack_require__(272),
-	    FriendsIndex = __webpack_require__(280),
-	    Timeline = __webpack_require__(281),
-	    SessionForm = __webpack_require__(286);
+	    FriendsIndex = __webpack_require__(281),
+	    Timeline = __webpack_require__(282),
+	    SessionForm = __webpack_require__(287);
 
 	var GameFace = React.createClass({
 	  displayName: 'GameFace',
@@ -33422,6 +33422,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(288),
 	    PhotoCommentDisplay = __webpack_require__(269),
 	    PhotoCommentForm = __webpack_require__(270);
 
@@ -33469,7 +33470,9 @@
 	              React.createElement(
 	                'h2',
 	                null,
-	                this.props.photo.date_and_time
+	                ' ',
+	                React.createElement(TimeAgo, { date: this.props.photo.date_and_time }),
+	                ' '
 	              )
 	            ),
 	            React.createElement(
@@ -33551,6 +33554,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(288),
 	    CurrentUserStore = __webpack_require__(209),
 	    PhotoApiUtil = __webpack_require__(264);
 
@@ -33619,7 +33623,7 @@
 	      React.createElement(
 	        'span',
 	        { className: 'photo-comment-timestamp' },
-	        this.props.comment.date_and_time
+	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
 	      )
 	    );
 	  }
@@ -33786,11 +33790,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(288),
 	    PostForm = __webpack_require__(273),
 	    PostStore = __webpack_require__(274),
-	    PostCommentForm = __webpack_require__(276),
-	    CommentDisplay = __webpack_require__(277),
-	    FriendGrid = __webpack_require__(278);
+	    PostCommentForm = __webpack_require__(277),
+	    CommentDisplay = __webpack_require__(278),
+	    FriendGrid = __webpack_require__(279);
 
 	var ProfileTimeline = React.createClass({
 	  displayName: 'ProfileTimeline',
@@ -33878,11 +33883,7 @@
 	                'h1',
 	                { className: 'timeline-index-item-header' },
 	                header,
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  post.date_and_time
-	                )
+	                React.createElement(TimeAgo, { date: post.date_and_time })
 	              ),
 	              React.createElement(
 	                'div',
@@ -34098,7 +34099,7 @@
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var PostActions = __webpack_require__(287),
+	var PostActions = __webpack_require__(276),
 	    TimelineActions = __webpack_require__(233);
 
 	var PostApiUtil = {
@@ -34165,6 +34166,45 @@
 /* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Dispatcher = __webpack_require__(210),
+	    PostConstants = __webpack_require__(259);
+
+	var PostActions = {
+	  receivePosts: function (posts) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVED_POSTS,
+	      posts: posts
+	    });
+	  },
+
+	  receiveUpdatedPost: function (post) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_POST,
+	      post: post
+	    });
+	  },
+
+	  receiveUpdatedComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
+	      comment: comment
+	    });
+	  },
+
+	  deleteComment: function (comment) {
+	    Dispatcher.dispatch({
+	      actionType: PostConstants.DELETE_POST_COMMENT,
+	      comment: comment
+	    });
+	  }
+	};
+
+	module.exports = PostActions;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1),
 	    PostStore = __webpack_require__(274),
 	    CurrentUserStore = __webpack_require__(209);
@@ -34218,10 +34258,11 @@
 	module.exports = PostCommentForm;
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(288),
 	    PostApiUtil = __webpack_require__(275),
 	    CurrentUserStore = __webpack_require__(209);
 
@@ -34290,7 +34331,7 @@
 	      React.createElement(
 	        'span',
 	        { className: 'comment-timestamp' },
-	        this.props.comment.date_and_time
+	        React.createElement(TimeAgo, { date: this.props.comment.date_and_time })
 	      )
 	    );
 	  }
@@ -34299,13 +34340,13 @@
 	module.exports = CommentDisplay;
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    FriendStore = __webpack_require__(258),
 	    FriendApiUtil = __webpack_require__(244),
-	    FriendGridItem = __webpack_require__(279);
+	    FriendGridItem = __webpack_require__(280);
 
 	var FriendGrid = React.createClass({
 	  displayName: 'FriendGrid',
@@ -34384,7 +34425,7 @@
 	module.exports = FriendGrid;
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34419,7 +34460,7 @@
 	module.exports = FriendGridItem;
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
@@ -34506,20 +34547,20 @@
 	module.exports = FriendsIndex;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    CurrentUserStore = __webpack_require__(209),
-	    TimelineStore = __webpack_require__(282),
+	    TimelineStore = __webpack_require__(283),
 	    TimelineApiUtil = __webpack_require__(232),
 	    PostForm = __webpack_require__(273),
-	    PostCommentForm = __webpack_require__(276),
+	    PostCommentForm = __webpack_require__(277),
 	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(277),
-	    TimelinePostItem = __webpack_require__(283),
-	    TimelinePhotoItem = __webpack_require__(284),
-	    SearchResults = __webpack_require__(285);
+	    CommentDisplay = __webpack_require__(278),
+	    TimelinePostItem = __webpack_require__(284),
+	    TimelinePhotoItem = __webpack_require__(285),
+	    SearchResults = __webpack_require__(286);
 
 	var Timeline = React.createClass({
 	  displayName: 'Timeline',
@@ -34612,7 +34653,7 @@
 	module.exports = Timeline;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Dispatcher = __webpack_require__(210),
@@ -34694,12 +34735,12 @@
 	module.exports = TimelineStore;
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
-	    PostCommentForm = __webpack_require__(276),
-	    CommentDisplay = __webpack_require__(277);
+	    PostCommentForm = __webpack_require__(277),
+	    CommentDisplay = __webpack_require__(278);
 
 	var TimelinePostItem = React.createClass({
 	  displayName: 'TimelinePostItem',
@@ -34716,11 +34757,7 @@
 	          null,
 	          this.props.header
 	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          this.props.item.date_and_time
-	        )
+	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
 	      ),
 	      React.createElement(
 	        'div',
@@ -34750,12 +34787,13 @@
 	module.exports = TimelinePostItem;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    TimeAgo = __webpack_require__(288),
 	    PhotoCommentForm = __webpack_require__(270),
-	    CommentDisplay = __webpack_require__(277),
+	    CommentDisplay = __webpack_require__(278),
 	    PhotoShow = __webpack_require__(268);
 
 	var TimelinePhotoItem = React.createClass({
@@ -34787,11 +34825,7 @@
 	          null,
 	          this.props.header
 	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          this.props.item.date_and_time
-	        )
+	        React.createElement(TimeAgo, { date: this.props.item.date_and_time })
 	      ),
 	      React.createElement(
 	        'div',
@@ -34821,7 +34855,7 @@
 	module.exports = TimelinePhotoItem;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34845,7 +34879,7 @@
 	module.exports = SearchResults;
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34896,43 +34930,137 @@
 	module.exports = SessionForm;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(210),
-	    PostConstants = __webpack_require__(259);
+	'use strict'
 
-	var PostActions = {
-	  receivePosts: function (posts) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVED_POSTS,
-	      posts: posts
-	    });
-	  },
+	var React = __webpack_require__(1)
+	var assign = __webpack_require__(39)
 
-	  receiveUpdatedPost: function (post) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_POST,
-	      post: post
-	    });
-	  },
-
-	  receiveUpdatedComment: function (comment) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.RECEIVE_UPDATED_COMMENT,
-	      comment: comment
-	    });
-	  },
-
-	  deleteComment: function (comment) {
-	    Dispatcher.dispatch({
-	      actionType: PostConstants.DELETE_POST_COMMENT,
-	      comment: comment
-	    });
+	module.exports = React.createClass(
+	  { displayName: 'Time-Ago'
+	  , timeoutId: 0
+	  , getDefaultProps: function(){
+	      return { live: true
+	             , component: 'span'
+	             , minPeriod: 0
+	             , maxPeriod: Infinity
+	             , formatter: function (value, unit, suffix) {
+	                 if(value !== 1){
+	                   unit += 's'
+	                 }
+	                 return value + ' ' + unit + ' ' + suffix
+	               }
+	             }
+	    }
+	  , propTypes:
+	      { live: React.PropTypes.bool.isRequired
+	      , minPeriod: React.PropTypes.number.isRequired
+	      , maxPeriod: React.PropTypes.number.isRequired
+	      , component: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]).isRequired
+	      , formatter: React.PropTypes.func.isRequired
+	      , date: React.PropTypes.oneOfType(
+	          [ React.PropTypes.string
+	          , React.PropTypes.number
+	          , React.PropTypes.instanceOf(Date)
+	          ]
+	        ).isRequired
+	      }
+	  , componentDidMount: function(){
+	      if(this.props.live) {
+	        this.tick(true)
+	      }
+	    }
+	  , componentDidUpdate: function(lastProps){
+	      if(this.props.live !== lastProps.live || this.props.date !== lastProps.date){
+	        if(!this.props.live && this.timeoutId){
+	          clearTimeout(this.timeoutId);
+	          this.timeoutId = undefined;
+	        }
+	        this.tick()
+	      }
+	    }
+	  , componentWillUnmount: function() {
+	    if(this.timeoutId) {
+	      clearTimeout(this.timeoutId);
+	      this.timeoutId = undefined;
+	    }
 	  }
-	};
+	  , tick: function(refresh){
+	      if(!this.isMounted() || !this.props.live){
+	        return
+	      }
 
-	module.exports = PostActions;
+	      var period = 1000
+
+	      var then = (new Date(this.props.date)).valueOf()
+	      var now = Date.now()
+	      var seconds = Math.round(Math.abs(now-then)/1000)
+
+	      if(seconds < 60){
+	        period = 1000
+	      } else if(seconds < 60*60) {
+	        period = 1000 * 60
+	      } else if(seconds < 60*60*24) {
+	        period = 1000 * 60 * 60
+	      } else {
+	        period = 0
+	      }
+
+	      period = Math.min(Math.max(period, this.props.minPeriod), this.props.maxPeriod)
+
+	      if(!!period){
+	        this.timeoutId = setTimeout(this.tick, period)
+	      }
+
+	      if(!refresh){
+	        this.forceUpdate()
+	      }
+	    }
+	  , render: function(){
+	      var then = (new Date(this.props.date)).valueOf()
+	      var now = Date.now()
+	      var seconds = Math.round(Math.abs(now-then)/1000)
+
+	      var suffix = then < now ? 'ago' : 'from now'
+
+	      var value, unit
+
+	      if(seconds < 60){
+	        value = Math.round(seconds)
+	        unit = 'second'
+	      } else if(seconds < 60*60) {
+	        value = Math.round(seconds/60)
+	        unit = 'minute'
+	      } else if(seconds < 60*60*24) {
+	        value = Math.round(seconds/(60*60))
+	        unit = 'hour'
+	      } else if(seconds < 60*60*24*7) {
+	        value = Math.round(seconds/(60*60*24))
+	        unit = 'day'
+	      } else if(seconds < 60*60*24*30) {
+	        value = Math.round(seconds/(60*60*24*7))
+	        unit = 'week'
+	      } else if(seconds < 60*60*24*365) {
+	        value = Math.round(seconds/(60*60*24*30))
+	        unit = 'month'
+	      } else {
+	        value = Math.round(seconds/(60*60*24*365))
+	        unit = 'year'
+	      }
+
+	      var props = assign({}, this.props)
+
+	      delete props.date
+	      delete props.formatter
+	      delete props.component
+
+	      return React.createElement( this.props.component, props, this.props.formatter(value, unit, suffix, then) )
+	    }
+	  }
+	)
+
 
 /***/ }
 /******/ ]);

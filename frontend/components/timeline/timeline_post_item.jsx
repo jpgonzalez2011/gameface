@@ -8,7 +8,7 @@ var TimelinePostItem = React.createClass({
       <li key={this.props.i} className="timeline-index-item">
         <h1 className="timeline-index-item-header">
           <div>{this.props.header}</div>
-          <span>{this.props.item.date_and_time}</span>
+          <TimeAgo date={this.props.item.date_and_time} />
         </h1>
         <div className="timeline-index-item-content">{this.props.item.content}</div>
         <div className="timeline-index-item-comments-container">

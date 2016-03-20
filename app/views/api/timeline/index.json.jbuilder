@@ -2,7 +2,7 @@ json.timeline(@timeline) do |item|
   json.user_id current_user.id
   json.id item.id
   json.type item.class.name
-  json.date_and_time item.date_and_time
+  json.date_and_time item.created_at
   if (item.class.name == "Post")
     json.content item.content
     json.poster_id item.poster_id
@@ -20,7 +20,7 @@ json.timeline(@timeline) do |item|
     json.commenter_name comment.commenter.full_name
     json.commenter_id comment.commenter.id
     json.thumbnail comment.commenter.profile_picture.image.url(:thumb)
-    json.date_and_time comment.date_and_time
+    json.date_and_time comment.created_at
     json.content comment.content
   end
 end

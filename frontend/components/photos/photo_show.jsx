@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     PhotoCommentDisplay = require('../comments/photo_comment_display'),
     PhotoCommentForm = require('../comments/photo_comment_form');
 
@@ -30,7 +31,7 @@ var PhotoShow = React.createClass({
             <figure className="photo-show-container-information-pane">
               <header className="photo-show-container-information-pane-header">
                 <h1><a href={url}>{this.props.photo.uploader_name}</a></h1>
-                <h2>{this.props.photo.date_and_time}</h2>
+                <h2> <TimeAgo date={this.props.photo.date_and_time} /> </h2>
               </header>
               <div className="photo-comment-container">
                 <ul className="photo-show-container-information-pane-comments">

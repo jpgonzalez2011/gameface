@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     PostApiUtil = require('../../util/post_api_util'),
     CurrentUserStore = require('../../stores/current_user_store');
 
@@ -44,7 +45,7 @@ var CommentDisplay = React.createClass({
         </h1>
         <span onClick={this.deleteComment} className={commentDeleteButtonClass}> </span>
         <span className="comment-timestamp">
-          {this.props.comment.date_and_time}
+          <TimeAgo date={this.props.comment.date_and_time} />
         </span>
       </li>
     );

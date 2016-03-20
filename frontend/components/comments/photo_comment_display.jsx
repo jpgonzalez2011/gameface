@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     CurrentUserStore = require('../../stores/current_user_store'),
     PhotoApiUtil = require('../../util/photo_api_util');
 
@@ -44,7 +45,7 @@ var PhotoCommentDisplay = React.createClass({
         </h1>
         <strong onClick={this.deleteComment} className={commentDeleteButtonClass}> </strong>
         <span className="photo-comment-timestamp">
-          {this.props.comment.date_and_time}
+          <TimeAgo date={this.props.comment.date_and_time} />
         </span>
       </li>
     );

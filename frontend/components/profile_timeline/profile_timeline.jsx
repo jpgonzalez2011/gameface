@@ -1,4 +1,5 @@
 var React = require('react'),
+    TimeAgo = require('react-timeago'),
     PostForm = require('../posts/post_form'),
     PostStore = require('../../stores/post_store'),
     PostCommentForm = require('../comments/post_comment_form'),
@@ -58,7 +59,7 @@ var ProfileTimeline = React.createClass({
                 <li key={i} className="timeline-index-item">
                   <h1 className="timeline-index-item-header">
                     {header}
-                    <span>{post.date_and_time}</span>
+                    <TimeAgo date={post.date_and_time} />
                   </h1>
                   <div className="timeline-index-item-content">{post.content}</div>
                   <div className="timeline-index-item-comments-container">

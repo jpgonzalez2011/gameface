@@ -5,13 +5,13 @@ json.photos(@photos) do |photo|
   json.medium_url photo.medium_size_url
   json.full_url photo.full_size_url
   json.thumb_url photo.thumb_size_url
-  json.date_and_time photo.date_and_time
+  json.date_and_time photo.created_at
   json.comments(photo.comments) do |comment|
     json.id comment.id
     json.commenter_name comment.commenter.full_name
     json.commenter_id comment.commenter.id
     json.thumbnail comment.commenter.profile_picture.image.url(:thumb)
-    json.date_and_time comment.date_and_time
+    json.date_and_time comment.created_at
     json.content comment.content
   end
 end
