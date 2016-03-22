@@ -28,6 +28,12 @@ var LoggedOutNavHeader = React.createClass({
     );
   },
 
+  logInAsLuigi: function () {
+    CurrentUserStore.acceptCredentials(
+      { username: "luigi", password: "luigimansion"}
+    )
+  },
+
   updateUsername: function (e) {
     this.setState({ username: e.target.value.toLowerCase() });
   },
@@ -44,8 +50,8 @@ var LoggedOutNavHeader = React.createClass({
             <header className="header-text">
               <a href="#/">GameFaces!</a>
             </header>
-              <button onClick={this.logInAsMario} className="mario-log-in"> Log in as Mario! </button>
-              <a className="facebook-link" href="/auth/facebook"><button className="facebook-log-in">Log in with Facebook</button></a>
+              <button onClick={this.logInAsMario} className="guest-log-in"> Log in as Mario! </button>
+              <button onClick={this.logInAsLuigi} className="guest-log-in">Log in as Luigi!</button>
             <header className="sign-in-header group">
               <form onSubmit={this.submitCredentials} className="sign-in-header-form group">
                   <label htmlFor="username">Username</label>

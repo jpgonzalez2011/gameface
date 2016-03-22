@@ -31979,6 +31979,10 @@
 	    CurrentUserStore.acceptCredentials({ username: "mario", password: "password" });
 	  },
 
+	  logInAsLuigi: function () {
+	    CurrentUserStore.acceptCredentials({ username: "luigi", password: "luigimansion" });
+	  },
+
 	  updateUsername: function (e) {
 	    this.setState({ username: e.target.value.toLowerCase() });
 	  },
@@ -32008,17 +32012,13 @@
 	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: this.logInAsMario, className: 'mario-log-in' },
+	            { onClick: this.logInAsMario, className: 'guest-log-in' },
 	            ' Log in as Mario! '
 	          ),
 	          React.createElement(
-	            'a',
-	            { className: 'facebook-link', href: '/auth/facebook' },
-	            React.createElement(
-	              'button',
-	              { className: 'facebook-log-in' },
-	              'Log in with Facebook'
-	            )
+	            'button',
+	            { onClick: this.logInAsLuigi, className: 'guest-log-in' },
+	            'Log in as Luigi!'
 	          ),
 	          React.createElement(
 	            'header',
