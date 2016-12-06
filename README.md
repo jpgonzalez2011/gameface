@@ -41,10 +41,12 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 
 - Rails
 - React.js with Flux
+- React Router
 - jQuery
 
 ### Gems / Services
 
+- ActiveRecord
 - BCrypt
 - OmniAuth
 - Paperclip
