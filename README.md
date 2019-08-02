@@ -12,7 +12,7 @@ GameFaces is a technical recreation of Facebook built as a single page app with 
 [![screenshot1](/app/assets/screenshots/screenshot1.png)](http://www.gamefaces.xyz/)
 [![screenshot2](/app/assets/screenshots/screenshot2.png)](http://www.gamefaces.xyz/)
 
-###Features
+### Features
 
 - [x] Login and Account Creation through Facebook.
 - [x] Users have profile pages.
